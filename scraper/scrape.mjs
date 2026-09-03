@@ -226,6 +226,88 @@ function activeScorecard() {
   };
 }
 
+// Final round ("Final Match" tab): a three-team scoresheet — Cell A / B / C
+// map to the podium's 1st / 2nd / 3rd. Each judge scores all three teams;
+// there is no head-to-head point, the placement comes from the totals plus a
+// fan-vote bonus.
+function activeFinalScorecard() {
+  const vis = (el) => el && el.offsetParent !== null && el.getClientRects().length;
+  const txt = (el) => (el ? el.textContent.replace(/\s+/g, " ").trim() : "");
+  const num = (s) => {
+    const m = String(s).replace(/[, ]/g, "").match(/-?\d+(\.\d+)?/);
+    return m ? parseFloat(m[0]) : null;
+  };
+  const CELLS = ["Cell A", "Cell B", "Cell C"];
+
+  const teamNames = [...document.querySelectorAll('[data-framer-name="Team Name"]')]
+    .filter(vis)
+    .map(txt)
+    .slice(0, 3);
+  if (teamNames.length !== 3) return null;
+
+  // criterion averages per team
+  let averages = null;
+  const sw = [...document.querySelectorAll('[data-framer-name="Scoresheet Wrap"]')].find(vis);
+  if (sw) {
+    const pw = [...sw.querySelectorAll('[data-framer-name="Point Wrap"]')].find((x) =>
+      x.querySelector('[data-framer-name="Cell A"]')
+    );
+    if (pw) {
+      const col = (cn) => {
+        const c = pw.querySelector('[data-framer-name="' + cn + '"]');
+        return c ? [...c.children].map((e) => num(txt(e))) : null;
+      };
+      averages = {
+        byTeam: CELLS.map(col),
+        totals: CELLS.map((cn) =>
+          num(txt(sw.querySelector('[data-framer-name="Total Score ' + cn + '"]')))
+        ),
+      };
+    }
+  }
+
+  // per-judge criterion scores (the "Cell X Point" node holds the /100 total)
+  const seen = {};
+  const judges = [];
+  [...document.querySelectorAll('[data-framer-name="Judge Name"]')].filter(vis).forEach((el) => {
+    const label = txt(el);
+    if (!label || seen[label]) return;
+    let c = el;
+    for (let i = 0; i < 8 && c; i++) {
+      if (c.querySelector && c.querySelector('[data-framer-name="Point Wrap"]')) break;
+      c = c.parentElement;
+    }
+    if (!c) return;
+    const pw = c.querySelector('[data-framer-name="Point Wrap"]');
+    if (!pw) return;
+    const cols = CELLS.map((cn) => {
+      const x = pw.querySelector('[data-framer-name="' + cn + '"]');
+      return x ? [...x.children].map((e) => num(txt(e))) : null;
+    });
+    if (cols.some((a) => !a || a.length !== 10 || a.some((v) => v == null))) return;
+    seen[label] = true;
+    judges.push({
+      judge: label,
+      name: txt(c.querySelector('[data-framer-name="Judge Title"]')),
+      byTeam: cols,
+      totals: CELLS.map((cn) => num(txt(c.querySelector('[data-framer-name="' + cn + ' Point"]')))),
+    });
+  });
+
+  // fan-vote bonus split
+  const voteInfo = [...document.querySelectorAll('[data-framer-name="Vote Info"]')]
+    .filter(vis)
+    .slice(0, 3)
+    .map((e) => {
+      const s = txt(e);
+      const pctM = s.match(/(\d+)\s*%/);
+      const voteM = s.match(/([\d,]+)\s*VOTES?/i);
+      return { pct: pctM ? +pctM[1] : null, votes: voteM ? +voteM[1].replace(/,/g, "") : null };
+    });
+
+  return { teamNames, averages, judges, fanVote: voteInfo };
+}
+
 // Parse a team page's raw (server-rendered) HTML for meta + full roster.
 // The roster lives in the SSR markup even though the live page hides most of
 // it behind a "Load More" button, so a plain fetch is more reliable here.
@@ -444,24 +526,23 @@ async function main() {
       record.matches.push(match);
     }
 
-    /* ---- final round (the "Final Match" tab: the three match winners
-       perform again; idl.pro publishes the three aggregate scores, and a
-       per-judge scoresheet if one exists) ---- */
-    const finalScores = new Map(record.podium.map((p) => [p.team, p]));
+    /* ---- final round (the "Final Match" tab): the three match winners dance
+       again for the podium, with a full three-team judge scoresheet ---- */
+    const podiumSorted = record.podium.slice().sort((a, b) => a.rank - b.rank);
     const fr = {
-      teams: record.podium
-        .slice()
-        .sort((a, b) => a.rank - b.rank)
-        .map((p) => ({ team: p.team, teamName: p.teamName, rank: p.rank, score: p.score })),
+      teams: podiumSorted.map((p) => ({
+        team: p.team,
+        teamName: p.teamName,
+        rank: p.rank,
+        score: p.score,
+      })),
       scorecard: null,
     };
-    const matchFingerprints = new Set(
-      record.matches.map((m) => JSON.stringify(m.judges.map((j) => [j.name, j.scoresA, j.scoresB])))
-    );
-    for (let attempt = 0; attempt < 3; attempt++) {
+
+    for (let attempt = 0; attempt < 4; attempt++) {
       const tagged = await page.evaluate(() => {
         const txt = (el) => (el ? el.textContent.replace(/\s+/g, " ").trim() : "");
-        const tab = [...document.querySelectorAll("div,button,a")].find(
+        const tab = [...document.querySelectorAll(".framer-nnuiyo, div, button, a")].find(
           (e) => txt(e) === "Final Match" && e.offsetParent !== null && e.childElementCount <= 1
         );
         if (!tab) return false;
@@ -471,21 +552,35 @@ async function main() {
       });
       if (!tagged) break;
       try {
-        await page.click('[data-idl-tab="1"]', { delay: 30 });
+        await page.click('[data-idl-tab="1"]', { delay: 40 });
       } catch {
-        /* ignore */
+        /* re-tag & retry */
       }
       await page.evaluate(() => {
         const t = document.querySelector('[data-idl-tab="1"]');
         if (t) t.removeAttribute("data-idl-tab");
       });
-      await sleep(1000 + attempt * 500);
-      const sc = await page.evaluate(activeScorecard);
-      const fp = JSON.stringify(sc.judges.map((j) => [j.name, j.a, j.b]));
-      if (sc.judges.length && !matchFingerprints.has(fp)) {
+      await sleep(1100 + attempt * 500);
+
+      const sc = await page.evaluate(activeFinalScorecard);
+      if (sc && sc.judges.length === 6 && sc.averages) {
+        // Cell A / B / C are the podium's 1st / 2nd / 3rd
+        const ids = podiumSorted.map((p) => p.team);
+        const perTeam = (arrByCell) => Object.fromEntries(ids.map((id, i) => [id, arrByCell[i]]));
         fr.scorecard = {
-          judges: sc.judges.map((j) => ({ judge: j.judge, name: j.name, scores: j.a, total: j.totalA })),
-          criteriaAverages: sc.averages ? sc.averages.a : null,
+          judges: sc.judges.map((j) => ({
+            judge: j.judge,
+            name: j.name,
+            scores: perTeam(j.byTeam),
+            totals: perTeam(j.totals),
+            // the judge's pick = the team they scored highest
+            pickTo: ids[j.totals.indexOf(Math.max(...j.totals))],
+          })),
+          criteriaAverages: perTeam(sc.averages.byTeam),
+          avgTotals: perTeam(sc.averages.totals),
+          fanVote: Object.fromEntries(
+            ids.map((id, i) => [id, sc.fanVote[i] || { pct: null, votes: null }])
+          ),
         };
         break;
       }
@@ -493,7 +588,7 @@ async function main() {
     record.finalRound = fr;
     console.log(
       `  final round: ${fr.teams.map((t) => `${t.teamName} ${t.score}`).join(" · ")}` +
-        (fr.scorecard ? " (+ scoresheet)" : " (scores only)")
+        (fr.scorecard ? ` (+ scoresheet, ${fr.scorecard.judges.length} judges)` : " (scores only)")
     );
 
     data.events.push(record);

@@ -203,10 +203,24 @@ export default function Compare() {
               fmt={(v) => (v ? nf(v, 2) : "–")}
               better="high"
             />
+            <MetricRow
+              label="Avg judge score (final)"
+              picks={picks}
+              values={finals.map((f) => f.avgJudgeScore ?? 0)}
+              fmt={(v) => (v ? nf(v, 1) : "–")}
+              better="high"
+            />
+            <MetricRow
+              label="Judge-pick rate (final)"
+              picks={picks}
+              values={finals.map((f) => f.judgePickRate ?? 0)}
+              fmt={(v) => (v ? `${Math.round(v * 100)}%` : "–")}
+              better="high"
+            />
           </div>
           <SectionNote>
-            idl.pro publishes only the three final scores per series — there is no
-            per-judge breakdown for the final round.
+            Judge-pick rate = how often the six judges ranked the team first in the
+            finals it reached.
           </SectionNote>
         </Panel>
       </div>

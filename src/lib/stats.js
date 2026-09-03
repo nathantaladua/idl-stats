@@ -48,8 +48,37 @@ export function teamMatchRows(teamId) {
 
 const mean = (a) => (a.length ? a.reduce((x, y) => x + y, 0) / a.length : null);
 
+/** A team's final-round (round 2) performances, one row per series it reached
+ *  the final, carrying the scraped three-team scoresheet. */
+export function finalRoundRows(teamId) {
+  const rows = [];
+  for (const ev of events) {
+    const fr = ev.finalRound;
+    if (!fr) continue;
+    const seat = fr.teams.find((t) => t.team === teamId);
+    if (!seat) continue;
+    const sc = fr.scorecard;
+    rows.push({
+      eventId: ev.id,
+      eventName: ev.name,
+      series: ev.series,
+      rank: seat.rank,
+      score: seat.score,
+      won: seat.rank === 1,
+      crit: sc ? sc.criteriaAverages[teamId] : null,
+      avgTotal: sc ? sc.avgTotals[teamId] : null,
+      judgeTotals: sc ? sc.judges.map((j) => j.totals[teamId]) : [],
+      judgePicks: sc ? sc.judges.filter((j) => j.pickTo === teamId).length : 0,
+      fanPct: sc && sc.fanVote[teamId] ? sc.fanVote[teamId].pct : null,
+      fanVotes: sc && sc.fanVote[teamId] ? sc.fanVote[teamId].votes : null,
+    });
+  }
+  return rows;
+}
+
 export function teamSummary(teamId) {
   const rows = teamMatchRows(teamId);
+  const frRows = finalRoundRows(teamId);
   const st = data.standings.find((s) => s.team === teamId) || { perEvent: {}, total: 0 };
   const wins = rows.filter((r) => r.won).length;
   const losses = rows.filter((r) => !r.won && !r.drawn).length;
@@ -64,8 +93,10 @@ export function teamSummary(teamId) {
     }
   }
 
+  // criterion averages across every judged performance — matches + final round
+  const critRows = [...rows.map((r) => r.crit), ...frRows.map((r) => r.crit)].filter(Boolean);
   const critByIdx = data.criteria.map((_, i) =>
-    mean(rows.map((r) => r.crit && r.crit[i]).filter((x) => x != null))
+    mean(critRows.map((c) => c[i]).filter((x) => x != null))
   );
   const bestCritIdx = critByIdx.reduce(
     (best, v, i) => (v != null && (best < 0 || v > critByIdx[best]) ? i : best),
@@ -91,7 +122,10 @@ export function teamSummary(teamId) {
     seasonPoints: st.total,
     seasonRank: st.rank,
     perEventPoints: st.perEvent,
-    avgScore: mean(rows.flatMap((r) => r.judgeTotals)),
+    avgScore: mean([
+      ...rows.flatMap((r) => r.judgeTotals),
+      ...frRows.flatMap((r) => r.judgeTotals),
+    ]),
     avgMatchScore: mean(rows.map((r) => r.ourAvg).filter((x) => x != null)),
     judgePointRate: judgePtsTotal ? judgePtsWon / judgePtsTotal : 0,
     fanWinRate: rows.length ? rows.filter((r) => r.fanWon).length / rows.length : 0,
@@ -103,6 +137,7 @@ export function teamSummary(teamId) {
     bestCritIdx,
     worstCritIdx,
     rows,
+    finalRows: frRows,
   };
 }
 
@@ -194,21 +229,19 @@ export function headToHead(aId, bId) {
   };
 }
 
-/** A team's record in the final round (the "round 2" three-team dance-off
- *  that sets each series' podium). idl.pro publishes the three scores only. */
+/** A team's record in the final round (the "round 2" three-team dance-off that
+ *  sets each series' podium), including the scraped judge scoresheet. */
 export function finalRoundSummary(teamId) {
-  const apps = [];
-  for (const ev of events) {
-    const fr = ev.finalRound;
-    if (!fr) continue;
-    const e = fr.teams.find((t) => t.team === teamId);
-    if (e) apps.push({ eventId: ev.id, eventName: ev.name, rank: e.rank, score: e.score });
-  }
+  const apps = finalRoundRows(teamId);
+  const judged = apps.filter((a) => a.judgeTotals.length);
   return {
     appearances: apps.length,
-    wins: apps.filter((a) => a.rank === 1).length,
+    wins: apps.filter((a) => a.won).length,
     bestRank: apps.length ? Math.min(...apps.map((a) => a.rank)) : null,
     avgScore: apps.length ? mean(apps.map((a) => a.score)) : null,
+    avgJudgeScore: judged.length ? mean(judged.flatMap((a) => a.judgeTotals)) : null,
+    judgePicks: judged.reduce((n, a) => n + a.judgePicks, 0),
+    judgePickRate: judged.length ? mean(judged.map((a) => a.judgePicks / 6)) : null,
     apps,
   };
 }
@@ -226,25 +259,35 @@ export function rosterNationalities(teamId) {
 }
 
 /** Judge tendencies: for each judge, average score given and how often the
- *  higher score aligned with the eventual match winner. */
+ *  team they scored highest went on to win — across matches AND final rounds. */
 export function judgeTendencies() {
   const map = {};
+  const rec = (name) =>
+    (map[name] ||= { name, events: new Set(), given: [], calls: 0, withWinner: 0, n: 0 });
+
   for (const ev of events) {
     for (const m of ev.matches) {
       for (const j of m.judges) {
-        const rec = (map[j.name] ||= {
-          name: j.name,
-          events: new Set(),
-          given: [],
-          points: 0,
-          withWinner: 0,
-          n: 0,
-        });
-        rec.events.add(ev.id);
-        rec.given.push(j.totalA, j.totalB);
-        rec.n += 1;
-        if (j.pointTo) rec.points += 1;
-        if (j.pointTo && j.pointTo === m.winner) rec.withWinner += 1;
+        const r = rec(j.name);
+        r.events.add(ev.id);
+        r.given.push(j.totalA, j.totalB);
+        r.n += 1;
+        if (j.pointTo) {
+          r.calls += 1;
+          if (j.pointTo === m.winner) r.withWinner += 1;
+        }
+      }
+    }
+    const sc = ev.finalRound && ev.finalRound.scorecard;
+    if (sc) {
+      const winner = ev.finalRound.teams.find((t) => t.rank === 1).team;
+      for (const j of sc.judges) {
+        const r = rec(j.name);
+        r.events.add(ev.id);
+        r.given.push(...Object.values(j.totals));
+        r.n += 1;
+        r.calls += 1;
+        if (j.pickTo === winner) r.withWinner += 1;
       }
     }
   }
@@ -254,7 +297,7 @@ export function judgeTendencies() {
       events: [...r.events].length,
       matches: r.n,
       avgGiven: mean(r.given),
-      chalkRate: r.points ? r.withWinner / r.points : null,
+      chalkRate: r.calls ? r.withWinner / r.calls : null,
     }))
     .sort((a, b) => b.avgGiven - a.avgGiven);
 }

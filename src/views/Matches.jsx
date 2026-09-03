@@ -155,8 +155,68 @@ function Match({ match }) {
 
 const RANK_TAG = { 1: "🥇 1st", 2: "🥈 2nd", 3: "🥉 3rd" };
 
+function FinalScorecard({ fr }) {
+  const ids = fr.teams.map((t) => t.team);
+  const sc = fr.scorecard;
+  return (
+    <div style={{ overflowX: "auto", marginTop: 12 }}>
+      <table className="data" style={{ minWidth: 520 }}>
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            {ids.map((id) => (
+              <th key={id} style={{ color: color(id) }}>
+                {teamName(id).split(" ")[0]}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {CRITERIA_SHORT.map((label, i) => (
+            <tr key={label}>
+              <td>{label}</td>
+              {ids.map((id) => (
+                <td key={id} className="num">
+                  {nf(sc.criteriaAverages[id][i], 1)}
+                </td>
+              ))}
+            </tr>
+          ))}
+          <tr>
+            <td>Avg score</td>
+            {ids.map((id) => (
+              <td key={id} className="num" style={{ color: color(id) }}>
+                {nf(sc.avgTotals[id], 2)}
+              </td>
+            ))}
+          </tr>
+          {sc.judges.map((j) => (
+            <tr key={j.name}>
+              <td className="muted">{j.name}</td>
+              {ids.map((id) => (
+                <td
+                  key={id}
+                  className="num"
+                  style={j.pickTo === id ? { color: color(id), fontWeight: 800 } : undefined}
+                >
+                  {nf(j.totals[id], 0)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <SectionNote>
+        Each judge scores all three teams /100; bold = the team that judge ranked first.
+      </SectionNote>
+    </div>
+  );
+}
+
 function FinalRound({ fr }) {
+  const [open, setOpen] = useState(false);
   const top = fr.teams[0].score;
+  const sc = fr.scorecard;
   return (
     <div className="panel" style={{ borderLeft: "3px solid var(--accent)" }}>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 10 }}>
@@ -170,6 +230,7 @@ function FinalRound({ fr }) {
             <th>Team</th>
             <th>Score</th>
             <th>Gap to 1st</th>
+            {sc && <th>Fan bonus</th>}
           </tr>
         </thead>
         <tbody>
@@ -183,12 +244,31 @@ function FinalRound({ fr }) {
                 {nf(t.score, 2)}
               </td>
               <td className="num muted">{t.rank === 1 ? "—" : `−${nf(top - t.score, 2)}`}</td>
+              {sc && (
+                <td className="num muted">
+                  {sc.fanVote[t.team] && sc.fanVote[t.team].pct != null
+                    ? `${sc.fanVote[t.team].pct}% · ${(sc.fanVote[t.team].votes || 0).toLocaleString()}`
+                    : "–"}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
       </table>
-      {fr.scorecard ? null : (
-        <SectionNote>idl.pro publishes only the three final scores — no per-judge breakdown.</SectionNote>
+      {sc ? (
+        <>
+          <button
+            className="pill"
+            style={{ marginTop: 12 }}
+            aria-pressed={open}
+            onClick={() => setOpen((o) => !o)}
+          >
+            {open ? "Hide" : "Show"} full judge scorecard
+          </button>
+          {open && <FinalScorecard fr={fr} />}
+        </>
+      ) : (
+        <SectionNote>Scores only — no per-judge breakdown was published for this final.</SectionNote>
       )}
     </div>
   );

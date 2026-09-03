@@ -119,7 +119,7 @@ export default function Overview({ go }) {
                 <tr>
                   <th>Judge</th>
                   <th>Series</th>
-                  <th>Matches</th>
+                  <th>Rounds</th>
                   <th>Avg score given</th>
                   <th>Sided with winner</th>
                 </tr>
@@ -140,9 +140,9 @@ export default function Overview({ go }) {
             </table>
           </div>
           <SectionNote>
-            "Avg score given" is the mean of every /100 total that judge handed out.
-            "Sided with winner" is how often the team they scored higher went on to
-            win the match.
+            Across matches and final rounds. "Avg score given" is the mean of every
+            /100 total that judge handed out. "Sided with winner" is how often the
+            team they scored highest went on to win.
           </SectionNote>
         </Panel>
       </div>

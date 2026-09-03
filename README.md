@@ -44,9 +44,10 @@ marks have to be supplied by hand.
 
 `src/data/idl.json` is a committed snapshot scraped from idl.pro. It carries the
 season standings, all 12 Round 1 matches with full scorecards (6 judges × 10
-criteria × 2 teams) and fan-vote splits, the Round 2 final result for each series
-(three scores only — idl.pro publishes no per-judge breakdown for the final), and
-team rosters.
+criteria × 2 teams) and fan-vote splits, the full Round 2 final scoresheet for
+each series (its own three-team judge card — 6 judges × 10 criteria × 3 teams —
+plus the fan-vote bonus split), and team rosters. Final-round performances feed
+the team, criterion and judge aggregates.
 
 ### Refreshing the data
 
