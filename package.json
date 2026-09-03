@@ -1,0 +1,27 @@
+{
+  "name": "idl-stats",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Unofficial fan-built statistics site for the International Dance League (IDL). Data scraped from idl.pro.",
+  "scripts": {
+    "scrape": "node scraper/scrape.mjs",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.12.7"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "node-html-parser": "^6.1.13",
+    "puppeteer-core": "^23.11.1",
+    "vite": "^5.4.2"
+  },
+  "allowScripts": {
+    "esbuild@0.21.5": true
+  }
+}

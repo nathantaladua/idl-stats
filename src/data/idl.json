@@ -1,0 +1,4038 @@
+{
+  "meta": {
+    "source": "https://www.idl.pro",
+    "season": 2026,
+    "scrapedAt": "2026-09-03T20:04:38.978Z",
+    "note": "Unofficial fan project. All statistics scraped from idl.pro."
+  },
+  "criteria": [
+    "Complexity of Choreography",
+    "Staging",
+    "Musicality",
+    "Creativity",
+    "Stylistic Athleticism",
+    "Cleanliness",
+    "Technical Execution + Authenticity",
+    "Spacing",
+    "Projection / Communication",
+    "Stamina"
+  ],
+  "judges": [
+    {
+      "name": "Amari Marshall",
+      "events": [
+        "new-york",
+        "seoul"
+      ]
+    },
+    {
+      "name": "Arnel Calvario",
+      "events": [
+        "new-york",
+        "sydney"
+      ]
+    },
+    {
+      "name": "Arturo Lyons",
+      "events": [
+        "new-york"
+      ]
+    },
+    {
+      "name": "Carlos Irizarry",
+      "events": [
+        "vancouver"
+      ]
+    },
+    {
+      "name": "Cheyenne Kibblewhite",
+      "events": [
+        "vancouver",
+        "seoul"
+      ]
+    },
+    {
+      "name": "Chonique Sneed",
+      "events": [
+        "new-york",
+        "sydney"
+      ]
+    },
+    {
+      "name": "Comfort Fedoke",
+      "events": [
+        "vancouver",
+        "sydney",
+        "seoul"
+      ]
+    },
+    {
+      "name": "Gina Michael",
+      "events": [
+        "seoul"
+      ]
+    },
+    {
+      "name": "Haeni Kim",
+      "events": [
+        "seoul"
+      ]
+    },
+    {
+      "name": "Handy Yacinthe",
+      "events": [
+        "vancouver"
+      ]
+    },
+    {
+      "name": "Jamal Sims",
+      "events": [
+        "new-york"
+      ]
+    },
+    {
+      "name": "LaTasha Barnes",
+      "events": [
+        "new-york"
+      ]
+    },
+    {
+      "name": "Mel Charlot",
+      "events": [
+        "sydney"
+      ]
+    },
+    {
+      "name": "Nicolas Begin",
+      "events": [
+        "vancouver",
+        "seoul"
+      ]
+    },
+    {
+      "name": "Shaun Evaristo",
+      "events": [
+        "sydney"
+      ]
+    },
+    {
+      "name": "Stephen Grey",
+      "events": [
+        "vancouver",
+        "sydney"
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "id": "brotherhood",
+      "name": "BROTHERHOOD",
+      "city": "VANCOUVER",
+      "country": "CAN",
+      "founded": 2011,
+      "roster": [
+        {
+          "number": 87,
+          "name": "ADRIAN VENDIOLA",
+          "nationality": "PHI",
+          "captain": true
+        },
+        {
+          "number": 88,
+          "name": "ALO GELADO",
+          "nationality": "PHI",
+          "captain": false
+        },
+        {
+          "number": 7,
+          "name": "ANDREW HA",
+          "nationality": "CAN",
+          "captain": false
+        },
+        {
+          "number": 76,
+          "name": "ANGELO ADMANA",
+          "nationality": "PHI",
+          "captain": false
+        },
+        {
+          "number": 1,
+          "name": "CHRISTIAN DEMETILLO",
+          "nationality": "CAN",
+          "captain": false
+        },
+        {
+          "number": 17,
+          "name": "DAYTON PARADIS",
+          "nationality": "CAN",
+          "captain": false
+        },
+        {
+          "number": 97,
+          "name": "DILLON TRAN",
+          "nationality": "CAN",
+          "captain": false
+        },
+        {
+          "number": 15,
+          "name": "ELDON LINSANGAN",
+          "nationality": "CAN",
+          "captain": false
+        },
+        {
+          "number": 8,
+          "name": "ELIJAH UY",
+          "nationality": "CAN",
+          "captain": false
+        },
+        {
+          "number": 28,
+          "name": "FRANCIS ARANTON",
+          "nationality": "PHI",
+          "captain": false
+        },
+        {
+          "number": 9,
+          "name": "HUMUZA BAZIRA",
+          "nationality": "CAN",
+          "captain": false
+        },
+        {
+          "number": 5,
+          "name": "JAYMIE SORONGON",
+          "nationality": "CAN",
+          "captain": false
+        },
+        {
+          "number": 4,
+          "name": "JON RAY DY BUCO",
+          "nationality": "PHI",
+          "captain": false
+        },
+        {
+          "number": 44,
+          "name": "JOSH MENDONCA",
+          "nationality": "CAN",
+          "captain": false
+        },
+        {
+          "number": 11,
+          "name": "JUSTIN LEWIS",
+          "nationality": "CAN",
+          "captain": false
+        },
+        {
+          "number": 2,
+          "name": "KELVIN TU",
+          "nationality": "CHN",
+          "captain": true
+        },
+        {
+          "number": 21,
+          "name": "MICHAEL DELLEVA",
+          "nationality": "PHI",
+          "captain": false
+        },
+        {
+          "number": 32,
+          "name": "MIGUEL AXIBAL",
+          "nationality": "PHI",
+          "captain": false
+        },
+        {
+          "number": 95,
+          "name": "RANDALL MELLA",
+          "nationality": "CAN",
+          "captain": false
+        },
+        {
+          "number": 18,
+          "name": "RYAN MCEWEN",
+          "nationality": "CAN",
+          "captain": false
+        },
+        {
+          "number": 10,
+          "name": "SCOTT FORSYTH",
+          "nationality": "CAN",
+          "captain": true
+        }
+      ]
+    },
+    {
+      "id": "grv",
+      "name": "GRV",
+      "city": "LOS ANGELES",
+      "country": "USA",
+      "founded": 2007,
+      "roster": [
+        {
+          "number": 20,
+          "name": "AIDAN PRINCE",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 15,
+          "name": "AIDEN ALIZADEH",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 30,
+          "name": "ALICE MYUNG",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 4,
+          "name": "ARIEL PADUA",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 44,
+          "name": "ARRON OCASLA",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 2,
+          "name": "ASAHI MATSUMURA",
+          "nationality": "JPN",
+          "captain": false
+        },
+        {
+          "number": 9,
+          "name": "COSS LAPEYROLERIE",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 6,
+          "name": "DERRIQUE DANIELS",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 8,
+          "name": "ETHAN ESTANDIAN",
+          "nationality": "USA",
+          "captain": true
+        },
+        {
+          "number": 14,
+          "name": "IVAN PAREDES",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 77,
+          "name": "JADON VO",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 23,
+          "name": "JASMINE SENA",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 13,
+          "name": "JAYR MEDALLO",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 7,
+          "name": "KAYLAR PREITE",
+          "nationality": "USA",
+          "captain": true
+        },
+        {
+          "number": 17,
+          "name": "KAZUKI SAITO",
+          "nationality": "JPN",
+          "captain": false
+        },
+        {
+          "number": 29,
+          "name": "KEA PEAHU",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 11,
+          "name": "KENNETH ESPIRITU",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 3,
+          "name": "LEILANI KIANA BEDANIA",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 26,
+          "name": "MATT SABINO",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 10,
+          "name": "MINI PRESTON",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 21,
+          "name": "MYA MACIAS",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 22,
+          "name": "NATALIE TORRES",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 1,
+          "name": "NICK JOSEPH",
+          "nationality": "USA",
+          "captain": true
+        },
+        {
+          "number": 5,
+          "name": "RAYANNE ASUNCION",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 16,
+          "name": "RIVER NOVIN",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 12,
+          "name": "TAYLOR VANG",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 33,
+          "name": "VINCENT URBAN",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 19,
+          "name": "WILL SIMMONS",
+          "nationality": "USA",
+          "captain": false
+        }
+      ]
+    },
+    {
+      "id": "1-million",
+      "name": "1MILLION",
+      "city": "SEOUL",
+      "country": "KOR",
+      "founded": 2014,
+      "roster": [
+        {
+          "number": 12,
+          "name": "AHYOUNG AN",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 1,
+          "name": "AIRU MORI",
+          "nationality": "JPN",
+          "captain": false
+        },
+        {
+          "number": 26,
+          "name": "CHO ROK LEE",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 13,
+          "name": "DEBBY PENG",
+          "nationality": "TWN",
+          "captain": false
+        },
+        {
+          "number": 16,
+          "name": "GWANJUNG LEE",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 22,
+          "name": "HARIMU PARK",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 2,
+          "name": "HOIE KIM",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 7,
+          "name": "INYOUNG KIM",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 91,
+          "name": "JANE KIM",
+          "nationality": "KOR",
+          "captain": true
+        },
+        {
+          "number": 20,
+          "name": "JIYU CHOI",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 4,
+          "name": "JONAH AKI",
+          "nationality": "USA",
+          "captain": true
+        },
+        {
+          "number": 24,
+          "name": "K CHAN KANG",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 15,
+          "name": "KATIE KIM",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 19,
+          "name": "KOOYOUNG BACK",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 0,
+          "name": "LIA KIM",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 9,
+          "name": "NAKYUNG AN",
+          "nationality": "KOR",
+          "captain": true
+        },
+        {
+          "number": 21,
+          "name": "NARA LEE",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 23,
+          "name": "PEKKO CHOI",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 11,
+          "name": "ROMM PARK",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 10,
+          "name": "SANGHUN LEE",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 17,
+          "name": "SEONYEONG BAEK",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 8,
+          "name": "SEOYEON PARK",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 25,
+          "name": "SEUNGMIN SON",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 31,
+          "name": "SEUNGWON HAN",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 3,
+          "name": "SIEUN KIM",
+          "nationality": "KOR",
+          "captain": false
+        },
+        {
+          "number": 77,
+          "name": "SUNSET HEO",
+          "nationality": "KOR",
+          "captain": false
+        }
+      ]
+    },
+    {
+      "id": "royal-family",
+      "name": "ROYAL FAMILY",
+      "city": "AUCKLAND",
+      "country": "NZL",
+      "founded": 2011,
+      "roster": [
+        {
+          "number": 22,
+          "name": "AIYANA DOTHARD",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 55,
+          "name": "AMBER BENDELL",
+          "nationality": "NZL",
+          "captain": false
+        },
+        {
+          "number": 99,
+          "name": "AMIR FARADJI",
+          "nationality": "SWE",
+          "captain": false
+        },
+        {
+          "number": 19,
+          "name": "BAILEY TOMOKINO",
+          "nationality": "NZL",
+          "captain": false
+        },
+        {
+          "number": 77,
+          "name": "BRIARNA TAINGAHUE",
+          "nationality": "NZL",
+          "captain": false
+        },
+        {
+          "number": 1,
+          "name": "CALVIN MURPHY",
+          "nationality": "GBR",
+          "captain": false
+        },
+        {
+          "number": 86,
+          "name": "CAYLE BYNOE",
+          "nationality": "FRA",
+          "captain": false
+        },
+        {
+          "number": 27,
+          "name": "CHANCE HEREMAIA-BRISTOW",
+          "nationality": "NZL",
+          "captain": false
+        },
+        {
+          "number": 0,
+          "name": "CHRISTIAN SEGI",
+          "nationality": "NZL",
+          "captain": false
+        },
+        {
+          "number": 6,
+          "name": "DAISY MARTIN",
+          "nationality": "NZL",
+          "captain": false
+        },
+        {
+          "number": 67,
+          "name": "DAVID PINA",
+          "nationality": "PRT",
+          "captain": false
+        },
+        {
+          "number": 5,
+          "name": "DONALD AH-LOO",
+          "nationality": "NZL",
+          "captain": true
+        },
+        {
+          "number": 24,
+          "name": "HIRARI SUZUKI",
+          "nationality": "JPN",
+          "captain": false
+        },
+        {
+          "number": 8,
+          "name": "ISLA POTINI",
+          "nationality": "NZL",
+          "captain": false
+        },
+        {
+          "number": 20,
+          "name": "JORDAN LECURIEUX-LAFAYETTE",
+          "nationality": "FRA",
+          "captain": false
+        },
+        {
+          "number": 17,
+          "name": "LARA BALLESTER",
+          "nationality": "ARG",
+          "captain": false
+        },
+        {
+          "number": 2,
+          "name": "MARTE WIIK",
+          "nationality": "NOR",
+          "captain": false
+        },
+        {
+          "number": 12,
+          "name": "MOANA DAVIS",
+          "nationality": "NZL",
+          "captain": true
+        },
+        {
+          "number": 15,
+          "name": "MOHAMED SESSA",
+          "nationality": "ITA",
+          "captain": false
+        },
+        {
+          "number": 26,
+          "name": "NOAH BALL",
+          "nationality": "NZL",
+          "captain": false
+        },
+        {
+          "number": 21,
+          "name": "OCEANNA PAUL",
+          "nationality": "NZL",
+          "captain": false
+        },
+        {
+          "number": 60,
+          "name": "PEARL WHITIORA",
+          "nationality": "NZL",
+          "captain": false
+        },
+        {
+          "number": 88,
+          "name": "RENEE SCOFIELD",
+          "nationality": "NZL",
+          "captain": false
+        },
+        {
+          "number": 4,
+          "name": "SAMUEL PALMISANO",
+          "nationality": "ESP",
+          "captain": false
+        },
+        {
+          "number": 18,
+          "name": "SCARLETT BURNS",
+          "nationality": "NZL",
+          "captain": false
+        },
+        {
+          "number": 80,
+          "name": "SENA UMEDA",
+          "nationality": "JPN",
+          "captain": false
+        },
+        {
+          "number": 11,
+          "name": "SHAYDEN TAARE",
+          "nationality": "NZL",
+          "captain": false
+        },
+        {
+          "number": 3,
+          "name": "SOEUN JUNG",
+          "nationality": "KOR",
+          "captain": false
+        }
+      ]
+    },
+    {
+      "id": "jam-republic",
+      "name": "JAM REPUBLIC",
+      "city": "SOUTH EAST ASIA",
+      "country": "SEA",
+      "founded": 2009,
+      "roster": [
+        {
+          "number": 18,
+          "name": "AENNON TABUNGAR",
+          "nationality": "PHI",
+          "captain": true
+        },
+        {
+          "number": 23,
+          "name": "BOBBY RAMLEE",
+          "nationality": "SGP",
+          "captain": false
+        },
+        {
+          "number": 10,
+          "name": "BRANDON DE ANGELO",
+          "nationality": "INA",
+          "captain": false
+        },
+        {
+          "number": 24,
+          "name": "CARLO DARANG",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 4,
+          "name": "CARLOS MENDOZA",
+          "nationality": "PHI",
+          "captain": false
+        },
+        {
+          "number": 7,
+          "name": "DANZEL MARSONO",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 2,
+          "name": "EMMA HUCH",
+          "nationality": "NZL",
+          "captain": false
+        },
+        {
+          "number": 1,
+          "name": "EUGENE HO",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 21,
+          "name": "JERVIN RACAN",
+          "nationality": "PHI",
+          "captain": false
+        },
+        {
+          "number": 0,
+          "name": "JOJO HUNG",
+          "nationality": "SGP",
+          "captain": false
+        },
+        {
+          "number": 13,
+          "name": "JULIAN DE GUZMAN",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 3,
+          "name": "KHAI ZUN TEOH",
+          "nationality": "MYS",
+          "captain": false
+        },
+        {
+          "number": 31,
+          "name": "KIANA TANGONAN",
+          "nationality": "USA",
+          "captain": false
+        },
+        {
+          "number": 9,
+          "name": "KING ILIAN MISTICA",
+          "nationality": "PHI",
+          "captain": false
+        },
+        {
+          "number": 30,
+          "name": "KYLA WARIKAI",
+          "nationality": "PHI",
+          "captain": false
+        },
+        {
+          "number": 77,
+          "name": "LLOYD MARCAIDA",
+          "nationality": "PHI",
+          "captain": false
+        },
+        {
+          "number": 8,
+          "name": "LU NGUYEN",
+          "nationality": "VNM",
+          "captain": false
+        },
+        {
+          "number": 12,
+          "name": "MAVY MARQUEZ",
+          "nationality": "PHI",
+          "captain": false
+        },
+        {
+          "number": 38,
+          "name": "MIYABI KOYAMA",
+          "nationality": "JPN",
+          "captain": false
+        },
+        {
+          "number": 22,
+          "name": "SEBASTIAN TOO",
+          "nationality": "SGP",
+          "captain": false
+        },
+        {
+          "number": 97,
+          "name": "SONG LINH NGUYEN",
+          "nationality": "VNM",
+          "captain": false
+        },
+        {
+          "number": 99,
+          "name": "SOPHIE ECHAUZ",
+          "nationality": "PHI",
+          "captain": false
+        },
+        {
+          "number": 11,
+          "name": "SOPHIE INDRACUSIN",
+          "nationality": "THA",
+          "captain": false
+        },
+        {
+          "number": 14,
+          "name": "STELLA AURELLIA",
+          "nationality": "INA",
+          "captain": false
+        },
+        {
+          "number": 88,
+          "name": "ZEE TAN",
+          "nationality": "MYS",
+          "captain": false
+        }
+      ]
+    },
+    {
+      "id": "quick-style",
+      "name": "QUICK STYLE",
+      "city": "OSLO",
+      "country": "NOR",
+      "founded": 2006,
+      "roster": [
+        {
+          "number": 25,
+          "name": "AGNES AASETH",
+          "nationality": "NOR",
+          "captain": false
+        },
+        {
+          "number": 29,
+          "name": "DIKTE HVIT",
+          "nationality": "NOR",
+          "captain": false
+        },
+        {
+          "number": 12,
+          "name": "IDA TOFTEVAG",
+          "nationality": "NOR",
+          "captain": false
+        },
+        {
+          "number": 18,
+          "name": "IDA YING CHUN",
+          "nationality": "CHN",
+          "captain": false
+        },
+        {
+          "number": 27,
+          "name": "JOHANNA GJESDAL",
+          "nationality": "NOR",
+          "captain": false
+        },
+        {
+          "number": 22,
+          "name": "KAJA MYRLE",
+          "nationality": "NOR",
+          "captain": false
+        },
+        {
+          "number": 20,
+          "name": "KAJA RAMBERG",
+          "nationality": "NOR",
+          "captain": false
+        },
+        {
+          "number": 28,
+          "name": "KARINA HAGNESS",
+          "nationality": "INA",
+          "captain": false
+        },
+        {
+          "number": 24,
+          "name": "KYRENA HEIER",
+          "nationality": "NOR",
+          "captain": false
+        },
+        {
+          "number": 30,
+          "name": "LAURA ALVES",
+          "nationality": "DNK",
+          "captain": false
+        },
+        {
+          "number": 11,
+          "name": "MALI PAULSEN",
+          "nationality": "NOR",
+          "captain": false
+        },
+        {
+          "number": 16,
+          "name": "MARI WENAAS",
+          "nationality": "NOR",
+          "captain": false
+        },
+        {
+          "number": 17,
+          "name": "MATILDE CASTBERG",
+          "nationality": "NOR",
+          "captain": false
+        },
+        {
+          "number": 14,
+          "name": "MINA ERLANDSEN",
+          "nationality": "NOR",
+          "captain": true
+        },
+        {
+          "number": 13,
+          "name": "MINA GRINDSTRAND",
+          "nationality": "NOR",
+          "captain": false
+        },
+        {
+          "number": 19,
+          "name": "PIA MANGSET",
+          "nationality": "NOR",
+          "captain": false
+        },
+        {
+          "number": 15,
+          "name": "SARA HENRIKSEN",
+          "nationality": "NOR",
+          "captain": false
+        },
+        {
+          "number": 26,
+          "name": "SUNNIVA RINVOLL",
+          "nationality": "NOR",
+          "captain": false
+        },
+        {
+          "number": 10,
+          "name": "THANUSHA CHANDRASSELAN",
+          "nationality": "NOR",
+          "captain": true
+        },
+        {
+          "number": 21,
+          "name": "TUVA VINJE",
+          "nationality": "NOR",
+          "captain": true
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "new-york",
+      "series": 1,
+      "name": "NEW YORK",
+      "date": "May 2, 2026",
+      "dateISO": "2026-05-02",
+      "venue": "Hammerstein Ballroom",
+      "podium": [
+        {
+          "team": "brotherhood",
+          "teamName": "BROTHERHOOD",
+          "rank": 1,
+          "score": 99.28
+        },
+        {
+          "team": "quick-style",
+          "teamName": "QUICK STYLE",
+          "rank": 2,
+          "score": 89.97
+        },
+        {
+          "team": "royal-family",
+          "teamName": "ROYAL FAMILY",
+          "rank": 3,
+          "score": 86.25
+        }
+      ],
+      "matches": [
+        {
+          "n": 1,
+          "teamA": "grv",
+          "teamB": "quick-style",
+          "teamAName": "GRV",
+          "teamBName": "QUICK STYLE",
+          "pointsA": 3,
+          "pointsB": 4,
+          "winner": "quick-style",
+          "judges": [
+            {
+              "judge": "Judges 1",
+              "name": "Amari Marshall",
+              "scoresA": [
+                8,
+                8,
+                7,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                9
+              ],
+              "scoresB": [
+                9,
+                10,
+                10,
+                9,
+                8,
+                10,
+                10,
+                9,
+                10,
+                10
+              ],
+              "totalA": 80,
+              "totalB": 95,
+              "pointTo": "quick-style"
+            },
+            {
+              "judge": "Judges 2",
+              "name": "Arnel Calvario",
+              "scoresA": [
+                9,
+                9,
+                9,
+                9,
+                10,
+                8,
+                9,
+                8,
+                10,
+                10
+              ],
+              "scoresB": [
+                9,
+                8,
+                9,
+                9,
+                9,
+                9,
+                9,
+                8,
+                10,
+                9
+              ],
+              "totalA": 91,
+              "totalB": 89,
+              "pointTo": "grv"
+            },
+            {
+              "judge": "Judges 3",
+              "name": "Arturo Lyons",
+              "scoresA": [
+                8,
+                8,
+                10,
+                8,
+                8,
+                9,
+                8,
+                9,
+                9,
+                9
+              ],
+              "scoresB": [
+                9,
+                7,
+                10,
+                8,
+                7,
+                8,
+                8,
+                7,
+                8,
+                8
+              ],
+              "totalA": 86,
+              "totalB": 80,
+              "pointTo": "grv"
+            },
+            {
+              "judge": "Judges 4",
+              "name": "Chonique Sneed",
+              "scoresA": [
+                9,
+                8,
+                9,
+                8,
+                8,
+                9,
+                9,
+                8,
+                9,
+                9
+              ],
+              "scoresB": [
+                8,
+                9,
+                9,
+                10,
+                8,
+                9,
+                9,
+                10,
+                9,
+                9
+              ],
+              "totalA": 86,
+              "totalB": 90,
+              "pointTo": "quick-style"
+            },
+            {
+              "judge": "Judges 5",
+              "name": "Jamal Sims",
+              "scoresA": [
+                9,
+                9,
+                10,
+                9,
+                10,
+                8,
+                9,
+                10,
+                9,
+                10
+              ],
+              "scoresB": [
+                9,
+                9,
+                9,
+                9,
+                9,
+                10,
+                9,
+                8,
+                9,
+                9
+              ],
+              "totalA": 93,
+              "totalB": 90,
+              "pointTo": "grv"
+            },
+            {
+              "judge": "Judges 6",
+              "name": "LaTasha Barnes",
+              "scoresA": [
+                9,
+                9,
+                8,
+                9,
+                7,
+                7,
+                9,
+                9,
+                9,
+                9
+              ],
+              "scoresB": [
+                9,
+                9,
+                9,
+                10,
+                8,
+                8,
+                9,
+                9,
+                10,
+                9
+              ],
+              "totalA": 85,
+              "totalB": 90,
+              "pointTo": "quick-style"
+            }
+          ],
+          "criteriaAveragesA": [
+            8.67,
+            8.33,
+            8.5,
+            8.17,
+            7.5,
+            9.17,
+            8.5,
+            9,
+            9,
+            9.67
+          ],
+          "criteriaAveragesB": [
+            8.83,
+            8.5,
+            8.67,
+            8.5,
+            8.5,
+            8.33,
+            8.83,
+            8.67,
+            9.17,
+            9.5
+          ],
+          "avgTotalA": 86.51,
+          "avgTotalB": 87.5,
+          "fanVote": {
+            "pctA": 41,
+            "pctB": 59,
+            "votesA": 676,
+            "votesB": 973,
+            "pointTo": "quick-style"
+          }
+        },
+        {
+          "n": 2,
+          "teamA": "brotherhood",
+          "teamB": "1-million",
+          "teamAName": "BROTHERHOOD",
+          "teamBName": "1MILLION",
+          "pointsA": 7,
+          "pointsB": 0,
+          "winner": "brotherhood",
+          "judges": [
+            {
+              "judge": "Judges 1",
+              "name": "Amari Marshall",
+              "scoresA": [
+                9,
+                10,
+                10,
+                10,
+                9,
+                9,
+                9,
+                8,
+                10,
+                10
+              ],
+              "scoresB": [
+                9,
+                9,
+                9,
+                9,
+                9,
+                8,
+                8,
+                9,
+                8,
+                10
+              ],
+              "totalA": 94,
+              "totalB": 88,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 2",
+              "name": "Arnel Calvario",
+              "scoresA": [
+                10,
+                9,
+                9,
+                9,
+                9,
+                9,
+                9,
+                8,
+                10,
+                9
+              ],
+              "scoresB": [
+                9,
+                10,
+                9,
+                8,
+                9,
+                9,
+                9,
+                8,
+                10,
+                9
+              ],
+              "totalA": 91,
+              "totalB": 90,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 3",
+              "name": "Arturo Lyons",
+              "scoresA": [
+                10,
+                10,
+                10,
+                10,
+                9,
+                9,
+                9,
+                10,
+                9,
+                10
+              ],
+              "scoresB": [
+                7,
+                7,
+                8,
+                8,
+                8,
+                8,
+                8,
+                9,
+                8,
+                10
+              ],
+              "totalA": 96,
+              "totalB": 81,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 4",
+              "name": "Chonique Sneed",
+              "scoresA": [
+                10,
+                9,
+                9,
+                10,
+                9,
+                10,
+                9,
+                10,
+                9,
+                9
+              ],
+              "scoresB": [
+                9,
+                9,
+                9,
+                8,
+                9,
+                8,
+                10,
+                9,
+                9,
+                9
+              ],
+              "totalA": 94,
+              "totalB": 89,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 5",
+              "name": "Jamal Sims",
+              "scoresA": [
+                9,
+                10,
+                10,
+                10,
+                9,
+                10,
+                10,
+                9,
+                9,
+                10
+              ],
+              "scoresB": [
+                9,
+                9,
+                8,
+                9,
+                8,
+                9,
+                10,
+                9,
+                9,
+                9
+              ],
+              "totalA": 96,
+              "totalB": 89,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 6",
+              "name": "LaTasha Barnes",
+              "scoresA": [
+                10,
+                10,
+                9,
+                9,
+                10,
+                9,
+                9,
+                8,
+                9,
+                10
+              ],
+              "scoresB": [
+                9,
+                9,
+                8,
+                8,
+                9,
+                8,
+                8,
+                8,
+                10,
+                10
+              ],
+              "totalA": 93,
+              "totalB": 87,
+              "pointTo": "brotherhood"
+            }
+          ],
+          "criteriaAveragesA": [
+            8.66,
+            8.5,
+            8.83,
+            8.5,
+            8.5,
+            9.5,
+            9.33,
+            9,
+            9.33,
+            9.67
+          ],
+          "criteriaAveragesB": [
+            8.67,
+            8.83,
+            8.5,
+            8.33,
+            8.67,
+            8.33,
+            8.83,
+            8.67,
+            9,
+            9.5
+          ],
+          "avgTotalA": 89.82,
+          "avgTotalB": 87.33,
+          "fanVote": {
+            "pctA": 76,
+            "pctB": 24,
+            "votesA": 2225,
+            "votesB": 699,
+            "pointTo": "brotherhood"
+          }
+        },
+        {
+          "n": 3,
+          "teamA": "royal-family",
+          "teamB": "jam-republic",
+          "teamAName": "ROYAL FAMILY",
+          "teamBName": "JAM REPUBLIC",
+          "pointsA": 6,
+          "pointsB": 1,
+          "winner": "royal-family",
+          "judges": [
+            {
+              "judge": "Judges 1",
+              "name": "Amari Marshall",
+              "scoresA": [
+                8,
+                8,
+                8,
+                7,
+                9,
+                7,
+                9,
+                7,
+                7,
+                10
+              ],
+              "scoresB": [
+                8,
+                8,
+                9,
+                8,
+                8,
+                7,
+                7,
+                7,
+                7,
+                9
+              ],
+              "totalA": 80,
+              "totalB": 78,
+              "pointTo": "royal-family"
+            },
+            {
+              "judge": "Judges 2",
+              "name": "Arnel Calvario",
+              "scoresA": [
+                9,
+                9,
+                9,
+                8,
+                10,
+                8,
+                9,
+                9,
+                10,
+                10
+              ],
+              "scoresB": [
+                9,
+                10,
+                9,
+                8,
+                9,
+                8,
+                8,
+                8,
+                10,
+                10
+              ],
+              "totalA": 91,
+              "totalB": 89,
+              "pointTo": "royal-family"
+            },
+            {
+              "judge": "Judges 3",
+              "name": "Arturo Lyons",
+              "scoresA": [
+                8,
+                9,
+                8,
+                8,
+                8,
+                8,
+                8,
+                9,
+                10,
+                10
+              ],
+              "scoresB": [
+                7,
+                7,
+                8,
+                8,
+                8,
+                7,
+                8,
+                8,
+                8,
+                9
+              ],
+              "totalA": 86,
+              "totalB": 78,
+              "pointTo": "royal-family"
+            },
+            {
+              "judge": "Judges 4",
+              "name": "Chonique Sneed",
+              "scoresA": [
+                8,
+                9,
+                8,
+                8,
+                8,
+                8,
+                9,
+                9,
+                8,
+                9
+              ],
+              "scoresB": [
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                9,
+                8,
+                10
+              ],
+              "totalA": 84,
+              "totalB": 83,
+              "pointTo": "royal-family"
+            },
+            {
+              "judge": "Judges 5",
+              "name": "Jamal Sims",
+              "scoresA": [
+                9,
+                9,
+                9,
+                8,
+                8,
+                10,
+                9,
+                9,
+                10,
+                9
+              ],
+              "scoresB": [
+                8,
+                9,
+                8,
+                8,
+                9,
+                9,
+                8,
+                8,
+                8,
+                9
+              ],
+              "totalA": 90,
+              "totalB": 84,
+              "pointTo": "royal-family"
+            },
+            {
+              "judge": "Judges 6",
+              "name": "LaTasha Barnes",
+              "scoresA": [
+                9,
+                10,
+                9,
+                8,
+                9,
+                9,
+                8,
+                9,
+                9,
+                9
+              ],
+              "scoresB": [
+                8,
+                8,
+                9,
+                8,
+                9,
+                8,
+                8,
+                8,
+                8,
+                9
+              ],
+              "totalA": 89,
+              "totalB": 83,
+              "pointTo": "royal-family"
+            }
+          ],
+          "criteriaAveragesA": [
+            8.5,
+            9,
+            8.5,
+            7.83,
+            8.67,
+            8.33,
+            8.67,
+            8.67,
+            9,
+            9.5
+          ],
+          "criteriaAveragesB": [
+            8,
+            8.33,
+            8.5,
+            8,
+            8.5,
+            7.83,
+            7.83,
+            8,
+            8.17,
+            9.33
+          ],
+          "avgTotalA": 86.67,
+          "avgTotalB": 82.49,
+          "fanVote": {
+            "pctA": 40,
+            "pctB": 60,
+            "votesA": 1200,
+            "votesB": 1808,
+            "pointTo": "jam-republic"
+          }
+        }
+      ]
+    },
+    {
+      "id": "vancouver",
+      "series": 2,
+      "name": "VANCOUVER",
+      "date": "May 23, 2026",
+      "dateISO": "2026-05-23",
+      "venue": "Thunderbird Sports Centre",
+      "podium": [
+        {
+          "team": "brotherhood",
+          "teamName": "BROTHERHOOD",
+          "rank": 1,
+          "score": 93.81
+        },
+        {
+          "team": "jam-republic",
+          "teamName": "JAM REPUBLIC",
+          "rank": 2,
+          "score": 86.31
+        },
+        {
+          "team": "1-million",
+          "teamName": "1MILLION",
+          "rank": 3,
+          "score": 85.54
+        }
+      ],
+      "matches": [
+        {
+          "n": 1,
+          "teamA": "royal-family",
+          "teamB": "1-million",
+          "teamAName": "ROYAL FAMILY",
+          "teamBName": "1MILLION",
+          "pointsA": 3,
+          "pointsB": 4,
+          "winner": "1-million",
+          "judges": [
+            {
+              "judge": "Judges 1",
+              "name": "Cheyenne Kibblewhite",
+              "scoresA": [
+                8,
+                9,
+                9,
+                9,
+                9,
+                10,
+                9,
+                9,
+                9,
+                10
+              ],
+              "scoresB": [
+                9,
+                9,
+                9,
+                8,
+                9,
+                8,
+                9,
+                9,
+                9,
+                10
+              ],
+              "totalA": 91,
+              "totalB": 89,
+              "pointTo": "royal-family"
+            },
+            {
+              "judge": "Judges 2",
+              "name": "Handy Yacinthe",
+              "scoresA": [
+                9,
+                7,
+                8,
+                7,
+                7,
+                8,
+                7,
+                9,
+                9,
+                10
+              ],
+              "scoresB": [
+                9,
+                9,
+                8,
+                8,
+                8,
+                7,
+                9,
+                8,
+                9,
+                9
+              ],
+              "totalA": 81,
+              "totalB": 84,
+              "pointTo": "1-million"
+            },
+            {
+              "judge": "Judges 3",
+              "name": "Stephen Grey",
+              "scoresA": [
+                7,
+                8,
+                8,
+                8,
+                7,
+                9,
+                8,
+                9,
+                10,
+                10
+              ],
+              "scoresB": [
+                7,
+                8,
+                8,
+                9,
+                8,
+                8,
+                8,
+                8,
+                10,
+                9
+              ],
+              "totalA": 84,
+              "totalB": 83,
+              "pointTo": "royal-family"
+            },
+            {
+              "judge": "Judges 4",
+              "name": "Comfort Fedoke",
+              "scoresA": [
+                8,
+                9,
+                9,
+                9,
+                7,
+                9,
+                8,
+                9,
+                9,
+                10
+              ],
+              "scoresB": [
+                9,
+                8,
+                9,
+                9,
+                9,
+                9,
+                9,
+                9,
+                9,
+                10
+              ],
+              "totalA": 87,
+              "totalB": 90,
+              "pointTo": "1-million"
+            },
+            {
+              "judge": "Judges 5",
+              "name": "Carlos Irizarry",
+              "scoresA": [
+                8,
+                8,
+                9,
+                8,
+                7,
+                9,
+                9,
+                9,
+                8,
+                9
+              ],
+              "scoresB": [
+                9,
+                9,
+                9,
+                9,
+                9,
+                9,
+                9,
+                9,
+                9,
+                9
+              ],
+              "totalA": 84,
+              "totalB": 90,
+              "pointTo": "1-million"
+            },
+            {
+              "judge": "Judges 6",
+              "name": "Nicolas Begin",
+              "scoresA": [
+                8,
+                9,
+                8,
+                8,
+                8,
+                10,
+                10,
+                9,
+                9,
+                9
+              ],
+              "scoresB": [
+                7,
+                8,
+                9,
+                8,
+                8,
+                9,
+                9,
+                9,
+                9,
+                10
+              ],
+              "totalA": 88,
+              "totalB": 86,
+              "pointTo": "royal-family"
+            }
+          ],
+          "criteriaAveragesA": [
+            8,
+            8.33,
+            8.5,
+            8.17,
+            7.5,
+            9.17,
+            8.5,
+            9,
+            9,
+            9.67
+          ],
+          "criteriaAveragesB": [
+            8.33,
+            8.5,
+            8.67,
+            8.5,
+            8.5,
+            8.33,
+            8.83,
+            8.67,
+            9.17,
+            9.5
+          ],
+          "avgTotalA": 85.84,
+          "avgTotalB": 87,
+          "fanVote": {
+            "pctA": 24,
+            "pctB": 76,
+            "votesA": 1889,
+            "votesB": 5890,
+            "pointTo": "1-million"
+          }
+        },
+        {
+          "n": 2,
+          "teamA": "quick-style",
+          "teamB": "jam-republic",
+          "teamAName": "QUICK STYLE",
+          "teamBName": "JAM REPUBLIC",
+          "pointsA": 0,
+          "pointsB": 7,
+          "winner": "jam-republic",
+          "judges": [
+            {
+              "judge": "Judges 1",
+              "name": "Cheyenne Kibblewhite",
+              "scoresA": [
+                8,
+                9,
+                9,
+                9,
+                8,
+                8,
+                9,
+                9,
+                9,
+                9
+              ],
+              "scoresB": [
+                9,
+                9,
+                9,
+                9,
+                8,
+                9,
+                8,
+                9,
+                9,
+                9
+              ],
+              "totalA": 87,
+              "totalB": 88,
+              "pointTo": "jam-republic"
+            },
+            {
+              "judge": "Judges 2",
+              "name": "Handy Yacinthe",
+              "scoresA": [
+                8,
+                7,
+                8,
+                8,
+                7,
+                9,
+                8,
+                8,
+                8,
+                10
+              ],
+              "scoresB": [
+                8,
+                7,
+                9,
+                8,
+                9,
+                9,
+                9,
+                8,
+                9,
+                10
+              ],
+              "totalA": 81,
+              "totalB": 86,
+              "pointTo": "jam-republic"
+            },
+            {
+              "judge": "Judges 3",
+              "name": "Stephen Grey",
+              "scoresA": [
+                7,
+                7,
+                8,
+                7,
+                8,
+                9,
+                8,
+                8,
+                10,
+                10
+              ],
+              "scoresB": [
+                8,
+                8,
+                8,
+                8,
+                9,
+                9,
+                8,
+                8,
+                10,
+                10
+              ],
+              "totalA": 82,
+              "totalB": 86,
+              "pointTo": "jam-republic"
+            },
+            {
+              "judge": "Judges 4",
+              "name": "Comfort Fedoke",
+              "scoresA": [
+                9,
+                8,
+                9,
+                8,
+                8,
+                9,
+                7,
+                8,
+                9,
+                10
+              ],
+              "scoresB": [
+                9,
+                9,
+                9,
+                9,
+                8,
+                9,
+                9,
+                9,
+                10,
+                10
+              ],
+              "totalA": 85,
+              "totalB": 91,
+              "pointTo": "jam-republic"
+            },
+            {
+              "judge": "Judges 5",
+              "name": "Carlos Irizarry",
+              "scoresA": [
+                8,
+                8,
+                9,
+                8,
+                8,
+                8,
+                9,
+                9,
+                8,
+                8
+              ],
+              "scoresB": [
+                9,
+                8,
+                9,
+                9,
+                8,
+                9,
+                9,
+                9,
+                9,
+                9
+              ],
+              "totalA": 83,
+              "totalB": 88,
+              "pointTo": "jam-republic"
+            },
+            {
+              "judge": "Judges 6",
+              "name": "Nicolas Begin",
+              "scoresA": [
+                10,
+                7,
+                9,
+                9,
+                8,
+                8,
+                9,
+                9,
+                8,
+                9
+              ],
+              "scoresB": [
+                9,
+                9,
+                8,
+                8,
+                10,
+                9,
+                9,
+                9,
+                10,
+                10
+              ],
+              "totalA": 86,
+              "totalB": 91,
+              "pointTo": "jam-republic"
+            }
+          ],
+          "criteriaAveragesA": [
+            8.33,
+            7.67,
+            8.67,
+            8.17,
+            7.83,
+            8.5,
+            8.33,
+            8.5,
+            8.67,
+            9.33
+          ],
+          "criteriaAveragesB": [
+            8.67,
+            8.33,
+            8.67,
+            8.5,
+            8.67,
+            9,
+            8.67,
+            8.67,
+            9.5,
+            9.67
+          ],
+          "avgTotalA": 84,
+          "avgTotalB": 88.35,
+          "fanVote": {
+            "pctA": 12,
+            "pctB": 88,
+            "votesA": 1024,
+            "votesB": 7709,
+            "pointTo": "jam-republic"
+          }
+        },
+        {
+          "n": 3,
+          "teamA": "grv",
+          "teamB": "brotherhood",
+          "teamAName": "GRV",
+          "teamBName": "BROTHERHOOD",
+          "pointsA": 0,
+          "pointsB": 7,
+          "winner": "brotherhood",
+          "judges": [
+            {
+              "judge": "Judges 1",
+              "name": "Cheyenne Kibblewhite",
+              "scoresA": [
+                9,
+                9,
+                9,
+                10,
+                10,
+                9,
+                9,
+                9,
+                9,
+                10
+              ],
+              "scoresB": [
+                8,
+                9,
+                10,
+                9,
+                10,
+                10,
+                9,
+                9,
+                10,
+                10
+              ],
+              "totalA": 93,
+              "totalB": 94,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 2",
+              "name": "Handy Yacinthe",
+              "scoresA": [
+                8,
+                9,
+                8,
+                10,
+                8,
+                9,
+                9,
+                8,
+                10,
+                10
+              ],
+              "scoresB": [
+                9,
+                7,
+                9,
+                9,
+                8,
+                10,
+                10,
+                9,
+                10,
+                10
+              ],
+              "totalA": 89,
+              "totalB": 91,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 3",
+              "name": "Stephen Grey",
+              "scoresA": [
+                8,
+                9,
+                8,
+                10,
+                9,
+                8,
+                9,
+                7,
+                10,
+                10
+              ],
+              "scoresB": [
+                9,
+                7,
+                9,
+                10,
+                9,
+                9,
+                9,
+                8,
+                10,
+                10
+              ],
+              "totalA": 88,
+              "totalB": 90,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 4",
+              "name": "Comfort Fedoke",
+              "scoresA": [
+                8,
+                9,
+                9,
+                9,
+                9,
+                9,
+                8,
+                9,
+                9,
+                10
+              ],
+              "scoresB": [
+                9,
+                10,
+                10,
+                9,
+                9,
+                9,
+                10,
+                9,
+                10,
+                10
+              ],
+              "totalA": 89,
+              "totalB": 95,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 5",
+              "name": "Carlos Irizarry",
+              "scoresA": [
+                10,
+                10,
+                9,
+                9,
+                9,
+                9,
+                9,
+                10,
+                9,
+                10
+              ],
+              "scoresB": [
+                9,
+                9,
+                10,
+                10,
+                8,
+                10,
+                9,
+                10,
+                10,
+                10
+              ],
+              "totalA": 94,
+              "totalB": 95,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 6",
+              "name": "Nicolas Begin",
+              "scoresA": [
+                8,
+                8,
+                8,
+                10,
+                9,
+                8,
+                9,
+                9,
+                10,
+                9
+              ],
+              "scoresB": [
+                9,
+                10,
+                8,
+                9,
+                10,
+                10,
+                10,
+                8,
+                10,
+                10
+              ],
+              "totalA": 88,
+              "totalB": 94,
+              "pointTo": "brotherhood"
+            }
+          ],
+          "criteriaAveragesA": [
+            8.5,
+            9,
+            8.5,
+            9.67,
+            9,
+            8.67,
+            8.83,
+            8.67,
+            9.5,
+            9.83
+          ],
+          "criteriaAveragesB": [
+            8.83,
+            8.67,
+            9.33,
+            9.33,
+            9,
+            9.67,
+            9.5,
+            8.83,
+            10,
+            10
+          ],
+          "avgTotalA": 90.17,
+          "avgTotalB": 93.16,
+          "fanVote": {
+            "pctA": 27,
+            "pctB": 73,
+            "votesA": 2593,
+            "votesB": 7078,
+            "pointTo": "brotherhood"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sydney",
+      "series": 3,
+      "name": "SYDNEY",
+      "date": "Jun 20, 2026",
+      "dateISO": "2026-06-20",
+      "venue": "The Hordern Pavillion",
+      "podium": [
+        {
+          "team": "brotherhood",
+          "teamName": "BROTHERHOOD",
+          "rank": 1,
+          "score": 93.19
+        },
+        {
+          "team": "grv",
+          "teamName": "GRV",
+          "rank": 2,
+          "score": 90.77
+        },
+        {
+          "team": "1-million",
+          "teamName": "1MILLION",
+          "rank": 3,
+          "score": 89.37
+        }
+      ],
+      "matches": [
+        {
+          "n": 1,
+          "teamA": "jam-republic",
+          "teamB": "grv",
+          "teamAName": "JAM REPUBLIC",
+          "teamBName": "GRV",
+          "pointsA": 0,
+          "pointsB": 7,
+          "winner": "grv",
+          "judges": [
+            {
+              "judge": "Judges 1",
+              "name": "Stephen Grey",
+              "scoresA": [
+                6,
+                8,
+                7,
+                8,
+                7,
+                8,
+                7,
+                8,
+                9,
+                9
+              ],
+              "scoresB": [
+                9,
+                9,
+                8,
+                9,
+                9,
+                8,
+                9,
+                9,
+                10,
+                10
+              ],
+              "totalA": 77,
+              "totalB": 90,
+              "pointTo": "grv"
+            },
+            {
+              "judge": "Judges 2",
+              "name": "Mel Charlot",
+              "scoresA": [
+                7,
+                8,
+                9,
+                8,
+                7,
+                8,
+                8,
+                8,
+                8,
+                10
+              ],
+              "scoresB": [
+                9,
+                9,
+                9,
+                8,
+                8,
+                9,
+                9,
+                9,
+                9,
+                10
+              ],
+              "totalA": 81,
+              "totalB": 89,
+              "pointTo": "grv"
+            },
+            {
+              "judge": "Judges 3",
+              "name": "Comfort Fedoke",
+              "scoresA": [
+                7,
+                8,
+                8,
+                8,
+                8,
+                9,
+                7,
+                9,
+                8,
+                9
+              ],
+              "scoresB": [
+                9,
+                8,
+                9,
+                8,
+                9,
+                9,
+                9,
+                9,
+                9,
+                10
+              ],
+              "totalA": 81,
+              "totalB": 89,
+              "pointTo": "grv"
+            },
+            {
+              "judge": "Judges 4",
+              "name": "Shaun Evaristo",
+              "scoresA": [
+                8,
+                7,
+                9,
+                8,
+                9,
+                8,
+                8,
+                8,
+                8,
+                9
+              ],
+              "scoresB": [
+                9,
+                8,
+                8,
+                8,
+                9,
+                8,
+                9,
+                7,
+                9,
+                10
+              ],
+              "totalA": 82,
+              "totalB": 85,
+              "pointTo": "grv"
+            },
+            {
+              "judge": "Judges 5",
+              "name": "Chonique Sneed",
+              "scoresA": [
+                8,
+                9,
+                9,
+                8,
+                8,
+                7,
+                8,
+                9,
+                9,
+                9
+              ],
+              "scoresB": [
+                9,
+                9,
+                8,
+                9,
+                9,
+                9,
+                9,
+                8,
+                9,
+                10
+              ],
+              "totalA": 84,
+              "totalB": 89,
+              "pointTo": "grv"
+            },
+            {
+              "judge": "Judges 6",
+              "name": "Arnel Calvario",
+              "scoresA": [
+                7,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                9,
+                9
+              ],
+              "scoresB": [
+                9,
+                9,
+                9,
+                9,
+                9,
+                9,
+                8,
+                9,
+                10,
+                10
+              ],
+              "totalA": 81,
+              "totalB": 91,
+              "pointTo": "grv"
+            }
+          ],
+          "criteriaAveragesA": [
+            7.17,
+            8,
+            8.33,
+            8,
+            7.83,
+            8,
+            7.67,
+            8.33,
+            8.5,
+            9.17
+          ],
+          "criteriaAveragesB": [
+            9,
+            8.67,
+            8.5,
+            8.5,
+            8.83,
+            8.67,
+            8.83,
+            8.5,
+            9.33,
+            10
+          ],
+          "avgTotalA": 81,
+          "avgTotalB": 88.83,
+          "fanVote": {
+            "pctA": 19,
+            "pctB": 81,
+            "votesA": 1733,
+            "votesB": 7442,
+            "pointTo": "grv"
+          }
+        },
+        {
+          "n": 2,
+          "teamA": "quick-style",
+          "teamB": "1-million",
+          "teamAName": "QUICK STYLE",
+          "teamBName": "1MILLION",
+          "pointsA": 0,
+          "pointsB": 7,
+          "winner": "1-million",
+          "judges": [
+            {
+              "judge": "Judges 1",
+              "name": "Stephen Grey",
+              "scoresA": [
+                8,
+                9,
+                8,
+                8,
+                8,
+                6,
+                7,
+                8,
+                9,
+                9
+              ],
+              "scoresB": [
+                6,
+                9,
+                8,
+                9,
+                8,
+                8,
+                8,
+                9,
+                10,
+                9
+              ],
+              "totalA": 80,
+              "totalB": 84,
+              "pointTo": "1-million"
+            },
+            {
+              "judge": "Judges 2",
+              "name": "Mel Charlot",
+              "scoresA": [
+                7,
+                8,
+                9,
+                8,
+                7,
+                7,
+                8,
+                8,
+                8,
+                9
+              ],
+              "scoresB": [
+                9,
+                8,
+                8,
+                9,
+                8,
+                8,
+                8,
+                8,
+                10,
+                10
+              ],
+              "totalA": 79,
+              "totalB": 86,
+              "pointTo": "1-million"
+            },
+            {
+              "judge": "Judges 3",
+              "name": "Comfort Fedoke",
+              "scoresA": [
+                8,
+                9,
+                7,
+                8,
+                8,
+                7,
+                8,
+                8,
+                9,
+                9
+              ],
+              "scoresB": [
+                8,
+                9,
+                8,
+                9,
+                9,
+                8,
+                8,
+                9,
+                9,
+                10
+              ],
+              "totalA": 81,
+              "totalB": 87,
+              "pointTo": "1-million"
+            },
+            {
+              "judge": "Judges 4",
+              "name": "Shaun Evaristo",
+              "scoresA": [
+                8,
+                8,
+                9,
+                8,
+                9,
+                7,
+                9,
+                8,
+                9,
+                8
+              ],
+              "scoresB": [
+                7,
+                9,
+                8,
+                9,
+                9,
+                8,
+                9,
+                8,
+                10,
+                9
+              ],
+              "totalA": 83,
+              "totalB": 86,
+              "pointTo": "1-million"
+            },
+            {
+              "judge": "Judges 5",
+              "name": "Chonique Sneed",
+              "scoresA": [
+                8,
+                8,
+                8,
+                8,
+                9,
+                7,
+                8,
+                9,
+                8,
+                9
+              ],
+              "scoresB": [
+                8,
+                8,
+                8,
+                9,
+                8,
+                8,
+                8,
+                9,
+                9,
+                9
+              ],
+              "totalA": 82,
+              "totalB": 84,
+              "pointTo": "1-million"
+            },
+            {
+              "judge": "Judges 6",
+              "name": "Arnel Calvario",
+              "scoresA": [
+                9,
+                8,
+                9,
+                9,
+                8,
+                8,
+                9,
+                8,
+                9,
+                10
+              ],
+              "scoresB": [
+                8,
+                9,
+                9,
+                9,
+                9,
+                8,
+                9,
+                8,
+                10,
+                10
+              ],
+              "totalA": 87,
+              "totalB": 89,
+              "pointTo": "1-million"
+            }
+          ],
+          "criteriaAveragesA": [
+            8,
+            8.33,
+            8.33,
+            8.16,
+            8.17,
+            7,
+            8.17,
+            8.17,
+            8.67,
+            9
+          ],
+          "criteriaAveragesB": [
+            7.66,
+            8.67,
+            8.17,
+            9,
+            8.5,
+            8,
+            8.33,
+            8.5,
+            9.67,
+            9.5
+          ],
+          "avgTotalA": 82,
+          "avgTotalB": 86,
+          "fanVote": {
+            "pctA": 11,
+            "pctB": 81,
+            "votesA": 1008,
+            "votesB": 7967,
+            "pointTo": "1-million"
+          }
+        },
+        {
+          "n": 3,
+          "teamA": "brotherhood",
+          "teamB": "royal-family",
+          "teamAName": "BROTHERHOOD",
+          "teamBName": "ROYAL FAMILY",
+          "pointsA": 7,
+          "pointsB": 0,
+          "winner": "brotherhood",
+          "judges": [
+            {
+              "judge": "Judges 1",
+              "name": "Stephen Grey",
+              "scoresA": [
+                9,
+                8,
+                10,
+                10,
+                9,
+                9,
+                9,
+                9,
+                10,
+                10
+              ],
+              "scoresB": [
+                8,
+                9,
+                8,
+                9,
+                9,
+                8,
+                7,
+                9,
+                10,
+                10
+              ],
+              "totalA": 93,
+              "totalB": 87,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 2",
+              "name": "Mel Charlot",
+              "scoresA": [
+                9,
+                10,
+                10,
+                9,
+                9,
+                9,
+                9,
+                9,
+                10,
+                10
+              ],
+              "scoresB": [
+                9,
+                9,
+                9,
+                8,
+                9,
+                9,
+                8,
+                9,
+                10,
+                10
+              ],
+              "totalA": 94,
+              "totalB": 90,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 3",
+              "name": "Comfort Fedoke",
+              "scoresA": [
+                9,
+                9,
+                10,
+                9,
+                9,
+                9,
+                9,
+                9,
+                10,
+                10
+              ],
+              "scoresB": [
+                9,
+                9,
+                9,
+                8,
+                9,
+                9,
+                9,
+                9,
+                10,
+                10
+              ],
+              "totalA": 93,
+              "totalB": 91,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 4",
+              "name": "Shaun Evaristo",
+              "scoresA": [
+                8,
+                9,
+                9,
+                10,
+                10,
+                9,
+                9,
+                8,
+                10,
+                9
+              ],
+              "scoresB": [
+                8,
+                8,
+                8,
+                9,
+                9,
+                8,
+                9,
+                7,
+                10,
+                10
+              ],
+              "totalA": 91,
+              "totalB": 86,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 5",
+              "name": "Chonique Sneed",
+              "scoresA": [
+                9,
+                9,
+                9,
+                10,
+                9,
+                9,
+                9,
+                8,
+                9,
+                9
+              ],
+              "scoresB": [
+                8,
+                8,
+                9,
+                9,
+                8,
+                8,
+                8,
+                9,
+                8,
+                9
+              ],
+              "totalA": 90,
+              "totalB": 84,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 6",
+              "name": "Arnel Calvario",
+              "scoresA": [
+                9,
+                10,
+                9,
+                10,
+                9,
+                9,
+                8,
+                8,
+                10,
+                10
+              ],
+              "scoresB": [
+                8,
+                9,
+                10,
+                9,
+                9,
+                9,
+                8,
+                9,
+                10,
+                10
+              ],
+              "totalA": 92,
+              "totalB": 91,
+              "pointTo": "brotherhood"
+            }
+          ],
+          "criteriaAveragesA": [
+            8.83,
+            9.17,
+            9.5,
+            9.67,
+            9.17,
+            9,
+            8.83,
+            8.5,
+            9.83,
+            9.67
+          ],
+          "criteriaAveragesB": [
+            8.33,
+            8.67,
+            8.83,
+            8.67,
+            8.83,
+            8.5,
+            8.17,
+            8.67,
+            9.67,
+            9.83
+          ],
+          "avgTotalA": 92.17,
+          "avgTotalB": 88.17,
+          "fanVote": {
+            "pctA": 80,
+            "pctB": 20,
+            "votesA": 8432,
+            "votesB": 2089,
+            "pointTo": "brotherhood"
+          }
+        }
+      ]
+    },
+    {
+      "id": "seoul",
+      "series": 4,
+      "name": "SEOUL",
+      "date": "Aug 1, 2026",
+      "dateISO": "2026-08-01",
+      "venue": "Kyung Hee University Peace Hall",
+      "podium": [
+        {
+          "team": "brotherhood",
+          "teamName": "BROTHERHOOD",
+          "rank": 1,
+          "score": 92.25
+        },
+        {
+          "team": "1-million",
+          "teamName": "1MILLION",
+          "rank": 2,
+          "score": 89.84
+        },
+        {
+          "team": "royal-family",
+          "teamName": "ROYAL FAMILY",
+          "rank": 3,
+          "score": 87.91
+        }
+      ],
+      "matches": [
+        {
+          "n": 1,
+          "teamA": "grv",
+          "teamB": "royal-family",
+          "teamAName": "GRV",
+          "teamBName": "ROYAL FAMILY",
+          "pointsA": 0,
+          "pointsB": 7,
+          "winner": "royal-family",
+          "judges": [
+            {
+              "judge": "Judges 1",
+              "name": "Haeni Kim",
+              "scoresA": [
+                9.5,
+                7.5,
+                9,
+                7,
+                8,
+                8.5,
+                7,
+                7.5,
+                8,
+                8
+              ],
+              "scoresB": [
+                8.5,
+                8,
+                9,
+                6.5,
+                8,
+                8,
+                7.5,
+                8.5,
+                9.5,
+                9.5
+              ],
+              "totalA": 80,
+              "totalB": 83,
+              "pointTo": "royal-family"
+            },
+            {
+              "judge": "Judges 2",
+              "name": "Amari Marshall",
+              "scoresA": [
+                9,
+                8,
+                8.5,
+                7.5,
+                8,
+                8,
+                8.5,
+                8,
+                8.5,
+                8.5
+              ],
+              "scoresB": [
+                9,
+                9,
+                9,
+                9,
+                9,
+                8.5,
+                8.5,
+                8,
+                9,
+                9.5
+              ],
+              "totalA": 82.5,
+              "totalB": 88.5,
+              "pointTo": "royal-family"
+            },
+            {
+              "judge": "Judges 3",
+              "name": "Cheyenne Kibblewhite",
+              "scoresA": [
+                8.5,
+                8.5,
+                9,
+                8,
+                9,
+                8.5,
+                8.5,
+                9,
+                9,
+                9
+              ],
+              "scoresB": [
+                8.5,
+                9,
+                8.5,
+                8.5,
+                8.5,
+                9,
+                9,
+                9,
+                9,
+                9.5
+              ],
+              "totalA": 87,
+              "totalB": 88.5,
+              "pointTo": "royal-family"
+            },
+            {
+              "judge": "Judges 4",
+              "name": "Comfort Fedoke",
+              "scoresA": [
+                8,
+                8.5,
+                8,
+                7.5,
+                7.5,
+                8,
+                7.5,
+                8.5,
+                9,
+                8.5
+              ],
+              "scoresB": [
+                9,
+                8.5,
+                9,
+                9,
+                9,
+                9,
+                9,
+                8.5,
+                9,
+                9
+              ],
+              "totalA": 81,
+              "totalB": 89,
+              "pointTo": "royal-family"
+            },
+            {
+              "judge": "Judges 5",
+              "name": "Gina Michael",
+              "scoresA": [
+                8,
+                8,
+                9.5,
+                8.5,
+                8.5,
+                9.5,
+                8.5,
+                9,
+                8.5,
+                9.5
+              ],
+              "scoresB": [
+                8.5,
+                9,
+                9,
+                9,
+                8.5,
+                9,
+                9,
+                8,
+                8.5,
+                9.5
+              ],
+              "totalA": 87.5,
+              "totalB": 88,
+              "pointTo": "royal-family"
+            },
+            {
+              "judge": "Judges 6",
+              "name": "Nicolas Begin",
+              "scoresA": [
+                8,
+                8.5,
+                8.5,
+                8.5,
+                9,
+                8.5,
+                8.5,
+                9,
+                9,
+                9
+              ],
+              "scoresB": [
+                8.5,
+                8.5,
+                8,
+                9,
+                9.5,
+                9.5,
+                8.5,
+                9,
+                9.5,
+                10
+              ],
+              "totalA": 86.5,
+              "totalB": 90,
+              "pointTo": "royal-family"
+            }
+          ],
+          "criteriaAveragesA": [
+            8.5,
+            8.17,
+            8.75,
+            7.83,
+            8.33,
+            8.5,
+            8.08,
+            8.5,
+            8.67,
+            8.75
+          ],
+          "criteriaAveragesB": [
+            8.67,
+            8.67,
+            8.75,
+            8.5,
+            8.75,
+            8.83,
+            8.58,
+            8.5,
+            9.08,
+            9.5
+          ],
+          "avgTotalA": 84.08,
+          "avgTotalB": 87.83,
+          "fanVote": {
+            "pctA": 23,
+            "pctB": 77,
+            "votesA": 2208,
+            "votesB": 7296,
+            "pointTo": "royal-family"
+          }
+        },
+        {
+          "n": 2,
+          "teamA": "brotherhood",
+          "teamB": "quick-style",
+          "teamAName": "BROTHERHOOD",
+          "teamBName": "QUICK STYLE",
+          "pointsA": 7,
+          "pointsB": 0,
+          "winner": "brotherhood",
+          "judges": [
+            {
+              "judge": "Judges 1",
+              "name": "Haeni Kim",
+              "scoresA": [
+                9,
+                9,
+                8.5,
+                8.5,
+                8,
+                7.5,
+                8.5,
+                8.5,
+                10,
+                9.5
+              ],
+              "scoresB": [
+                9,
+                8.5,
+                8.5,
+                8.5,
+                6.5,
+                7,
+                9,
+                8.5,
+                10,
+                9.5
+              ],
+              "totalA": 87,
+              "totalB": 85,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 2",
+              "name": "Amari Marshall",
+              "scoresA": [
+                9,
+                8.5,
+                8.5,
+                8.5,
+                9,
+                9,
+                7.5,
+                8,
+                9,
+                9
+              ],
+              "scoresB": [
+                8.5,
+                8,
+                9,
+                8.5,
+                8,
+                7.5,
+                8,
+                7.5,
+                8.5,
+                8.5
+              ],
+              "totalA": 86,
+              "totalB": 82,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 3",
+              "name": "Cheyenne Kibblewhite",
+              "scoresA": [
+                9,
+                9,
+                9,
+                8.5,
+                9,
+                9,
+                8,
+                8.5,
+                9,
+                9.5
+              ],
+              "scoresB": [
+                8,
+                8,
+                8,
+                7.5,
+                8.5,
+                7.5,
+                8,
+                8,
+                8.5,
+                9
+              ],
+              "totalA": 88.5,
+              "totalB": 81,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 4",
+              "name": "Comfort Fedoke",
+              "scoresA": [
+                8.5,
+                9,
+                9,
+                8.5,
+                8.5,
+                9,
+                8.5,
+                8.5,
+                9,
+                9
+              ],
+              "scoresB": [
+                8.5,
+                9,
+                8.5,
+                9,
+                8,
+                8.5,
+                8,
+                8.5,
+                9.5,
+                9
+              ],
+              "totalA": 87.5,
+              "totalB": 86.5,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 5",
+              "name": "Gina Michael",
+              "scoresA": [
+                9,
+                8.5,
+                9,
+                8,
+                8,
+                9,
+                9,
+                9,
+                8.5,
+                9.5
+              ],
+              "scoresB": [
+                8.5,
+                8.5,
+                9,
+                8.5,
+                8,
+                8,
+                9,
+                8.5,
+                9,
+                9
+              ],
+              "totalA": 87.5,
+              "totalB": 86,
+              "pointTo": "brotherhood"
+            },
+            {
+              "judge": "Judges 6",
+              "name": "Nicolas Begin",
+              "scoresA": [
+                8.5,
+                9,
+                8.5,
+                8.5,
+                9,
+                10,
+                8.5,
+                9,
+                10,
+                9.5
+              ],
+              "scoresB": [
+                8.5,
+                8.5,
+                9.5,
+                9,
+                8,
+                8.5,
+                9,
+                8.5,
+                9.5,
+                9.5
+              ],
+              "totalA": 90.5,
+              "totalB": 88.5,
+              "pointTo": "brotherhood"
+            }
+          ],
+          "criteriaAveragesA": [
+            8.83,
+            8.83,
+            8.75,
+            8.42,
+            8.58,
+            8.92,
+            8.33,
+            8.58,
+            9.25,
+            9.33
+          ],
+          "criteriaAveragesB": [
+            8.5,
+            8.42,
+            8.75,
+            8.5,
+            7.83,
+            7.83,
+            8.5,
+            8.25,
+            9.17,
+            9.08
+          ],
+          "avgTotalA": 87.82,
+          "avgTotalB": 84.83,
+          "fanVote": {
+            "pctA": 76,
+            "pctB": 24,
+            "votesA": 8197,
+            "votesB": 2629,
+            "pointTo": "brotherhood"
+          }
+        },
+        {
+          "n": 3,
+          "teamA": "jam-republic",
+          "teamB": "1-million",
+          "teamAName": "JAM REPUBLIC",
+          "teamBName": "1MILLION",
+          "pointsA": 1,
+          "pointsB": 6,
+          "winner": "1-million",
+          "judges": [
+            {
+              "judge": "Judges 1",
+              "name": "Haeni Kim",
+              "scoresA": [
+                9.5,
+                8,
+                7.5,
+                7,
+                7,
+                8.5,
+                7,
+                7.5,
+                9,
+                9
+              ],
+              "scoresB": [
+                7,
+                9.5,
+                7.5,
+                9,
+                7,
+                8.5,
+                9,
+                9,
+                10,
+                10
+              ],
+              "totalA": 80,
+              "totalB": 86.5,
+              "pointTo": "1-million"
+            },
+            {
+              "judge": "Judges 2",
+              "name": "Amari Marshall",
+              "scoresA": [
+                8,
+                8,
+                9,
+                7.5,
+                8.5,
+                9,
+                8.5,
+                8.5,
+                8.5,
+                9
+              ],
+              "scoresB": [
+                9,
+                9,
+                9,
+                9,
+                8.5,
+                8,
+                8.5,
+                8.5,
+                9,
+                9
+              ],
+              "totalA": 84.5,
+              "totalB": 87.5,
+              "pointTo": "1-million"
+            },
+            {
+              "judge": "Judges 3",
+              "name": "Cheyenne Kibblewhite",
+              "scoresA": [
+                9,
+                8.5,
+                9,
+                8.5,
+                8,
+                8.5,
+                8.5,
+                8,
+                8.5,
+                9
+              ],
+              "scoresB": [
+                9,
+                9,
+                8.5,
+                8.5,
+                9,
+                9,
+                9,
+                8.5,
+                9,
+                9
+              ],
+              "totalA": 85.5,
+              "totalB": 88.5,
+              "pointTo": "1-million"
+            },
+            {
+              "judge": "Judges 4",
+              "name": "Comfort Fedoke",
+              "scoresA": [
+                8.5,
+                9,
+                9,
+                8.5,
+                8,
+                8.5,
+                8.5,
+                8.5,
+                9,
+                9
+              ],
+              "scoresB": [
+                9,
+                8.5,
+                9,
+                9,
+                9,
+                9,
+                8.5,
+                9,
+                9,
+                9.5
+              ],
+              "totalA": 86.5,
+              "totalB": 89.5,
+              "pointTo": "1-million"
+            },
+            {
+              "judge": "Judges 5",
+              "name": "Gina Michael",
+              "scoresA": [
+                9,
+                8.5,
+                9.5,
+                8.5,
+                8.5,
+                8.5,
+                8.5,
+                8.5,
+                8,
+                9
+              ],
+              "scoresB": [
+                9,
+                9,
+                8.5,
+                8.5,
+                8.5,
+                8.5,
+                9,
+                8.5,
+                8.5,
+                9.5
+              ],
+              "totalA": 86.5,
+              "totalB": 87.5,
+              "pointTo": "1-million"
+            },
+            {
+              "judge": "Judges 6",
+              "name": "Nicolas Begin",
+              "scoresA": [
+                9,
+                9,
+                9,
+                8.5,
+                9,
+                8.5,
+                10,
+                9,
+                9,
+                9.5
+              ],
+              "scoresB": [
+                8,
+                9.5,
+                8.5,
+                8.5,
+                9,
+                9.5,
+                8.5,
+                9.5,
+                9.5,
+                9.5
+              ],
+              "totalA": 90.5,
+              "totalB": 90,
+              "pointTo": "jam-republic"
+            }
+          ],
+          "criteriaAveragesA": [
+            8.83,
+            8.5,
+            8.83,
+            8.08,
+            8.17,
+            8.58,
+            8.5,
+            8.33,
+            8.67,
+            9.08
+          ],
+          "criteriaAveragesB": [
+            8.5,
+            9.08,
+            8.5,
+            8.75,
+            8.5,
+            8.75,
+            8.75,
+            8.83,
+            9.17,
+            9.42
+          ],
+          "avgTotalA": 85.57,
+          "avgTotalB": 88.25,
+          "fanVote": {
+            "pctA": 41,
+            "pctB": 59,
+            "votesA": 4352,
+            "votesB": 6355,
+            "pointTo": "1-million"
+          }
+        }
+      ]
+    }
+  ],
+  "standings": [
+    {
+      "team": "brotherhood",
+      "teamName": "BROTHERHOOD",
+      "perEvent": {
+        "new-york": 14,
+        "vancouver": 14,
+        "sydney": 14,
+        "seoul": 14
+      },
+      "total": 56,
+      "rank": 1
+    },
+    {
+      "team": "1-million",
+      "teamName": "1MILLION",
+      "perEvent": {
+        "new-york": 0,
+        "vancouver": 7,
+        "sydney": 10,
+        "seoul": 11
+      },
+      "total": 28,
+      "rank": 2
+    },
+    {
+      "team": "royal-family",
+      "teamName": "ROYAL FAMILY",
+      "perEvent": {
+        "new-york": 9,
+        "vancouver": 3,
+        "sydney": 0,
+        "seoul": 10
+      },
+      "total": 22,
+      "rank": 3
+    },
+    {
+      "team": "grv",
+      "teamName": "GRV",
+      "perEvent": {
+        "new-york": 3,
+        "vancouver": 0,
+        "sydney": 12,
+        "seoul": 0
+      },
+      "total": 15,
+      "rank": 4
+    },
+    {
+      "team": "jam-republic",
+      "teamName": "JAM REPUBLIC",
+      "perEvent": {
+        "new-york": 1,
+        "vancouver": 12,
+        "sydney": 0,
+        "seoul": 1
+      },
+      "total": 14,
+      "rank": 5
+    },
+    {
+      "team": "quick-style",
+      "teamName": "QUICK STYLE",
+      "perEvent": {
+        "new-york": 9,
+        "vancouver": 0,
+        "sydney": 0,
+        "seoul": 0
+      },
+      "total": 9,
+      "rank": 6
+    }
+  ]
+}
