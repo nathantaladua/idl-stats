@@ -7,7 +7,7 @@ import {
   finalRoundSummary,
   TREND_METRICS,
 } from "../lib/stats.js";
-import { CriteriaRadar, TeamLineChart, useChartView, ChartToolbar } from "../charts.jsx";
+import { CriteriaRadar, TeamLineChart, useChartView, ChartToolbar, ChartFrame } from "../charts.jsx";
 import { Panel, TeamLogo, TeamChip, SectionNote } from "../components.jsx";
 
 const NONE = "—";
@@ -227,22 +227,23 @@ export default function Compare() {
             </label>
           </div>
           <ChartToolbar view={view} />
-          <TeamLineChart
-            rows={trend}
-            teamIds={picks}
-            height={300}
-            yDomain={view.domain}
-            yTickFmt={isPct ? (v) => `${Math.round(v * 100)}%` : isInt ? int : undefined}
-            valueFmt={
-              isPct
-                ? (v) => (v == null ? "–" : `${Math.round(v * 100)}%`)
-                : isInt
-                  ? (v) => (v == null ? "–" : int(v))
-                  : (v) => (v == null ? "–" : v.toFixed(1))
-            }
-            showDots={view.showDots}
-            showLines={view.showLines}
-          />
+          <ChartFrame view={view}>
+            <TeamLineChart
+              rows={trend}
+              teamIds={picks}
+              height={300}
+              yDomain={view.domain}
+              yTickFmt={isPct ? (v) => `${Math.round(v * 100)}%` : isInt ? int : undefined}
+              valueFmt={
+                isPct
+                  ? (v) => (v == null ? "–" : `${Math.round(v * 100)}%`)
+                  : isInt
+                    ? (v) => (v == null ? "–" : int(v))
+                    : (v) => (v == null ? "–" : v.toFixed(1))
+              }
+              showLines={view.showLines}
+            />
+          </ChartFrame>
           <SectionNote>
             Lines break where a team had no match that series (only three of six
             teams dance each night).

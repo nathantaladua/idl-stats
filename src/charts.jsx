@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -28,10 +28,10 @@ const Z_MAX = 10;
 /* --------------------------------------------------------- chart view state */
 
 /**
- * Shared per-chart controls: a zoomable / pannable Y axis (so the lines
- * visibly grow and shrink as the value window tightens) plus points / lines
- * visibility toggles. `values` is every plotted number, used to seed the
- * natural domain.
+ * Shared per-chart controls: a zoomable / pannable Y axis (so the lines and
+ * shapes visibly grow and shrink as the value window tightens) plus a lines
+ * on/off toggle. Points are always drawn. `values` is every plotted number,
+ * used to seed the natural domain.
  */
 export function useChartView(values, opts = {}) {
   const { pctScale = false, padFrac = 0.08 } = opts;
@@ -42,47 +42,36 @@ export function useChartView(values, opts = {}) {
   const base = [lo - pad, hi + pad];
 
   const [z, setZ] = useState(1);
-  const [pan, setPan] = useState(0);
-  const [showDots, setShowDots] = useState(true);
+  const [panRaw, setPanRaw] = useState(0);
   const [showLines, setShowLines] = useState(true);
 
+  const pan = Math.max(-1, Math.min(1, panRaw));
   const fullSpan = base[1] - base[0] || 1;
   const span = fullSpan / z;
   const mid = (base[0] + base[1]) / 2 + pan * (fullSpan - span) * 0.5;
   const domain = [mid - span / 2, mid + span / 2];
-
   const zoomed = z > 1.001;
-  const view = {
+
+  return {
     domain,
-    showDots,
-    showLines,
+    pan,
     zoomed,
+    showLines,
+    setPan: (v) => setPanRaw(Math.max(-1, Math.min(1, v))),
     zoomIn: () => setZ((v) => Math.min(Z_MAX, v * 1.5)),
     zoomOut: () => setZ((v) => Math.max(1, v / 1.5)),
-    panUp: () => setPan((v) => Math.min(1, v + 0.3)),
-    panDown: () => setPan((v) => Math.max(-1, v - 0.3)),
+    panUp: () => setPanRaw((v) => Math.min(1, v + 0.3)),
+    panDown: () => setPanRaw((v) => Math.max(-1, v - 0.3)),
     reset: () => {
       setZ(1);
-      setPan(0);
+      setPanRaw(0);
     },
-    toggleDots: () =>
-      setShowDots((d) => {
-        const nd = !d;
-        if (!nd && !showLines) setShowLines(true);
-        return nd;
-      }),
-    toggleLines: () =>
-      setShowLines((l) => {
-        const nl = !l;
-        if (!nl && !showDots) setShowDots(true);
-        return nl;
-      }),
+    toggleLines: () => setShowLines((l) => !l),
   };
-  return view;
 }
 
-/** Toolbar rendered in a chart panel's header. `line` enables the points/lines
- *  toggles (bar / radar charts pass line={false}). */
+/** Toolbar rendered in a chart panel's header. `line` shows the lines toggle
+ *  (bar / radar charts pass line={false}). */
 export function ChartToolbar({ view, line = true }) {
   return (
     <div className="chartbar">
@@ -108,11 +97,52 @@ export function ChartToolbar({ view, line = true }) {
           <button aria-pressed={view.showLines} onClick={view.toggleLines}>
             ╱ Lines
           </button>
-          <button aria-pressed={view.showDots} onClick={view.toggleDots}>
-            • Points
-          </button>
         </span>
       )}
+    </div>
+  );
+}
+
+/** Wrapper that lets you drag vertically on the plot to pan the Y-axis window
+ *  (only while zoomed). */
+export function ChartFrame({ view, children }) {
+  const box = useRef(null);
+  const drag = useRef(null);
+
+  const down = (e) => {
+    if (!view.zoomed) return;
+    drag.current = { y: e.clientY, pan: view.pan, h: box.current?.clientHeight || 320 };
+    try {
+      box.current.setPointerCapture(e.pointerId);
+    } catch {
+      /* noop */
+    }
+  };
+  const move = (e) => {
+    if (!drag.current) return;
+    const { y, pan, h } = drag.current;
+    // drag down → pull the graph down → higher values slide in from the top
+    view.setPan(pan + ((e.clientY - y) / h) * 2);
+  };
+  const up = (e) => {
+    drag.current = null;
+    try {
+      box.current.releasePointerCapture(e.pointerId);
+    } catch {
+      /* noop */
+    }
+  };
+
+  return (
+    <div
+      ref={box}
+      className={"chartframe" + (view.zoomed ? " is-grab" : "")}
+      onPointerDown={down}
+      onPointerMove={move}
+      onPointerUp={up}
+      onPointerCancel={up}
+    >
+      {children}
     </div>
   );
 }
@@ -161,7 +191,6 @@ export function TeamLineChart({
   valueFmt = (v) => (v == null ? "–" : v.toFixed(1)),
   labelName = "Series",
   connectNulls = true,
-  showDots = true,
   showLines = true,
 }) {
   return (
@@ -201,7 +230,7 @@ export function TeamLineChart({
               name={teamName(id)}
               stroke={showLines ? color(id) : "transparent"}
               strokeWidth={showLines ? 2 : 0}
-              dot={showDots ? <Dot /> : false}
+              dot={<Dot />}
               activeDot={{ r: 4, fill: color(id), stroke: "#09131d" }}
               connectNulls={connectNulls}
               isAnimationActive={false}

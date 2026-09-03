@@ -18,8 +18,9 @@ colours belong to their respective teams and to the IDL.
 | **Matches** | Round 1's three matches with judge-by-judge points, fan vote, per-criterion averages and an expandable full 6-judge scorecard — then the Round 2 final |
 
 Every line/bar/radar chart has a toolbar to **zoom and pan the Y axis** (the
-lines and shapes grow and shrink as the value window tightens) and to **toggle
-the lines and the points** independently.
+lines and shapes grow and shrink as the value window tightens); once zoomed you
+can also **drag the chart** to slide the value window. A **Lines** toggle hides
+the connecting lines; the points always stay.
 
 ### Terminology
 

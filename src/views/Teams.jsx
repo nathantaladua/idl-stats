@@ -1,7 +1,7 @@
 import React from "react";
 import { teams, team, color, teamName, nf, CRITERIA_SHORT, CRITERIA } from "../lib/data.js";
 import { teamSummary, rosterNationalities, finalRoundSummary } from "../lib/stats.js";
-import { CriteriaRadar, useChartView, ChartToolbar } from "../charts.jsx";
+import { CriteriaRadar, useChartView, ChartToolbar, ChartFrame } from "../charts.jsx";
 import { StatTile, Panel, TeamChip, TeamLogo, FormStrip, SectionNote } from "../components.jsx";
 
 function TeamList({ go }) {
@@ -105,12 +105,14 @@ function TeamDetail({ param, go }) {
       <div className="grid grid--2" style={{ marginTop: 14 }}>
         <Panel title="Criteria profile" hint="season avg /10">
           <ChartToolbar view={radar} line={false} />
-          <CriteriaRadar
-            labels={CRITERIA_SHORT}
-            series={[{ id: param, values: s.critByIdx }]}
-            height={330}
-            domain={radar.domain}
-          />
+          <ChartFrame view={radar}>
+            <CriteriaRadar
+              labels={CRITERIA_SHORT}
+              series={[{ id: param, values: s.critByIdx }]}
+              height={330}
+              domain={radar.domain}
+            />
+          </ChartFrame>
           <SectionNote>
             Strongest: {bestCrit} ({nf(s.critByIdx[s.bestCritIdx], 2)}) · weakest: {worstCrit} (
             {nf(s.critByIdx[s.worstCritIdx], 2)}).

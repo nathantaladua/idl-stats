@@ -1,7 +1,7 @@
 import React from "react";
 import { data, events, nf, int } from "../lib/data.js";
 import { allSummaries, pointsProgression, judgeTendencies } from "../lib/stats.js";
-import { TeamLineChart, useChartView, ChartToolbar } from "../charts.jsx";
+import { TeamLineChart, useChartView, ChartToolbar, ChartFrame } from "../charts.jsx";
 import { Panel, TeamChip, FormStrip, SectionNote } from "../components.jsx";
 
 export default function Overview({ go }) {
@@ -17,7 +17,15 @@ export default function Overview({ go }) {
   return (
     <>
       <section className="hero">
-        <img className="hero__logo" src="assets/idl-icon.png" alt="International Dance League" />
+        <a
+          className="hero__logo"
+          href="https://www.idl.pro"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="International Dance League — idl.pro"
+        >
+          <img src="assets/idl-lettermark.png" alt="IDL" />
+        </a>
         <div className="hero__body">
           <p className="hero__kicker">Unofficial statistics · 2026 season</p>
           <h1>
@@ -28,7 +36,11 @@ export default function Overview({ go }) {
           <p className="hero__lede">
             Six pro teams. {events.length} of 6 series danced. {nMatches} head-to-head
             matches judged across ten criteria, plus every final round. All of it
-            scraped straight from the public scorecards on idl.pro.
+            scraped straight from the public scorecards on{" "}
+            <a href="https://www.idl.pro" target="_blank" rel="noreferrer">
+              idl.pro
+            </a>
+            .
           </p>
         </div>
       </section>
@@ -84,16 +96,17 @@ export default function Overview({ go }) {
         <h2>Points race</h2>
         <Panel hint="cumulative series points after each series">
           <ChartToolbar view={view} />
-          <TeamLineChart
-            rows={prog}
-            teamIds={teamIds}
-            height={340}
-            yDomain={view.domain}
-            yTickFmt={int}
-            valueFmt={(v) => `${int(v)} pts`}
-            showDots={view.showDots}
-            showLines={view.showLines}
-          />
+          <ChartFrame view={view}>
+            <TeamLineChart
+              rows={prog}
+              teamIds={teamIds}
+              height={340}
+              yDomain={view.domain}
+              yTickFmt={int}
+              valueFmt={(v) => `${int(v)} pts`}
+              showLines={view.showLines}
+            />
+          </ChartFrame>
         </Panel>
       </div>
 

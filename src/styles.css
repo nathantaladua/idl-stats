@@ -181,9 +181,22 @@ main {
   margin-bottom: 8px;
 }
 .hero__logo {
-  width: clamp(140px, 22vw, 240px);
-  height: auto;
   flex: none;
+  display: block;
+  width: clamp(180px, 26vw, 300px);
+}
+.hero__logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.hero__lede a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-dim);
+}
+.hero__lede a:hover {
+  border-bottom-color: var(--accent);
 }
 .hero__kicker {
   margin: 0 0 10px;
@@ -637,8 +650,8 @@ select,
 
 /* brand / team logos */
 .brand__logo {
-  height: 30px;
-  width: 30px;
+  height: 20px;
+  width: auto;
   object-fit: contain;
   display: block;
 }
@@ -698,6 +711,13 @@ select,
 .chartbar__grp button[aria-pressed="true"] {
   color: var(--accent-ink);
   background: var(--accent);
+}
+.chartframe.is-grab {
+  cursor: grab;
+  touch-action: none;
+}
+.chartframe.is-grab:active {
+  cursor: grabbing;
 }
 
 /* compare: dense two-column head */

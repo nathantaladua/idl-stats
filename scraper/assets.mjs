@@ -8,6 +8,7 @@
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { execFileSync } from "node:child_process";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, "../public/assets");
@@ -49,6 +50,21 @@ async function main() {
   for (const [name, file] of Object.entries(MISC)) {
     await grab(`${CDN}${file}${name.endsWith(".png") ? "?width=360" : ""}`, resolve(OUT, name));
   }
+
+  // The IDL icon is a stacked lockup ("IDL" over "INTERNATIONAL DANCE LEAGUE").
+  // Crop it to just the "IDL" lettermark for the hero / masthead. macOS `sips`
+  // only — if it's missing, the committed idl-lettermark.png stays as-is.
+  const icon = resolve(OUT, "idl-icon.png");
+  const mark = resolve(OUT, "idl-lettermark.png");
+  try {
+    execFileSync("sips", ["-c", "116", "300", "--cropOffset", "78", "30", icon, "--out", mark], {
+      stdio: "ignore",
+    });
+    console.log("  idl-lettermark.png  (cropped from idl-icon.png)");
+  } catch {
+    console.log("  idl-lettermark.png  (skipped — needs macOS `sips`; keeping committed copy)");
+  }
+
   console.log("\n✓ assets written to public/assets/");
 }
 

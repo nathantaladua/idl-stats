@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { teams, color, teamName, CRITERIA_SHORT, int } from "../lib/data.js";
 import { TREND_METRICS, metricByEvent, allSummaries } from "../lib/stats.js";
-import { TeamLineChart, RankBar, useChartView, ChartToolbar } from "../charts.jsx";
+import { TeamLineChart, RankBar, useChartView, ChartToolbar, ChartFrame } from "../charts.jsx";
 import { Panel, SectionNote } from "../components.jsx";
 
 export default function Trends() {
@@ -104,16 +104,17 @@ export default function Trends() {
 
       <Panel title={metric.label} hint={`by series · ${metric.unit}`}>
         <ChartToolbar view={view} />
-        <TeamLineChart
-          rows={rows}
-          teamIds={shown}
-          height={360}
-          yDomain={view.domain}
-          yTickFmt={yTickFmt}
-          valueFmt={fmt}
-          showDots={view.showDots}
-          showLines={view.showLines}
-        />
+        <ChartFrame view={view}>
+          <TeamLineChart
+            rows={rows}
+            teamIds={shown}
+            height={360}
+            yDomain={view.domain}
+            yTickFmt={yTickFmt}
+            valueFmt={fmt}
+            showLines={view.showLines}
+          />
+        </ChartFrame>
       </Panel>
 
       {rank && (
@@ -121,7 +122,9 @@ export default function Trends() {
           <h2>Season to date</h2>
           <Panel hint={metric.label}>
             <ChartToolbar view={rankView} line={false} />
-            <RankBar data={rank} domain={rankView.domain} valueFmt={fmt} yTickFmt={yTickFmt} />
+            <ChartFrame view={rankView}>
+              <RankBar data={rank} domain={rankView.domain} valueFmt={fmt} yTickFmt={yTickFmt} />
+            </ChartFrame>
           </Panel>
         </div>
       )}
