@@ -4,7 +4,7 @@ export const data = raw;
 
 export const CRITERIA = raw.criteria;
 export const CRITERIA_SHORT = [
-  "Choreo",
+  "Complexity",
   "Staging",
   "Musicality",
   "Creativity",

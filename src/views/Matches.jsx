@@ -153,6 +153,47 @@ function Match({ match }) {
   );
 }
 
+const RANK_TAG = { 1: "🥇 1st", 2: "🥈 2nd", 3: "🥉 3rd" };
+
+function FinalRound({ fr }) {
+  const top = fr.teams[0].score;
+  return (
+    <div className="panel" style={{ borderLeft: "3px solid var(--accent)" }}>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 10 }}>
+        <h2>Final round</h2>
+        <span className="tiny">round 2 · the three match winners, re-scored</span>
+      </div>
+      <table className="data" style={{ marginTop: 10 }}>
+        <thead>
+          <tr>
+            <th className="rank-cell" />
+            <th>Team</th>
+            <th>Score</th>
+            <th>Gap to 1st</th>
+          </tr>
+        </thead>
+        <tbody>
+          {fr.teams.map((t) => (
+            <tr key={t.team}>
+              <td className="rank-cell">{RANK_TAG[t.rank] || t.rank}</td>
+              <td>
+                <TeamChip id={t.team} />
+              </td>
+              <td className="num" style={{ color: color(t.team) }}>
+                {nf(t.score, 2)}
+              </td>
+              <td className="num muted">{t.rank === 1 ? "—" : `−${nf(top - t.score, 2)}`}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {fr.scorecard ? null : (
+        <SectionNote>idl.pro publishes only the three final scores — no per-judge breakdown.</SectionNote>
+      )}
+    </div>
+  );
+}
+
 export default function Matches() {
   const [evId, setEvId] = useState(events[events.length - 1].id);
   const ev = events.find((e) => e.id === evId);
@@ -177,27 +218,21 @@ export default function Matches() {
         </div>
       </div>
 
-      <Panel hint={`${ev.dateISO || ""} · ${ev.venue || ""}`} title={`Series ${ev.series} — ${ev.name}`}>
-        <div className="tiny" style={{ marginBottom: 10 }}>Final-round result</div>
-        <div className="grid grid--tiles">
-          {ev.podium.map((p) => (
-            <div key={p.team} className="tile" style={{ borderLeftColor: color(p.team) }}>
-              <div className="tile__label">
-                {p.rank === 1 ? "🥇 Winner" : p.rank === 2 ? "🥈 2nd" : "🥉 3rd"}
-              </div>
-              <div className="tile__value" style={{ fontSize: "1.3rem" }}>
-                <TeamChip id={p.team} />
-              </div>
-              <div className="tile__sub">{nf(p.score, 2)} score</div>
-            </div>
-          ))}
-        </div>
+      <Panel
+        hint={`${ev.dateISO || ""} · ${ev.venue || ""}`}
+        title={`Series ${ev.series} — ${ev.name}`}
+      >
+        <p className="tiny" style={{ margin: 0 }}>
+          Round 1: three head-to-head matches (6 judges + fan vote, 0–7). Round 2:
+          the three winners dance again for the podium.
+        </p>
       </Panel>
 
       <div className="grid" style={{ marginTop: 14, gap: 14 }}>
         {ev.matches.map((m) => (
           <Match key={m.n} match={m} />
         ))}
+        {ev.finalRound && <FinalRound fr={ev.finalRound} />}
       </div>
     </>
   );

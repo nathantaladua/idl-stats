@@ -444,6 +444,58 @@ async function main() {
       record.matches.push(match);
     }
 
+    /* ---- final round (the "Final Match" tab: the three match winners
+       perform again; idl.pro publishes the three aggregate scores, and a
+       per-judge scoresheet if one exists) ---- */
+    const finalScores = new Map(record.podium.map((p) => [p.team, p]));
+    const fr = {
+      teams: record.podium
+        .slice()
+        .sort((a, b) => a.rank - b.rank)
+        .map((p) => ({ team: p.team, teamName: p.teamName, rank: p.rank, score: p.score })),
+      scorecard: null,
+    };
+    const matchFingerprints = new Set(
+      record.matches.map((m) => JSON.stringify(m.judges.map((j) => [j.name, j.scoresA, j.scoresB])))
+    );
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const tagged = await page.evaluate(() => {
+        const txt = (el) => (el ? el.textContent.replace(/\s+/g, " ").trim() : "");
+        const tab = [...document.querySelectorAll("div,button,a")].find(
+          (e) => txt(e) === "Final Match" && e.offsetParent !== null && e.childElementCount <= 1
+        );
+        if (!tab) return false;
+        tab.setAttribute("data-idl-tab", "1");
+        tab.scrollIntoView({ block: "center" });
+        return true;
+      });
+      if (!tagged) break;
+      try {
+        await page.click('[data-idl-tab="1"]', { delay: 30 });
+      } catch {
+        /* ignore */
+      }
+      await page.evaluate(() => {
+        const t = document.querySelector('[data-idl-tab="1"]');
+        if (t) t.removeAttribute("data-idl-tab");
+      });
+      await sleep(1000 + attempt * 500);
+      const sc = await page.evaluate(activeScorecard);
+      const fp = JSON.stringify(sc.judges.map((j) => [j.name, j.a, j.b]));
+      if (sc.judges.length && !matchFingerprints.has(fp)) {
+        fr.scorecard = {
+          judges: sc.judges.map((j) => ({ judge: j.judge, name: j.name, scores: j.a, total: j.totalA })),
+          criteriaAverages: sc.averages ? sc.averages.a : null,
+        };
+        break;
+      }
+    }
+    record.finalRound = fr;
+    console.log(
+      `  final round: ${fr.teams.map((t) => `${t.teamName} ${t.score}`).join(" · ")}` +
+        (fr.scorecard ? " (+ scoresheet)" : " (scores only)")
+    );
+
     data.events.push(record);
   }
 

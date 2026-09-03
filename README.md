@@ -13,11 +13,13 @@ colours belong to their respective teams and to the IDL.
 |------|----------|
 | **Overview** | Season standings with per-series points and form, cumulative points race, judge-panel tendencies |
 | **Trends** | Any metric (series points, avg judge score, match/judge win rate, fan-vote share, point margin) plotted series by series, with a season-to-date ranking and a per-criterion score table |
-| **Compare** | Two teams head to head — record, every shared metric as a diverging bar, an overlaid 10-criteria radar, and a series-by-series line |
-| **Teams** | Per-team profile: record, average scores, podiums, criteria radar, every match, and roster composition by nationality |
-| **Matches** | Every match with judge-by-judge points, fan vote, per-criterion averages, and an expandable full 6-judge scorecard |
+| **Compare** | **Two or three teams** — pairwise head-to-head records, every shared metric side by side, an overlaid 10-criteria radar, a final-round record block, and a series-by-series line |
+| **Teams** | Per-team profile: record, average scores, podiums, final-round record, criteria radar, every match, and roster composition by nationality |
+| **Matches** | Round 1's three matches with judge-by-judge points, fan vote, per-criterion averages and an expandable full 6-judge scorecard — then the Round 2 final |
 
-Every chart can be zoomed (+/− buttons or ⌘/Ctrl-scroll) and panned (drag).
+Every line/bar/radar chart has a toolbar to **zoom and pan the Y axis** (the
+lines and shapes grow and shrink as the value window tightens) and to **toggle
+the lines and the points** independently.
 
 ### Terminology
 
@@ -32,8 +34,10 @@ Every chart can be zoomed (+/− buttons or ⌘/Ctrl-scroll) and panned (drag).
 ## Data
 
 `src/data/idl.json` is a committed snapshot scraped from idl.pro. It carries the
-season standings, each series' final-round podium, and all 12 matches with full
-scorecards (6 judges × 10 criteria × 2 teams), fan-vote splits, and rosters.
+season standings, all 12 Round 1 matches with full scorecards (6 judges × 10
+criteria × 2 teams) and fan-vote splits, the Round 2 final result for each series
+(three scores only — idl.pro publishes no per-judge breakdown for the final), and
+team rosters.
 
 ### Refreshing the data
 

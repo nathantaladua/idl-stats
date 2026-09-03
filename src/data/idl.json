@@ -2,7 +2,7 @@
   "meta": {
     "source": "https://www.idl.pro",
     "season": 2026,
-    "scrapedAt": "2026-09-03T20:04:38.978Z",
+    "scrapedAt": "2026-09-03T22:13:24.099Z",
     "note": "Unofficial fan project. All statistics scraped from idl.pro."
   },
   "criteria": [
@@ -1789,7 +1789,30 @@
             "pointTo": "jam-republic"
           }
         }
-      ]
+      ],
+      "finalRound": {
+        "teams": [
+          {
+            "team": "brotherhood",
+            "teamName": "BROTHERHOOD",
+            "rank": 1,
+            "score": 99.28
+          },
+          {
+            "team": "quick-style",
+            "teamName": "QUICK STYLE",
+            "rank": 2,
+            "score": 89.97
+          },
+          {
+            "team": "royal-family",
+            "teamName": "ROYAL FAMILY",
+            "rank": 3,
+            "score": 86.25
+          }
+        ],
+        "scorecard": null
+      }
     },
     {
       "id": "vancouver",
@@ -2512,7 +2535,30 @@
             "pointTo": "brotherhood"
           }
         }
-      ]
+      ],
+      "finalRound": {
+        "teams": [
+          {
+            "team": "brotherhood",
+            "teamName": "BROTHERHOOD",
+            "rank": 1,
+            "score": 93.81
+          },
+          {
+            "team": "jam-republic",
+            "teamName": "JAM REPUBLIC",
+            "rank": 2,
+            "score": 86.31
+          },
+          {
+            "team": "1-million",
+            "teamName": "1MILLION",
+            "rank": 3,
+            "score": 85.54
+          }
+        ],
+        "scorecard": null
+      }
     },
     {
       "id": "sydney",
@@ -3235,7 +3281,30 @@
             "pointTo": "brotherhood"
           }
         }
-      ]
+      ],
+      "finalRound": {
+        "teams": [
+          {
+            "team": "brotherhood",
+            "teamName": "BROTHERHOOD",
+            "rank": 1,
+            "score": 93.19
+          },
+          {
+            "team": "grv",
+            "teamName": "GRV",
+            "rank": 2,
+            "score": 90.77
+          },
+          {
+            "team": "1-million",
+            "teamName": "1MILLION",
+            "rank": 3,
+            "score": 89.37
+          }
+        ],
+        "scorecard": null
+      }
     },
     {
       "id": "seoul",
@@ -3958,7 +4027,30 @@
             "pointTo": "1-million"
           }
         }
-      ]
+      ],
+      "finalRound": {
+        "teams": [
+          {
+            "team": "brotherhood",
+            "teamName": "BROTHERHOOD",
+            "rank": 1,
+            "score": 92.25
+          },
+          {
+            "team": "1-million",
+            "teamName": "1MILLION",
+            "rank": 2,
+            "score": 89.84
+          },
+          {
+            "team": "royal-family",
+            "teamName": "ROYAL FAMILY",
+            "rank": 3,
+            "score": 87.91
+          }
+        ],
+        "scorecard": null
+      }
     }
   ],
   "standings": [

@@ -194,6 +194,25 @@ export function headToHead(aId, bId) {
   };
 }
 
+/** A team's record in the final round (the "round 2" three-team dance-off
+ *  that sets each series' podium). idl.pro publishes the three scores only. */
+export function finalRoundSummary(teamId) {
+  const apps = [];
+  for (const ev of events) {
+    const fr = ev.finalRound;
+    if (!fr) continue;
+    const e = fr.teams.find((t) => t.team === teamId);
+    if (e) apps.push({ eventId: ev.id, eventName: ev.name, rank: e.rank, score: e.score });
+  }
+  return {
+    appearances: apps.length,
+    wins: apps.filter((a) => a.rank === 1).length,
+    bestRank: apps.length ? Math.min(...apps.map((a) => a.rank)) : null,
+    avgScore: apps.length ? mean(apps.map((a) => a.score)) : null,
+    apps,
+  };
+}
+
 /** Nationality breakdown of a roster. */
 export function rosterNationalities(teamId) {
   const counts = {};

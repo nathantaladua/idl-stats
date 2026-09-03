@@ -170,6 +170,47 @@ main {
 .page-head {
   margin-bottom: 22px;
 }
+
+/* hero */
+.hero {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  padding: 30px 0 40px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 8px;
+}
+.hero__logo {
+  width: clamp(140px, 22vw, 240px);
+  height: auto;
+  flex: none;
+}
+.hero__kicker {
+  margin: 0 0 10px;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 800;
+}
+.hero h1 {
+  font-size: clamp(2rem, 5.2vw, 3.6rem);
+  line-height: 0.98;
+}
+.hero__lede {
+  margin: 16px 0 0;
+  max-width: 60ch;
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+}
+@media (max-width: 720px) {
+  .hero {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 16px 0 28px;
+  }
+}
 .page-head p {
   color: var(--text-secondary);
   max-width: 62ch;
@@ -519,6 +560,81 @@ select,
   letter-spacing: 0.1em;
 }
 
+/* multi-team compare (2 or 3) */
+.mtable {
+  display: flex;
+  flex-direction: column;
+}
+.mrow {
+  display: grid;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.mrow__label {
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.mrow__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mrow__val {
+  font-size: 0.98rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.mrow__track {
+  position: relative;
+  height: 6px;
+  background: var(--surface-2);
+}
+.mrow__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.h2h-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+}
+.h2h {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  background: var(--surface-1);
+}
+.h2h__score {
+  font-size: 1.7rem;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: center;
+}
+.h2h__meetings {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 14px;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+
 /* brand / team logos */
 .brand__logo {
   height: 30px;
@@ -543,63 +659,45 @@ select,
   max-width: 120px;
 }
 
-/* zoomable chart shell */
-.zoom {
-  position: relative;
-  overflow: hidden;
-  touch-action: none;
-}
-.zoom__view {
-  transform-origin: 0 0;
-  will-change: transform;
-}
-.zoom.is-zoomed .zoom__view {
-  cursor: grab;
-}
-.zoom.is-panning .zoom__view {
-  cursor: grabbing;
-}
-.zoom__ctl {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 3;
+/* per-chart control toolbar (Y-axis zoom + points/lines toggles) */
+.chartbar {
   display: flex;
-  border: 1px solid var(--line-strong);
-  background: color-mix(in srgb, var(--bg-deep) 88%, transparent);
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+  justify-content: flex-end;
 }
-.zoom__ctl button {
+.chartbar__grp {
+  display: inline-flex;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-2);
+}
+.chartbar__grp button {
   background: none;
   border: none;
   color: var(--text-secondary);
-  width: 28px;
+  min-width: 30px;
   height: 26px;
-  font-size: 0.85rem;
+  padding: 0 8px;
+  font-size: 0.72rem;
   font-weight: 800;
+  letter-spacing: 0.04em;
   line-height: 1;
-  display: grid;
-  place-items: center;
+  text-transform: uppercase;
 }
-.zoom__ctl button + button {
+.chartbar__grp button + button {
   border-left: 1px solid var(--line-strong);
 }
-.zoom__ctl button:hover:not(:disabled) {
+.chartbar__grp button:hover:not(:disabled) {
   color: var(--text-primary);
-  background: var(--surface-2);
+  background: var(--surface-1);
 }
-.zoom__ctl button:disabled {
-  opacity: 0.35;
+.chartbar__grp button:disabled {
+  opacity: 0.3;
 }
-.zoom__hint {
-  position: absolute;
-  left: 8px;
-  bottom: 6px;
-  z-index: 3;
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  pointer-events: none;
+.chartbar__grp button[aria-pressed="true"] {
+  color: var(--accent-ink);
+  background: var(--accent);
 }
 
 /* compare: dense two-column head */

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -23,99 +23,101 @@ import { ChartTooltip } from "./components.jsx";
 
 const AXIS = { stroke: "#33404d" };
 const GRID = "#1c2732";
+const Z_MAX = 10;
+
+/* --------------------------------------------------------- chart view state */
 
 /**
- * Wraps a chart in a pan / zoom viewport. Zoom with the +/- buttons or
- * ⌘/Ctrl + scroll; drag to pan once zoomed; ⟳ resets.
+ * Shared per-chart controls: a zoomable / pannable Y axis (so the lines
+ * visibly grow and shrink as the value window tightens) plus points / lines
+ * visibility toggles. `values` is every plotted number, used to seed the
+ * natural domain.
  */
-export function Zoomable({ children, min = 1, max = 6 }) {
-  const [t, setT] = useState({ z: 1, x: 0, y: 0 });
-  const box = useRef(null);
-  const drag = useRef(null);
-  const clampZ = (z) => Math.min(max, Math.max(min, z));
+export function useChartView(values, opts = {}) {
+  const { pctScale = false, padFrac = 0.08 } = opts;
+  const clean = values.filter((v) => v != null && !Number.isNaN(v));
+  const lo = clean.length ? Math.min(...clean) : 0;
+  const hi = clean.length ? Math.max(...clean) : 1;
+  const pad = (hi - lo) * padFrac || (pctScale ? 0.04 : 1);
+  const base = [lo - pad, hi + pad];
 
-  const zoomAt = useCallback((factor, cx, cy) => {
-    setT((s) => {
-      const z = clampZ(s.z * factor);
-      if (z === s.z) return s;
-      const k = z / s.z;
-      let x = cx - k * (cx - s.x);
-      let y = cy - k * (cy - s.y);
-      if (z <= min) {
-        x = 0;
-        y = 0;
-      }
-      return { z, x, y };
-    });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const [z, setZ] = useState(1);
+  const [pan, setPan] = useState(0);
+  const [showDots, setShowDots] = useState(true);
+  const [showLines, setShowLines] = useState(true);
 
-  const onWheel = (e) => {
-    if (!(e.ctrlKey || e.metaKey)) return; // leave normal page scroll alone
-    e.preventDefault();
-    const r = box.current.getBoundingClientRect();
-    zoomAt(e.deltaY < 0 ? 1.18 : 1 / 1.18, e.clientX - r.left, e.clientY - r.top);
-  };
+  const fullSpan = base[1] - base[0] || 1;
+  const span = fullSpan / z;
+  const mid = (base[0] + base[1]) / 2 + pan * (fullSpan - span) * 0.5;
+  const domain = [mid - span / 2, mid + span / 2];
 
-  const onPointerDown = (e) => {
-    if (t.z <= 1) return;
-    drag.current = { px: e.clientX, py: e.clientY, x: t.x, y: t.y };
-    e.currentTarget.setPointerCapture(e.pointerId);
+  const zoomed = z > 1.001;
+  const view = {
+    domain,
+    showDots,
+    showLines,
+    zoomed,
+    zoomIn: () => setZ((v) => Math.min(Z_MAX, v * 1.5)),
+    zoomOut: () => setZ((v) => Math.max(1, v / 1.5)),
+    panUp: () => setPan((v) => Math.min(1, v + 0.3)),
+    panDown: () => setPan((v) => Math.max(-1, v - 0.3)),
+    reset: () => {
+      setZ(1);
+      setPan(0);
+    },
+    toggleDots: () =>
+      setShowDots((d) => {
+        const nd = !d;
+        if (!nd && !showLines) setShowLines(true);
+        return nd;
+      }),
+    toggleLines: () =>
+      setShowLines((l) => {
+        const nl = !l;
+        if (!nl && !showDots) setShowDots(true);
+        return nl;
+      }),
   };
-  const onPointerMove = (e) => {
-    if (!drag.current) return;
-    setT((s) => ({
-      ...s,
-      x: drag.current.x + (e.clientX - drag.current.px),
-      y: drag.current.y + (e.clientY - drag.current.py),
-    }));
-  };
-  const onPointerUp = (e) => {
-    drag.current = null;
-    try {
-      e.currentTarget.releasePointerCapture(e.pointerId);
-    } catch {
-      /* noop */
-    }
-  };
+  return view;
+}
 
-  const btnZoom = (factor) => {
-    const r = box.current.getBoundingClientRect();
-    zoomAt(factor, r.width / 2, r.height / 2);
-  };
-  const reset = () => setT({ z: 1, x: 0, y: 0 });
-  const zoomed = t.z > 1.001;
-
+/** Toolbar rendered in a chart panel's header. `line` enables the points/lines
+ *  toggles (bar / radar charts pass line={false}). */
+export function ChartToolbar({ view, line = true }) {
   return (
-    <div
-      className={"zoom" + (zoomed ? " is-zoomed" : "")}
-      ref={box}
-      onWheel={onWheel}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onDoubleClick={reset}
-    >
-      <div className="zoom__ctl">
-        <button type="button" onClick={() => btnZoom(1 / 1.4)} disabled={!zoomed} aria-label="Zoom out">
+    <div className="chartbar">
+      <span className="chartbar__grp" role="group" aria-label="Y-axis zoom">
+        <button onClick={view.zoomOut} disabled={!view.zoomed} aria-label="Zoom Y out">
           −
         </button>
-        <button type="button" onClick={reset} disabled={!zoomed} aria-label="Reset zoom">
+        <button onClick={view.reset} disabled={!view.zoomed} aria-label="Reset Y axis">
           ⟳
         </button>
-        <button type="button" onClick={() => btnZoom(1.4)} disabled={t.z >= max} aria-label="Zoom in">
+        <button onClick={view.zoomIn} aria-label="Zoom Y in">
           +
         </button>
-      </div>
-      {zoomed && <div className="zoom__hint">drag to pan · dbl-click to reset</div>}
-      <div
-        className="zoom__view"
-        style={{ transform: `translate(${t.x}px, ${t.y}px) scale(${t.z})` }}
-      >
-        {children}
-      </div>
+        <button onClick={view.panUp} disabled={!view.zoomed} aria-label="Pan Y up">
+          ↑
+        </button>
+        <button onClick={view.panDown} disabled={!view.zoomed} aria-label="Pan Y down">
+          ↓
+        </button>
+      </span>
+      {line && (
+        <span className="chartbar__grp" role="group" aria-label="Series display">
+          <button aria-pressed={view.showLines} onClick={view.toggleLines}>
+            ╱ Lines
+          </button>
+          <button aria-pressed={view.showDots} onClick={view.toggleDots}>
+            • Points
+          </button>
+        </span>
+      )}
     </div>
   );
 }
+
+/* -------------------------------------------------------------------- marks */
 
 function Dot({ cx, cy, stroke }) {
   if (cx == null || cy == null) return null;
@@ -147,6 +149,8 @@ function makeEndLabel(rows, id, abbr) {
   };
 }
 
+/* ------------------------------------------------------------------- charts */
+
 /** Multi-team line chart over the season's events. */
 export function TeamLineChart({
   rows,
@@ -157,6 +161,8 @@ export function TeamLineChart({
   valueFmt = (v) => (v == null ? "–" : v.toFixed(1)),
   labelName = "Series",
   connectNulls = true,
+  showDots = true,
+  showLines = true,
 }) {
   return (
     <div className="chart">
@@ -174,6 +180,7 @@ export function TeamLineChart({
             tickLine={false}
             axisLine={AXIS}
             width={54}
+            allowDataOverflow
             tick={{ fill: "#61707c", fontSize: 11 }}
             tickFormatter={yTickFmt}
           />
@@ -192,14 +199,14 @@ export function TeamLineChart({
               type="linear"
               dataKey={id}
               name={teamName(id)}
-              stroke={color(id)}
-              strokeWidth={2}
-              dot={<Dot />}
+              stroke={showLines ? color(id) : "transparent"}
+              strokeWidth={showLines ? 2 : 0}
+              dot={showDots ? <Dot /> : false}
               activeDot={{ r: 4, fill: color(id), stroke: "#09131d" }}
               connectNulls={connectNulls}
               isAnimationActive={false}
               label={
-                teamIds.length > 1 && teamIds.length <= 3
+                showLines && teamIds.length > 1 && teamIds.length <= 3
                   ? makeEndLabel(rows, id, teamName(id).split(" ")[0].slice(0, 9))
                   : undefined
               }
@@ -211,7 +218,7 @@ export function TeamLineChart({
   );
 }
 
-/** Radar of the 10 judging criteria for one or two teams. */
+/** Radar of the 10 judging criteria for up to three teams. */
 export function CriteriaRadar({ series, labels, height = 340, domain = [7, 10] }) {
   const rows = labels.map((label, i) => {
     const row = { label };
@@ -223,22 +230,17 @@ export function CriteriaRadar({ series, labels, height = 340, domain = [7, 10] }
       <ResponsiveContainer width="100%" height={height}>
         <RadarChart data={rows} outerRadius="72%">
           <PolarGrid stroke={GRID} />
-          <PolarAngleAxis
-            dataKey="label"
-            tick={{ fill: "#9aa4ac", fontSize: 10 }}
-          />
+          <PolarAngleAxis dataKey="label" tick={{ fill: "#9aa4ac", fontSize: 10 }} />
           <PolarRadiusAxis
             angle={90}
             domain={domain}
+            allowDataOverflow
+            tickFormatter={(v) => v.toFixed(1)}
             tick={{ fill: "#61707c", fontSize: 9 }}
             stroke={GRID}
           />
-          <Tooltip
-            content={<ChartTooltip fmt={(v) => (v == null ? "–" : v.toFixed(2))} />}
-          />
-          <Legend
-            formatter={(v) => <span style={{ color: "#9aa4ac", fontSize: 11 }}>{v}</span>}
-          />
+          <Tooltip content={<ChartTooltip fmt={(v) => (v == null ? "–" : v.toFixed(2))} />} />
+          <Legend formatter={(v) => <span style={{ color: "#9aa4ac", fontSize: 11 }}>{v}</span>} />
           {series.map((s) => (
             <Radar
               key={s.id}
@@ -246,7 +248,7 @@ export function CriteriaRadar({ series, labels, height = 340, domain = [7, 10] }
               dataKey={s.id}
               stroke={color(s.id)}
               fill={color(s.id)}
-              fillOpacity={series.length > 1 ? 0.15 : 0.28}
+              fillOpacity={series.length > 1 ? 0.12 : 0.28}
               strokeWidth={2}
               isAnimationActive={false}
             />
@@ -258,13 +260,7 @@ export function CriteriaRadar({ series, labels, height = 340, domain = [7, 10] }
 }
 
 /** Bar ranking of teams by a single metric, with direct value labels. */
-export function RankBar({
-  data: rows,
-  valueFmt = (v) => v.toFixed(1),
-  yTickFmt,
-  height = 260,
-  domain,
-}) {
+export function RankBar({ data: rows, valueFmt = (v) => v.toFixed(1), yTickFmt, height = 260, domain }) {
   return (
     <div className="chart">
       <ResponsiveContainer width="100%" height={height}>
@@ -282,6 +278,7 @@ export function RankBar({
             tickLine={false}
             axisLine={AXIS}
             width={48}
+            allowDataOverflow
             tick={{ fill: "#61707c", fontSize: 11 }}
             tickFormatter={yTickFmt}
           />

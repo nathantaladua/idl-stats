@@ -1,7 +1,7 @@
 import React from "react";
 import { teams, team, color, teamName, nf, CRITERIA_SHORT, CRITERIA } from "../lib/data.js";
-import { teamSummary, rosterNationalities } from "../lib/stats.js";
-import { CriteriaRadar, Zoomable } from "../charts.jsx";
+import { teamSummary, rosterNationalities, finalRoundSummary } from "../lib/stats.js";
+import { CriteriaRadar, useChartView, ChartToolbar } from "../charts.jsx";
 import { StatTile, Panel, TeamChip, TeamLogo, FormStrip, SectionNote } from "../components.jsx";
 
 function TeamList({ go }) {
@@ -56,14 +56,18 @@ function TeamList({ go }) {
 }
 
 export default function Teams({ param, go }) {
-  if (!param || !team(param).name || !teams.some((t) => t.id === param)) {
-    return <TeamList go={go} />;
-  }
+  const valid = param && team(param).name && teams.some((t) => t.id === param);
+  return valid ? <TeamDetail param={param} go={go} /> : <TeamList go={go} />;
+}
+
+function TeamDetail({ param, go }) {
   const s = teamSummary(param);
+  const fr = finalRoundSummary(param);
   const nats = rosterNationalities(param);
   const captains = team(param).roster.filter((d) => d.captain);
   const bestCrit = s.bestCritIdx >= 0 ? CRITERIA[s.bestCritIdx] : "–";
   const worstCrit = s.worstCritIdx >= 0 ? CRITERIA[s.worstCritIdx] : "–";
+  const radar = useChartView(s.critByIdx, { padFrac: 0.45 });
 
   return (
     <>
@@ -89,14 +93,24 @@ export default function Teams({ param, go }) {
         <StatTile label="Judge-point rate" value={`${Math.round(s.judgePointRate * 100)}%`} sub={`${s.pointsFor}–${s.pointsAgainst} match pts`} accent={color(param)} />
         <StatTile label="Fan-vote win rate" value={`${Math.round(s.fanWinRate * 100)}%`} sub={`${nf(s.avgFanShare, 0)}% avg share`} accent={color(param)} />
         <StatTile label="Podiums" value={`${s.podiums[1]}·${s.podiums[2]}·${s.podiums[3]}`} sub="1st · 2nd · 3rd" accent={color(param)} />
+        <StatTile
+          label="Final round (rd 2)"
+          value={`${fr.wins}/${fr.appearances}`}
+          sub={fr.avgScore ? `${nf(fr.avgScore, 1)} avg score` : "no appearances"}
+          accent={color(param)}
+        />
         <StatTile label="Fan votes drawn" value={s.totalFanVotes.toLocaleString()} accent={color(param)} />
       </div>
 
       <div className="grid grid--2" style={{ marginTop: 14 }}>
         <Panel title="Criteria profile" hint="season avg /10">
-          <Zoomable>
-            <CriteriaRadar labels={CRITERIA_SHORT} series={[{ id: param, values: s.critByIdx }]} height={330} />
-          </Zoomable>
+          <ChartToolbar view={radar} line={false} />
+          <CriteriaRadar
+            labels={CRITERIA_SHORT}
+            series={[{ id: param, values: s.critByIdx }]}
+            height={330}
+            domain={radar.domain}
+          />
           <SectionNote>
             Strongest: {bestCrit} ({nf(s.critByIdx[s.bestCritIdx], 2)}) · weakest: {worstCrit} (
             {nf(s.critByIdx[s.worstCritIdx], 2)}).

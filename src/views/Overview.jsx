@@ -1,45 +1,37 @@
 import React from "react";
 import { data, events, nf, int } from "../lib/data.js";
 import { allSummaries, pointsProgression, judgeTendencies } from "../lib/stats.js";
-import { TeamLineChart, Zoomable } from "../charts.jsx";
-import { StatTile, Panel, TeamChip, FormStrip, SectionNote } from "../components.jsx";
+import { TeamLineChart, useChartView, ChartToolbar } from "../charts.jsx";
+import { Panel, TeamChip, FormStrip, SectionNote } from "../components.jsx";
 
 export default function Overview({ go }) {
   const summaries = allSummaries().sort((a, b) => b.seasonPoints - a.seasonPoints);
   const prog = pointsProgression();
   const teamIds = summaries.map((s) => s.id);
-
   const nMatches = events.reduce((a, e) => a + e.matches.length, 0);
-  const allJudgeTotals = events.flatMap((e) =>
-    e.matches.flatMap((m) => m.judges.flatMap((j) => [j.totalA, j.totalB]))
-  );
-  const topScore = Math.max(...allJudgeTotals);
-  const fanVotes = events.reduce(
-    (a, e) => a + e.matches.reduce((x, m) => x + (m.fanVote.votesA || 0) + (m.fanVote.votesB || 0), 0),
-    0
-  );
-
   const judges = judgeTendencies();
+
+  const progValues = prog.flatMap((r) => teamIds.map((id) => r[id]));
+  const view = useChartView(progValues);
 
   return (
     <>
-      <div className="page-head">
-        <h1>The 2026 season, by the numbers</h1>
-        <p>
-          Six pro teams, {events.length} completed series, {nMatches} head-to-head
-          matches judged across ten criteria. Everything here is derived from the
-          public scorecards on idl.pro.
-        </p>
-      </div>
-
-      <div className="grid grid--tiles">
-        <StatTile label="Pro teams" value={data.teams.length} />
-        <StatTile label="Series completed" value={`${events.length} / 6`} />
-        <StatTile label="Matches" value={nMatches} sub="3 per series" />
-        <StatTile label="Judge scorecards" value={nMatches * 6} sub="6 judges / match" />
-        <StatTile label="Fan votes cast" value={fanVotes.toLocaleString()} />
-        <StatTile label="Top match score" value={nf(topScore, 1)} sub="out of 100" />
-      </div>
+      <section className="hero">
+        <img className="hero__logo" src="assets/idl-icon.png" alt="International Dance League" />
+        <div className="hero__body">
+          <p className="hero__kicker">Unofficial statistics · 2026 season</p>
+          <h1>
+            Every score, every
+            <br />
+            match, one place.
+          </h1>
+          <p className="hero__lede">
+            Six pro teams. {events.length} of 6 series danced. {nMatches} head-to-head
+            matches judged across ten criteria, plus every final round. All of it
+            scraped straight from the public scorecards on idl.pro.
+          </p>
+        </div>
+      </section>
 
       <div className="section">
         <h2>Season standings</h2>
@@ -91,16 +83,17 @@ export default function Overview({ go }) {
       <div className="section">
         <h2>Points race</h2>
         <Panel hint="cumulative series points after each series">
-          <Zoomable>
-            <TeamLineChart
-              rows={prog}
-              teamIds={teamIds}
-              height={340}
-              yDomain={[0, "auto"]}
-              yTickFmt={int}
-              valueFmt={(v) => `${int(v)} pts`}
-            />
-          </Zoomable>
+          <ChartToolbar view={view} />
+          <TeamLineChart
+            rows={prog}
+            teamIds={teamIds}
+            height={340}
+            yDomain={view.domain}
+            yTickFmt={int}
+            valueFmt={(v) => `${int(v)} pts`}
+            showDots={view.showDots}
+            showLines={view.showLines}
+          />
         </Panel>
       </div>
 

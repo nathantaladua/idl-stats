@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { teams, color, teamName, CRITERIA_SHORT, int } from "../lib/data.js";
 import { TREND_METRICS, metricByEvent, allSummaries } from "../lib/stats.js";
-import { TeamLineChart, RankBar, Zoomable } from "../charts.jsx";
+import { TeamLineChart, RankBar, useChartView, ChartToolbar } from "../charts.jsx";
 import { Panel, SectionNote } from "../components.jsx";
 
 export default function Trends() {
@@ -28,6 +28,9 @@ export default function Trends() {
       : (v) => (v == null ? "–" : v.toFixed(1) + (metric.unit === "%" ? "%" : ""));
   const yTickFmt = isPct ? (v) => `${Math.round(v * 100)}%` : isInt ? int : undefined;
 
+  const lineValues = rows.flatMap((r) => shown.map((id) => r[id]));
+  const view = useChartView(lineValues, { pctScale: isPct });
+
   // season-aggregate ranking for the chosen metric
   const summaries = allSummaries();
   const aggKey = {
@@ -48,6 +51,10 @@ export default function Trends() {
         value: s[aggKey],
       }))
       .sort((a, b) => b.value - a.value);
+  const rankView = useChartView(rank ? rank.map((r) => r.value) : [0, 1], {
+    pctScale: isPct,
+    padFrac: 0.02,
+  });
 
   const critSeason = CRITERIA_SHORT.map((label, i) => {
     const row = { label };
@@ -60,8 +67,8 @@ export default function Trends() {
       <div className="page-head">
         <h1>Trends</h1>
         <p>
-          Track any metric series by series. Toggle teams to isolate a rivalry or a
-          run of form. Zoom any chart with the +/− buttons or ⌘/Ctrl-scroll.
+          Track any metric series by series. Toggle teams to isolate a rivalry;
+          use the toolbar to zoom the Y axis or hide the lines / points.
         </p>
       </div>
 
@@ -96,32 +103,25 @@ export default function Trends() {
       </div>
 
       <Panel title={metric.label} hint={`by series · ${metric.unit}`}>
-        <Zoomable>
-          <TeamLineChart
-            rows={rows}
-            teamIds={shown}
-            height={360}
-            yDomain={metric.domain}
-            yTickFmt={yTickFmt}
-            valueFmt={fmt}
-          />
-        </Zoomable>
+        <ChartToolbar view={view} />
+        <TeamLineChart
+          rows={rows}
+          teamIds={shown}
+          height={360}
+          yDomain={view.domain}
+          yTickFmt={yTickFmt}
+          valueFmt={fmt}
+          showDots={view.showDots}
+          showLines={view.showLines}
+        />
       </Panel>
 
       {rank && (
         <div className="section">
           <h2>Season to date</h2>
           <Panel hint={metric.label}>
-            <Zoomable>
-              <RankBar
-                data={rank}
-                domain={
-                  metric.pctScale ? [0, 1] : metricKey === "points" ? [0, "auto"] : undefined
-                }
-                valueFmt={fmt}
-                yTickFmt={yTickFmt}
-              />
-            </Zoomable>
+            <ChartToolbar view={rankView} line={false} />
+            <RankBar data={rank} domain={rankView.domain} valueFmt={fmt} yTickFmt={yTickFmt} />
           </Panel>
         </div>
       )}
