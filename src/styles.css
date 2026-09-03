@@ -13,22 +13,23 @@
   --text-secondary: #9aa4ac;
   --text-muted: #61707c;
 
-  --accent: #3987e5;
-  --accent-dim: #1c4a7d;
-  --win: #4c77a3;
-  --gold: #c98500;
+  --accent: #c0e700; /* IDL house lime */
+  --accent-ink: #0a0f00; /* text on top of --accent */
+  --accent-dim: #6f8400;
+  --win: #4c77a3; /* idl scorecard "win" cell */
+  --gold: #ffd321;
 
-  /* categorical team palette — fixed slots, validated for this dark surface
-     (dataviz skill: worst adjacent CVD ΔE 8.4, all checks pass) */
-  --team-1-million: #3987e5;
-  --team-brotherhood: #d95926;
-  --team-grv: #199e70;
-  --team-jam-republic: #c98500;
-  --team-quick-style: #d55181;
-  --team-royal-family: #008300;
+  /* team colours — each team's own brand/jersey colour from idl.pro,
+     nudged only for 3:1 contrast on the dark surface */
+  --team-1-million: #7e8db4;
+  --team-brotherhood: #d51c24;
+  --team-grv: #5ace88;
+  --team-jam-republic: #ff8229;
+  --team-quick-style: #0f86db;
+  --team-royal-family: #ffd321;
 
-  --font-sans: "Helvetica Neue", "Arial Narrow", Arial, "Segoe UI", Roboto,
-    system-ui, sans-serif;
+  --font-sans: "Inter", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-mono: "Fragment Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   --maxw: 1200px;
 }
@@ -58,14 +59,14 @@ h2,
 h3,
 h4 {
   margin: 0;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-weight: 900;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
-  line-height: 1.1;
+  line-height: 1.02;
 }
 
 h1 {
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-size: clamp(1.7rem, 4.4vw, 2.9rem);
 }
 h2 {
   font-size: 1.15rem;
@@ -219,7 +220,7 @@ main {
 .tile {
   background: var(--surface-1);
   border: 1px solid var(--line);
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid var(--line-strong);
   padding: 14px 16px;
 }
 .tile__label {
@@ -352,7 +353,7 @@ select,
 }
 .seg button[aria-pressed="true"] {
   background: var(--accent);
-  color: #fff;
+  color: var(--accent-ink);
 }
 
 .pill-row {
@@ -518,6 +519,127 @@ select,
   letter-spacing: 0.1em;
 }
 
+/* brand / team logos */
+.brand__logo {
+  height: 30px;
+  width: 30px;
+  object-fit: contain;
+  display: block;
+}
+.brand__name {
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+.team-logo {
+  height: 40px;
+  width: auto;
+  max-width: 190px;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
+}
+.team-logo--sm {
+  height: 22px;
+  max-width: 120px;
+}
+
+/* zoomable chart shell */
+.zoom {
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+}
+.zoom__view {
+  transform-origin: 0 0;
+  will-change: transform;
+}
+.zoom.is-zoomed .zoom__view {
+  cursor: grab;
+}
+.zoom.is-panning .zoom__view {
+  cursor: grabbing;
+}
+.zoom__ctl {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 3;
+  display: flex;
+  border: 1px solid var(--line-strong);
+  background: color-mix(in srgb, var(--bg-deep) 88%, transparent);
+}
+.zoom__ctl button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  width: 28px;
+  height: 26px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+}
+.zoom__ctl button + button {
+  border-left: 1px solid var(--line-strong);
+}
+.zoom__ctl button:hover:not(:disabled) {
+  color: var(--text-primary);
+  background: var(--surface-2);
+}
+.zoom__ctl button:disabled {
+  opacity: 0.35;
+}
+.zoom__hint {
+  position: absolute;
+  left: 8px;
+  bottom: 6px;
+  z-index: 3;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* compare: dense two-column head */
+.cmp-head {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px 18px;
+}
+.cmp-head__score {
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  white-space: nowrap;
+}
+.cmp-meetings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.cmp-meeting {
+  border: 1px solid var(--line-strong);
+  background: var(--surface-2);
+  padding: 5px 9px;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+.cmp-meeting .m-when {
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+}
+
 @media (max-width: 720px) {
   .masthead__row {
     flex-direction: column;
@@ -529,5 +651,8 @@ select,
   }
   .brand {
     padding: 12px 0;
+  }
+  .cmp-head__score {
+    font-size: 2rem;
   }
 }

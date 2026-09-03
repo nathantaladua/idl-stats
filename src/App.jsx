@@ -49,9 +49,9 @@ export default function App() {
               go("overview");
             }}
           >
-            <span className="brand__mark" />
-            IDL&nbsp;STATS
-            <span className="brand__sub">2026 SEASON · UNOFFICIAL</span>
+            <img className="brand__logo" src="assets/idl-icon.png" alt="IDL" />
+            <span className="brand__name">STATS</span>
+            <span className="brand__sub">2026 · UNOFFICIAL</span>
           </a>
           <nav className="nav">
             {TABS.map((t) => (

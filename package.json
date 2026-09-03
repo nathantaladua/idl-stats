@@ -6,6 +6,7 @@
   "description": "Unofficial fan-built statistics site for the International Dance League (IDL). Data scraped from idl.pro.",
   "scripts": {
     "scrape": "node scraper/scrape.mjs",
+    "assets": "node scraper/assets.mjs",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"

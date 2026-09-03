@@ -1,8 +1,8 @@
 import React from "react";
 import { teams, team, color, teamName, nf, CRITERIA_SHORT, CRITERIA } from "../lib/data.js";
 import { teamSummary, rosterNationalities } from "../lib/stats.js";
-import { CriteriaRadar } from "../charts.jsx";
-import { StatTile, Panel, TeamChip, FormStrip, SectionNote } from "../components.jsx";
+import { CriteriaRadar, Zoomable } from "../charts.jsx";
+import { StatTile, Panel, TeamChip, TeamLogo, FormStrip, SectionNote } from "../components.jsx";
 
 function TeamList({ go }) {
   const summaries = teams
@@ -22,11 +22,13 @@ function TeamList({ go }) {
             style={{ textAlign: "left", borderLeft: `3px solid ${color(s.id)}` }}
             onClick={() => go("teams", s.id)}
           >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-              <TeamChip id={s.id} large />
-              <span className="tiny">#{s.seasonRank} · {s.seasonPoints} pts</span>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
+              <TeamLogo id={s.id} small />
+              <span className="tiny">
+                #{s.seasonRank} · {s.seasonPoints} pts
+              </span>
             </div>
-            <div className="muted tiny" style={{ margin: "6px 0 12px" }}>
+            <div className="muted tiny" style={{ margin: "10px 0 12px" }}>
               {s.meta.city}
               {s.meta.country ? `, ${s.meta.country}` : ""} · est. {s.meta.founded || "—"} ·{" "}
               {s.meta.roster.length} dancers
@@ -36,7 +38,7 @@ function TeamList({ go }) {
                 <div className="tile__value" style={{ fontSize: "1.4rem" }}>
                   {s.wins}–{s.losses}
                 </div>
-                <div className="tiny">battles</div>
+                <div className="tiny">matches</div>
               </div>
               <div>
                 <div className="tile__value" style={{ fontSize: "1.4rem" }}>
@@ -66,32 +68,25 @@ export default function Teams({ param, go }) {
   return (
     <>
       <div className="page-head">
-        <button
-          className="pill"
-          style={{ marginBottom: 14 }}
-          onClick={() => go("teams")}
-        >
+        <button className="pill" style={{ marginBottom: 14 }} onClick={() => go("teams")}>
           ← All teams
         </button>
-        <h1 style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <span
-            className="brand__mark"
-            style={{ background: color(param), height: 30 }}
-          />
-          {teamName(param)}
-        </h1>
+        <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
+          <span className="brand__mark" style={{ background: color(param), height: 34 }} />
+          <TeamLogo id={param} />
+        </div>
         <p>
           {s.meta.city}
           {s.meta.country ? `, ${s.meta.country}` : ""} · founded {s.meta.founded || "—"} ·{" "}
           {s.meta.roster.length} dancers · currently #{s.seasonRank} with {s.seasonPoints}{" "}
-          league points.
+          series points.
         </p>
       </div>
 
       <div className="grid grid--tiles">
-        <StatTile label="Battles W–L" value={`${s.wins}–${s.losses}`} sub={`${Math.round(s.winRate * 100)}% win rate`} accent={color(param)} />
+        <StatTile label="Matches W–L" value={`${s.wins}–${s.losses}`} sub={`${Math.round(s.winRate * 100)}% win rate`} accent={color(param)} />
         <StatTile label="Avg judge score" value={nf(s.avgScore, 1)} sub="out of 100" accent={color(param)} />
-        <StatTile label="Judge-point rate" value={`${Math.round(s.judgePointRate * 100)}%`} sub={`${s.pointsFor}–${s.pointsAgainst} battle pts`} accent={color(param)} />
+        <StatTile label="Judge-point rate" value={`${Math.round(s.judgePointRate * 100)}%`} sub={`${s.pointsFor}–${s.pointsAgainst} match pts`} accent={color(param)} />
         <StatTile label="Fan-vote win rate" value={`${Math.round(s.fanWinRate * 100)}%`} sub={`${nf(s.avgFanShare, 0)}% avg share`} accent={color(param)} />
         <StatTile label="Podiums" value={`${s.podiums[1]}·${s.podiums[2]}·${s.podiums[3]}`} sub="1st · 2nd · 3rd" accent={color(param)} />
         <StatTile label="Fan votes drawn" value={s.totalFanVotes.toLocaleString()} accent={color(param)} />
@@ -99,24 +94,22 @@ export default function Teams({ param, go }) {
 
       <div className="grid grid--2" style={{ marginTop: 14 }}>
         <Panel title="Criteria profile" hint="season avg /10">
-          <CriteriaRadar
-            labels={CRITERIA_SHORT}
-            series={[{ id: param, values: s.critByIdx }]}
-            height={330}
-          />
+          <Zoomable>
+            <CriteriaRadar labels={CRITERIA_SHORT} series={[{ id: param, values: s.critByIdx }]} height={330} />
+          </Zoomable>
           <SectionNote>
-            Strongest: {bestCrit} ({nf(s.critByIdx[s.bestCritIdx], 2)}) · weakest:{" "}
-            {worstCrit} ({nf(s.critByIdx[s.worstCritIdx], 2)}).
+            Strongest: {bestCrit} ({nf(s.critByIdx[s.bestCritIdx], 2)}) · weakest: {worstCrit} (
+            {nf(s.critByIdx[s.worstCritIdx], 2)}).
           </SectionNote>
         </Panel>
 
-        <Panel title="Results" hint={`${s.rows.length} battles`}>
+        <Panel title="Results" hint={`${s.rows.length} matches`}>
           <table className="data">
             <thead>
               <tr>
-                <th>Stage</th>
+                <th>Series</th>
                 <th>Opponent</th>
-                <th>Battle</th>
+                <th>Match</th>
                 <th>Score</th>
                 <th>Fan %</th>
               </tr>

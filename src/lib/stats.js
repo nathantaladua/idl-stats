@@ -157,12 +157,12 @@ function eventMetric(key, teamId, ev, rows) {
 }
 
 export const TREND_METRICS = [
-  { key: "points", label: "League points earned", unit: "pts", domain: [0, 14] },
+  { key: "points", label: "Series points earned", unit: "pts", domain: [0, 14] },
   { key: "avgScore", label: "Avg judge score", unit: "/100", domain: [70, 100] },
   { key: "matchWinRate", label: "Match win rate", unit: "%", pctScale: true, domain: [0, 1] },
   { key: "judgePointRate", label: "Judge-point win rate", unit: "%", pctScale: true, domain: [0, 1] },
   { key: "fanShare", label: "Fan-vote share", unit: "%", domain: [0, 100] },
-  { key: "matchPointMargin", label: "Avg match point margin", unit: "pts", domain: [-7, 7] },
+  { key: "matchPointMargin", label: "Avg match-point margin", unit: "pts", domain: [-7, 7] },
 ];
 
 /** Head-to-head record and score aggregates between two teams. */

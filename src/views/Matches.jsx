@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { events, color, teamName, nf, CRITERIA_SHORT } from "../lib/data.js";
-import { Panel, TeamChip, SectionNote } from "../components.jsx";
+import { Panel, TeamChip, TeamLogo, SectionNote } from "../components.jsx";
 
 function ScoreBar({ a, b, ca, cb, max = 10 }) {
   const at = (ca / max) * 50;
@@ -77,27 +77,28 @@ function FullScorecard({ match }) {
   );
 }
 
-function Battle({ match }) {
+function Match({ match }) {
   const [open, setOpen] = useState(false);
   const { teamA: a, teamB: b } = match;
   return (
     <div className="panel">
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <TeamChip id={a} large />
-          <span style={{ fontSize: "1.6rem", fontWeight: 800, fontVariantNumeric: "tabular-nums" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <span className="tiny">Match {match.n}</span>
+          <TeamLogo id={a} small />
+          <span style={{ fontSize: "1.6rem", fontWeight: 900, fontVariantNumeric: "tabular-nums" }}>
             <span style={{ color: match.winner === a ? color(a) : "var(--text-muted)" }}>{match.pointsA}</span>
             <span className="muted"> – </span>
             <span style={{ color: match.winner === b ? color(b) : "var(--text-muted)" }}>{match.pointsB}</span>
           </span>
-          <TeamChip id={b} large />
+          <TeamLogo id={b} small />
         </div>
         <span className="tiny">
           winner: <b style={{ color: color(match.winner) }}>{teamName(match.winner)}</b>
         </span>
       </div>
 
-      <div className="tiny" style={{ margin: "12px 0 4px" }}>Judges' points</div>
+      <div className="tiny" style={{ margin: "12px 0 4px" }}>Judge &amp; fan points (6 judges + 1 fan vote)</div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
         {match.judges.map((j) => (
           <span
@@ -159,18 +160,17 @@ export default function Matches() {
   return (
     <>
       <div className="page-head">
-        <h1>Battles &amp; scorecards</h1>
-        <p>Every head-to-head battle with its judge-by-judge and fan-vote breakdown.</p>
+        <h1>Matches &amp; scorecards</h1>
+        <p>
+          Every head-to-head match with its judge-by-judge and fan-vote breakdown.
+          Three matches per series; the winners meet again in the final round.
+        </p>
       </div>
 
       <div className="controls">
         <div className="seg" role="tablist">
           {events.map((e) => (
-            <button
-              key={e.id}
-              aria-pressed={e.id === evId}
-              onClick={() => setEvId(e.id)}
-            >
+            <button key={e.id} aria-pressed={e.id === evId} onClick={() => setEvId(e.id)}>
               S{e.series} · {e.name.split(" ")[0]}
             </button>
           ))}
@@ -178,14 +178,17 @@ export default function Matches() {
       </div>
 
       <Panel hint={`${ev.dateISO || ""} · ${ev.venue || ""}`} title={`Series ${ev.series} — ${ev.name}`}>
+        <div className="tiny" style={{ marginBottom: 10 }}>Final-round result</div>
         <div className="grid grid--tiles">
           {ev.podium.map((p) => (
             <div key={p.team} className="tile" style={{ borderLeftColor: color(p.team) }}>
-              <div className="tile__label">{p.rank === 1 ? "🥇 Winner" : p.rank === 2 ? "🥈 2nd" : "🥉 3rd"}</div>
+              <div className="tile__label">
+                {p.rank === 1 ? "🥇 Winner" : p.rank === 2 ? "🥈 2nd" : "🥉 3rd"}
+              </div>
               <div className="tile__value" style={{ fontSize: "1.3rem" }}>
                 <TeamChip id={p.team} />
               </div>
-              <div className="tile__sub">{nf(p.score, 2)} pts</div>
+              <div className="tile__sub">{nf(p.score, 2)} score</div>
             </div>
           ))}
         </div>
@@ -193,7 +196,7 @@ export default function Matches() {
 
       <div className="grid" style={{ marginTop: 14, gap: 14 }}>
         {ev.matches.map((m) => (
-          <Battle key={m.n} match={m} />
+          <Match key={m.n} match={m} />
         ))}
       </div>
     </>

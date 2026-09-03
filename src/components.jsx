@@ -1,5 +1,5 @@
 import React from "react";
-import { color, teamName } from "./lib/data.js";
+import { color, teamName, logo } from "./lib/data.js";
 
 export function TeamChip({ id, large, name }) {
   return (
@@ -7,6 +7,20 @@ export function TeamChip({ id, large, name }) {
       <span className="swatch" style={{ "--c": color(id), background: color(id) }} />
       {name || teamName(id)}
     </span>
+  );
+}
+
+/** The team's own logo lockup scraped from idl.pro (falls back to a chip). */
+export function TeamLogo({ id, small }) {
+  const src = logo(id);
+  if (!src) return <TeamChip id={id} large={!small} />;
+  return (
+    <img
+      className={"team-logo" + (small ? " team-logo--sm" : "")}
+      src={src}
+      alt={teamName(id)}
+      loading="lazy"
+    />
   );
 }
 
@@ -63,7 +77,7 @@ export function FormStrip({ rows }) {
       {rows.map((r, i) => (
         <span
           key={i}
-          title={`${r.eventName} · M${r.matchNo} vs ${teamName(r.opponent)} — ${r.ourPts}-${r.oppPts}`}
+          title={`${r.eventName} · Match ${r.matchNo} vs ${teamName(r.opponent)} — ${r.ourPts}-${r.oppPts}`}
           style={{
             width: 16,
             height: 16,

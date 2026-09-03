@@ -1,7 +1,7 @@
 import React from "react";
-import { data, events, nf } from "../lib/data.js";
+import { data, events, nf, int } from "../lib/data.js";
 import { allSummaries, pointsProgression, judgeTendencies } from "../lib/stats.js";
-import { TeamLineChart } from "../charts.jsx";
+import { TeamLineChart, Zoomable } from "../charts.jsx";
 import { StatTile, Panel, TeamChip, FormStrip, SectionNote } from "../components.jsx";
 
 export default function Overview({ go }) {
@@ -26,19 +26,19 @@ export default function Overview({ go }) {
       <div className="page-head">
         <h1>The 2026 season, by the numbers</h1>
         <p>
-          Six pro teams, {events.length} completed stages, {nMatches} head-to-head
-          battles judged across ten criteria. Everything here is derived from the
+          Six pro teams, {events.length} completed series, {nMatches} head-to-head
+          matches judged across ten criteria. Everything here is derived from the
           public scorecards on idl.pro.
         </p>
       </div>
 
       <div className="grid grid--tiles">
         <StatTile label="Pro teams" value={data.teams.length} />
-        <StatTile label="Stages completed" value={`${events.length} / 6`} />
-        <StatTile label="Battles" value={nMatches} sub="3 per stage" />
-        <StatTile label="Judge scorecards" value={nMatches * 6} sub="6 judges / battle" />
+        <StatTile label="Series completed" value={`${events.length} / 6`} />
+        <StatTile label="Matches" value={nMatches} sub="3 per series" />
+        <StatTile label="Judge scorecards" value={nMatches * 6} sub="6 judges / match" />
         <StatTile label="Fan votes cast" value={fanVotes.toLocaleString()} />
-        <StatTile label="Top battle score" value={nf(topScore, 1)} sub="out of 100" />
+        <StatTile label="Top match score" value={nf(topScore, 1)} sub="out of 100" />
       </div>
 
       <div className="section">
@@ -60,11 +60,7 @@ export default function Overview({ go }) {
             </thead>
             <tbody>
               {summaries.map((s, i) => (
-                <tr
-                  key={s.id}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => go("teams", s.id)}
-                >
+                <tr key={s.id} style={{ cursor: "pointer" }} onClick={() => go("teams", s.id)}>
                   <td className="rank-cell">{i + 1}</td>
                   <td>
                     <TeamChip id={s.id} />
@@ -85,35 +81,39 @@ export default function Overview({ go }) {
             </tbody>
           </table>
           <SectionNote>
-            League points: 2 per battle won, plus a placement bonus in the closing
-            three-team final (7 / 5 / 3). Row → team page.
+            Series points: a team keeps its match-point tally (0–7, from six judges
+            plus the fan vote); the three match winners also take a final-round
+            placement bonus of 7 / 5 / 3. Row → team page.
           </SectionNote>
         </div>
       </div>
 
       <div className="section">
         <h2>Points race</h2>
-        <Panel hint="cumulative league points after each stage">
-          <TeamLineChart
-            rows={prog}
-            teamIds={teamIds}
-            height={340}
-            yDomain={[0, "auto"]}
-            valueFmt={(v) => `${v} pts`}
-          />
+        <Panel hint="cumulative series points after each series">
+          <Zoomable>
+            <TeamLineChart
+              rows={prog}
+              teamIds={teamIds}
+              height={340}
+              yDomain={[0, "auto"]}
+              yTickFmt={int}
+              valueFmt={(v) => `${int(v)} pts`}
+            />
+          </Zoomable>
         </Panel>
       </div>
 
       <div className="section">
         <h2>Judge tendencies</h2>
-        <Panel hint="how the six-seat judging panel has scored, all stages">
+        <Panel hint="how the six-seat judging panel has scored, all series">
           <div style={{ overflowX: "auto" }}>
             <table className="data">
               <thead>
                 <tr>
                   <th>Judge</th>
-                  <th>Stages</th>
-                  <th>Battles</th>
+                  <th>Series</th>
+                  <th>Matches</th>
                   <th>Avg score given</th>
                   <th>Sided with winner</th>
                 </tr>
@@ -136,7 +136,7 @@ export default function Overview({ go }) {
           <SectionNote>
             "Avg score given" is the mean of every /100 total that judge handed out.
             "Sided with winner" is how often the team they scored higher went on to
-            win the battle.
+            win the match.
           </SectionNote>
         </Panel>
       </div>

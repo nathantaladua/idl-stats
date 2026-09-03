@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { teams, color, teamName, nf, CRITERIA_SHORT } from "../lib/data.js";
+import { teams, color, teamName, nf, int, CRITERIA_SHORT } from "../lib/data.js";
 import { teamSummary, headToHead, metricByEvent, TREND_METRICS } from "../lib/stats.js";
-import { CriteriaRadar, TeamLineChart } from "../charts.jsx";
-import { Panel, TeamChip, SectionNote } from "../components.jsx";
+import { CriteriaRadar, TeamLineChart, Zoomable } from "../charts.jsx";
+import { Panel, TeamLogo, SectionNote } from "../components.jsx";
 
 const ROWS = [
-  { key: "seasonPoints", label: "League points", fmt: (v) => v, higher: true },
+  { key: "seasonPoints", label: "Series points", fmt: int, higher: true },
   { key: "winRate", label: "Match win rate", fmt: (v) => `${Math.round(v * 100)}%`, higher: true },
   { key: "avgScore", label: "Avg judge score", fmt: (v) => nf(v, 1), higher: true },
   { key: "judgePointRate", label: "Judge-point win rate", fmt: (v) => `${Math.round(v * 100)}%`, higher: true },
   { key: "fanWinRate", label: "Fan-vote win rate", fmt: (v) => `${Math.round(v * 100)}%`, higher: true },
   { key: "avgFanShare", label: "Avg fan-vote share", fmt: (v) => `${nf(v, 0)}%`, higher: true },
-  { key: "pointsFor", label: "Battle points won", fmt: (v) => v, higher: true },
-  { key: "pointsAgainst", label: "Battle points conceded", fmt: (v) => v, higher: false },
+  { key: "pointsFor", label: "Match points won", fmt: int, higher: true },
+  { key: "pointsAgainst", label: "Match points conceded", fmt: int, higher: false },
 ];
 
 function CompareBar({ label, a, b, av, bv, fmt, higher }) {
@@ -55,6 +55,7 @@ export default function Compare() {
   const metric = TREND_METRICS.find((m) => m.key === metricKey);
   const trend = metricByEvent(metricKey);
   const isPct = metric.pctScale;
+  const isInt = metricKey === "points";
 
   return (
     <>
@@ -86,54 +87,47 @@ export default function Compare() {
         </label>
       </div>
 
-      <div className="grid grid--2">
-        <Panel>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <TeamChip id={a} large />
-            <span className="tiny">head to head</span>
-            <TeamChip id={b} large />
+      <Panel>
+        <div className="cmp-head">
+          <div style={{ justifySelf: "start" }}>
+            <TeamLogo id={a} />
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: 18,
-              fontSize: "2.4rem",
-              fontWeight: 800,
-              margin: "14px 0 6px",
-              fontVariantNumeric: "tabular-nums",
-            }}
-          >
+          <div className="cmp-head__score">
             <span style={{ color: color(a) }}>{h2h.aWins}</span>
-            <span className="muted">–</span>
+            <span className="muted"> – </span>
             <span style={{ color: color(b) }}>{h2h.bWins}</span>
           </div>
-          <div className="tiny" style={{ textAlign: "center" }}>
-            {h2h.meetings.length
-              ? `${h2h.meetings.length} meeting${h2h.meetings.length > 1 ? "s" : ""} this season`
-              : "have not met this season"}
+          <div style={{ justifySelf: "end" }}>
+            <TeamLogo id={b} />
           </div>
-          {h2h.meetings.map((m, i) => (
-            <div
-              key={i}
-              className="tooltip__row"
-              style={{ borderTop: "1px solid var(--line)", paddingTop: 8, marginTop: 8 }}
-            >
-              <span className="k">
-                {m.eventName.split(" ")[0]} · Battle {m.matchNo}
-              </span>
-              <span className="v">
-                <span style={{ color: m.winner === a ? color(a) : undefined }}>{m.aPts}</span>
-                {" – "}
-                <span style={{ color: m.winner === b ? color(b) : undefined }}>{m.bPts}</span>
-                <span className="muted" style={{ marginLeft: 8 }}>
-                  ({nf(m.aAvg, 1)} / {nf(m.bAvg, 1)})
+        </div>
+        <div className="tiny" style={{ textAlign: "center", marginTop: 6 }}>
+          {h2h.meetings.length
+            ? `head-to-head · ${h2h.meetings.length} meeting${h2h.meetings.length > 1 ? "s" : ""} this season`
+            : "these teams have not met this season"}
+        </div>
+        {h2h.meetings.length > 0 && (
+          <div className="cmp-meetings">
+            {h2h.meetings.map((m, i) => (
+              <span className="cmp-meeting" key={i}>
+                <span className="m-when">
+                  {m.eventName} · Match {m.matchNo}
+                </span>
+                <span>
+                  <b style={{ color: m.winner === a ? color(a) : undefined }}>{m.aPts}</b>
+                  <span className="muted">–</span>
+                  <b style={{ color: m.winner === b ? color(b) : undefined }}>{m.bPts}</b>
+                </span>
+                <span className="muted">
+                  {nf(m.aAvg, 1)} / {nf(m.bAvg, 1)}
                 </span>
               </span>
-            </div>
-          ))}
-        </Panel>
+            ))}
+          </div>
+        )}
+      </Panel>
 
+      <div className="grid grid--2" style={{ marginTop: 14 }}>
         <Panel title="Season metrics" hint="brighter bar = leader">
           <div className="cmp">
             {ROWS.map((r) => (
@@ -150,28 +144,24 @@ export default function Compare() {
             ))}
           </div>
         </Panel>
-      </div>
 
-      <div className="section">
-        <h2>Criteria profile</h2>
-        <Panel hint="season average per criterion, /10">
-          <CriteriaRadar
-            labels={CRITERIA_SHORT}
-            series={[
-              { id: a, values: sa.critByIdx },
-              { id: b, values: sb.critByIdx },
-            ]}
-            height={380}
-          />
+        <Panel title="Criteria profile" hint="season avg per criterion, /10">
+          <Zoomable>
+            <CriteriaRadar
+              labels={CRITERIA_SHORT}
+              series={[
+                { id: a, values: sa.critByIdx },
+                { id: b, values: sb.critByIdx },
+              ]}
+              height={360}
+            />
+          </Zoomable>
         </Panel>
       </div>
 
       <div className="section">
-        <h2>Stage by stage</h2>
-        <Panel
-          hint={metric.label}
-          style={{ paddingBottom: 8 }}
-        >
+        <h2>Series by series</h2>
+        <Panel hint={metric.label}>
           <div className="controls" style={{ marginBottom: 6 }}>
             <label className="field">
               <span>Metric</span>
@@ -184,23 +174,27 @@ export default function Compare() {
               </select>
             </label>
           </div>
-          <TeamLineChart
-            rows={trend}
-            teamIds={[a, b]}
-            height={300}
-            yDomain={metric.domain}
-            yTickFmt={isPct ? (v) => `${Math.round(v * 100)}%` : undefined}
-            valueFmt={
-              isPct
-                ? (v) => (v == null ? "–" : `${Math.round(v * 100)}%`)
-                : (v) => (v == null ? "–" : v.toFixed(1))
-            }
-          />
+          <Zoomable>
+            <TeamLineChart
+              rows={trend}
+              teamIds={[a, b]}
+              height={300}
+              yDomain={metric.domain}
+              yTickFmt={isPct ? (v) => `${Math.round(v * 100)}%` : isInt ? int : undefined}
+              valueFmt={
+                isPct
+                  ? (v) => (v == null ? "–" : `${Math.round(v * 100)}%`)
+                  : isInt
+                    ? (v) => (v == null ? "–" : int(v))
+                    : (v) => (v == null ? "–" : v.toFixed(1))
+              }
+            />
+          </Zoomable>
+          <SectionNote>
+            Lines break where a team had no match that series (only three of six
+            teams dance each night).
+          </SectionNote>
         </Panel>
-        <SectionNote>
-          Lines break where a team had no battle that stage (only three of six
-          teams dance each night).
-        </SectionNote>
       </div>
     </>
   );
