@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { color, teamName, logo, mark } from "./lib/data.js";
 
-/** Small square team mark — the file at assets/marks/<id>.* if present,
- *  otherwise the plain colour swatch. */
-export function TeamMark({ id, size = 12 }) {
+/** The team's logo mark (assets/marks/<id>.*), shown at its natural aspect
+ *  ratio at the given pixel height. Falls back to a colour tick only if the
+ *  file is missing / fails to load. */
+export function TeamMark({ id, height = 20 }) {
   const src = mark(id);
   const [failed, setFailed] = useState(false);
   if (!src || failed) {
     return (
       <span
         className="swatch"
-        style={{ "--c": color(id), background: color(id), width: size, height: size }}
+        style={{ background: color(id), width: Math.round(height * 0.6), height: Math.round(height * 0.6) }}
       />
     );
   }
@@ -19,8 +20,7 @@ export function TeamMark({ id, size = 12 }) {
       className="team-mark"
       src={src}
       alt=""
-      width={size}
-      height={size}
+      style={{ height }}
       loading="lazy"
       onError={() => setFailed(true)}
     />
@@ -30,7 +30,7 @@ export function TeamMark({ id, size = 12 }) {
 export function TeamChip({ id, large, name }) {
   return (
     <span className={"team-chip" + (large ? " team-chip--lg" : "")}>
-      <TeamMark id={id} size={large ? 26 : 16} />
+      <TeamMark id={id} height={large ? 34 : 22} />
       {name || teamName(id)}
     </span>
   );
