@@ -30,7 +30,7 @@ export function TeamMark({ id, size = 12 }) {
 export function TeamChip({ id, large, name }) {
   return (
     <span className={"team-chip" + (large ? " team-chip--lg" : "")}>
-      <TeamMark id={id} size={large ? 20 : 12} />
+      <TeamMark id={id} size={large ? 26 : 16} />
       {name || teamName(id)}
     </span>
   );

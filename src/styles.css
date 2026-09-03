@@ -359,11 +359,9 @@ table.data td.num {
 }
 .team-mark {
   flex: none;
-  object-fit: contain;
+  object-fit: cover;
   vertical-align: middle;
-}
-.pill .team-mark {
-  flex: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 /* controls */
