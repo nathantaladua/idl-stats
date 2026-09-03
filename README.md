@@ -20,7 +20,15 @@ colours belong to their respective teams and to the IDL.
 Every line/bar/radar chart has a toolbar to **zoom and pan the Y axis** (the
 lines and shapes grow and shrink as the value window tightens); once zoomed you
 can also **drag the chart** to slide the value window. A **Lines** toggle hides
-the connecting lines; the points always stay.
+the connecting lines; the square points always stay visible.
+
+### Team marks
+
+Teams are labelled with a colour chip by default. Drop a compact square logo at
+`public/assets/marks/<id>.png` (ids: `brotherhood`, `grv`, `1-million`,
+`royal-family`, `jam-republic`, `quick-style`) and it replaces the chip
+everywhere. idl.pro's press kit ships only the IDL brand marks, so per-team
+marks have to be supplied by hand.
 
 ### Terminology
 

@@ -32,8 +32,16 @@ export const TEAM_COLOR = {
 // IDL house accent (the acid lime used across idl.pro).
 export const IDL_ACCENT = "#C0E700";
 
+// Wide team logo lockups scraped from each team's page.
 export const TEAM_LOGO = Object.fromEntries(
   Object.keys(TEAM_COLOR).map((id) => [id, `assets/logos/${id}.webp`])
+);
+
+// Compact square team marks. Drop a file at public/assets/marks/<id>.(svg|png|webp)
+// and it replaces the colour chip everywhere; until then the chip falls back to
+// the plain colour swatch.
+export const TEAM_MARK = Object.fromEntries(
+  Object.keys(TEAM_COLOR).map((id) => [id, `assets/marks/${id}.png`])
 );
 
 const TEAM_BY_ID = Object.fromEntries(raw.teams.map((t) => [t.id, t]));
@@ -53,6 +61,9 @@ export function color(id) {
 }
 export function logo(id) {
   return TEAM_LOGO[id] || null;
+}
+export function mark(id) {
+  return TEAM_MARK[id] || null;
 }
 
 export const nf = (n, d = 1) =>

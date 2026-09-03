@@ -24,7 +24,7 @@ export default function Overview({ go }) {
           rel="noreferrer"
           aria-label="International Dance League — idl.pro"
         >
-          <img src="assets/idl-lettermark.png" alt="IDL" />
+          <img src="assets/idl-hero.png" alt="IDL" />
         </a>
         <div className="hero__body">
           <p className="hero__kicker">Unofficial statistics · 2026 season</p>

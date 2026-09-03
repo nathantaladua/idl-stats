@@ -149,9 +149,14 @@ export function ChartFrame({ view, children }) {
 
 /* -------------------------------------------------------------------- marks */
 
-function Dot({ cx, cy, stroke }) {
-  if (cx == null || cy == null) return null;
-  return <rect x={cx - 3} y={cy - 3} width={6} height={6} fill={stroke} />;
+// Square point marker. Bound to the team's own colour (NOT the line stroke) so
+// the points stay visible even when the connecting line is toggled off.
+function makeDot(c) {
+  const Dot = ({ cx, cy }) =>
+    cx == null || cy == null ? null : (
+      <rect x={cx - 3} y={cy - 3} width={6} height={6} fill={c} />
+    );
+  return <Dot />;
 }
 
 // Direct label on the final point of a line — identity that doesn't rely on
@@ -230,7 +235,7 @@ export function TeamLineChart({
               name={teamName(id)}
               stroke={showLines ? color(id) : "transparent"}
               strokeWidth={showLines ? 2 : 0}
-              dot={<Dot />}
+              dot={makeDot(color(id))}
               activeDot={{ r: 4, fill: color(id), stroke: "#09131d" }}
               connectNulls={connectNulls}
               isAnimationActive={false}

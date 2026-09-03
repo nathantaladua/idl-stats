@@ -29,6 +29,11 @@ const MISC = {
   "idl-mark.png": "nrUJk5c3j2J0DXSBMAoKTxSa9E.png", // IDL favicon
 };
 
+// Press-kit "Go Gold" primary logo (lime IDL lettermark on asphalt), used
+// for the hero + masthead. https://www.idl.pro/press-kit
+const PRESS_KIT_GO_GOLD =
+  "https://framerusercontent.com/assets/RVAnCD6HckkjcfUPCyJP8z05Jo.png";
+
 async function grab(url, dest) {
   const res = await fetch(url, {
     headers: { "user-agent": "Mozilla/5.0 (idl-stats asset fetch)" },
@@ -51,18 +56,23 @@ async function main() {
     await grab(`${CDN}${file}${name.endsWith(".png") ? "?width=360" : ""}`, resolve(OUT, name));
   }
 
-  // The IDL icon is a stacked lockup ("IDL" over "INTERNATIONAL DANCE LEAGUE").
-  // Crop it to just the "IDL" lettermark for the hero / masthead. macOS `sips`
-  // only — if it's missing, the committed idl-lettermark.png stays as-is.
-  const icon = resolve(OUT, "idl-icon.png");
-  const mark = resolve(OUT, "idl-lettermark.png");
+  // Hero / masthead logo: the press-kit "Go Gold" lockup has a lot of
+  // whitespace, so crop the padding to the lettermark. macOS `sips` only — if
+  // it's missing, the committed idl-hero.png stays as-is.
+  const goGoldFull = resolve(OUT, "idl-hero-src.png");
+  await grab(PRESS_KIT_GO_GOLD, goGoldFull);
+  const hero = resolve(OUT, "idl-hero.png");
   try {
-    execFileSync("sips", ["-c", "116", "300", "--cropOffset", "78", "30", icon, "--out", mark], {
-      stdio: "ignore",
-    });
-    console.log("  idl-lettermark.png  (cropped from idl-icon.png)");
+    execFileSync(
+      "sips",
+      ["-c", "760", "2180", "--cropOffset", "670", "780", goGoldFull, "--out", hero],
+      { stdio: "ignore" }
+    );
+    execFileSync("sips", ["-Z", "1000", hero], { stdio: "ignore" });
+    execFileSync("rm", [goGoldFull]);
+    console.log("  idl-hero.png  (cropped from press-kit Go Gold logo)");
   } catch {
-    console.log("  idl-lettermark.png  (skipped — needs macOS `sips`; keeping committed copy)");
+    console.log("  idl-hero.png  (skipped — needs macOS `sips`; keeping committed copy)");
   }
 
   console.log("\n✓ assets written to public/assets/");

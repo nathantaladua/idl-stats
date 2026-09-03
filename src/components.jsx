@@ -1,10 +1,36 @@
-import React from "react";
-import { color, teamName, logo } from "./lib/data.js";
+import React, { useState } from "react";
+import { color, teamName, logo, mark } from "./lib/data.js";
+
+/** Small square team mark — the file at assets/marks/<id>.* if present,
+ *  otherwise the plain colour swatch. */
+export function TeamMark({ id, size = 12 }) {
+  const src = mark(id);
+  const [failed, setFailed] = useState(false);
+  if (!src || failed) {
+    return (
+      <span
+        className="swatch"
+        style={{ "--c": color(id), background: color(id), width: size, height: size }}
+      />
+    );
+  }
+  return (
+    <img
+      className="team-mark"
+      src={src}
+      alt=""
+      width={size}
+      height={size}
+      loading="lazy"
+      onError={() => setFailed(true)}
+    />
+  );
+}
 
 export function TeamChip({ id, large, name }) {
   return (
     <span className={"team-chip" + (large ? " team-chip--lg" : "")}>
-      <span className="swatch" style={{ "--c": color(id), background: color(id) }} />
+      <TeamMark id={id} size={large ? 20 : 12} />
       {name || teamName(id)}
     </span>
   );

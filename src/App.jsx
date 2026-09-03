@@ -49,7 +49,7 @@ export default function App() {
               go("overview");
             }}
           >
-            <img className="brand__logo" src="assets/idl-lettermark.png" alt="IDL" />
+            <img className="brand__logo" src="assets/idl-hero.png" alt="IDL" />
             <span className="brand__name">STATS</span>
             <span className="brand__sub">2026 · UNOFFICIAL</span>
           </a>

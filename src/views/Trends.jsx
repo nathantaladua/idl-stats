@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { teams, color, teamName, CRITERIA_SHORT, int } from "../lib/data.js";
 import { TREND_METRICS, metricByEvent, allSummaries } from "../lib/stats.js";
 import { TeamLineChart, RankBar, useChartView, ChartToolbar, ChartFrame } from "../charts.jsx";
-import { Panel, SectionNote } from "../components.jsx";
+import { Panel, SectionNote, TeamMark } from "../components.jsx";
 
 export default function Trends() {
   const [metricKey, setMetricKey] = useState("points");
@@ -94,7 +94,7 @@ export default function Trends() {
                 style={on.has(t.id) ? { color: color(t.id) } : undefined}
                 onClick={() => toggle(t.id)}
               >
-                <span className="swatch" style={{ background: color(t.id) }} />
+                <TeamMark id={t.id} />
                 {t.name}
               </button>
             ))}
