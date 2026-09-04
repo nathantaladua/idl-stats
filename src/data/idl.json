@@ -2,7 +2,7 @@
   "meta": {
     "source": "https://www.idl.pro",
     "season": 2026,
-    "scrapedAt": "2026-09-03T23:47:16.591Z",
+    "scrapedAt": "2026-09-04T03:52:26.533Z",
     "note": "Unofficial fan project. All statistics scraped from idl.pro."
   },
   "criteria": [
@@ -130,6 +130,11 @@
       "city": "VANCOUVER",
       "country": "CAN",
       "founded": 2011,
+      "bio": [
+        "Founded in 2011 in Surrey, British Columbia by choreographer Scott Forsyth and a close-knit group of local dancers.",
+        "Brotherhood quickly rose on the international competition circuit, earning back-to-back gold medals at World Hip Hop International in 2013 and 2014. They went on to win Body Rock in 2015, VIBE Dance Competition in 2017 and 2019, and three consecutive World of Dance Vancouver titles from 2013 to 2015.",
+        "In 2018, Brotherhood appeared on NBC’s World of Dance Season 2, bringing their competitive approach to a global broadcast audience."
+      ],
       "roster": [
         {
           "number": 87,
@@ -265,6 +270,11 @@
       "city": "LOS ANGELES",
       "country": "USA",
       "founded": 2007,
+      "bio": [
+        "GRV has grown in the Socal dance community, gaining worldwide recognition by winning major competitions like World of Dance and Vibe.",
+        "Founded in 2007, GRV is an adult professional competition team based in Anaheim, California. In 2021, GRV opened their own studio, Offstage Dance Studio, in Anaheim, CA with the goal of providing an environment that fosters growth and camaraderie within our dance community.",
+        "GRV continues to raise the bar with their innovative choreography and storytelling. Through the dedication of its dancers, GRV hopes to inspire the community, and each other, to reach their dance goals."
+      ],
       "roster": [
         {
           "number": 20,
@@ -442,6 +452,11 @@
       "city": "SEOUL",
       "country": "KOR",
       "founded": 2014,
+      "bio": [
+        "1MILLION is a Seoul-based dance academy and performance team recognized for precision, musicality, and global reach.",
+        "Founded in 2014 by choreographer Lia Kim alongside partners including Kim Min Ja, the studio grew from a small basement space into a multi-level facility in Seoul. Lia Kim is known for her choreography work with artists including TWICE, BoA, Girls’ Generation, Sunmi, EVERGLOW, and ITZY.",
+        "Since 2015, 1MILLION's YouTube channel, has been a global reference point for choreography and studio-based performance. With over 26 million subscribers, the platform introduced a wide international audience to contemporary dance training."
+      ],
       "roster": [
         {
           "number": 12,
@@ -607,6 +622,11 @@
       "city": "AUCKLAND",
       "country": "NZL",
       "founded": 2011,
+      "bio": [
+        "Royal Family is a New Zealand-based dance Team founded in 2011 by choreographer Parris Goebel.",
+        "Emerging from The Palace Dance Studio, Royal Family rose to prominence on the competitive circuit with a historic run at the World Hip Hop Dance Championships, winning the Megacrew division three consecutive times from 2011 to 2013. Their movement style and execution set them apart, earning international attention.",
+        "Their reach expanded further through high-profile collaborations and performances such as Justin Bieber’s Sorry music video, followed by work with artists including Rihanna, Ciara, Jennifer Lopez, Jason Derulo, and leading K-pop acts.Alongside touring and performance, Royal Family remains active through training and workshops worldwide."
+      ],
       "roster": [
         {
           "number": 22,
@@ -784,6 +804,11 @@
       "city": "SOUTH EAST ASIA",
       "country": "SEA",
       "founded": 2009,
+      "bio": [
+        "Jam Republic is a Singapore-based dance agency known for representing top choreographers and dancers across the global stage.",
+        "Founded in 2009 by Nicholas Ong (aka Nick Six) and Joel Gallarde, the agency supports talent through choreography services, brand partnerships, workshops, and international bookings.",
+        "In 2023, Jam Republic entered the competitive spotlight by assembling an international all-female team to compete on Mnet’s Street Woman Fighter 2. The TEAM, made up of dancers from New Zealand, Australia, China, Samoa, and the United States, finished as runners-up and gained wide recognition for their versatility, cohesion, and performance discipline."
+      ],
       "roster": [
         {
           "number": 18,
@@ -943,6 +968,11 @@
       "city": "OSLO",
       "country": "NOR",
       "founded": 2006,
+      "bio": [
+        "Quick Style is a Norway-based dance crew founded in Oslo in 2006 by brothers Suleman and Bilal Malik.",
+        "The group blends hip-hop foundations with global influences, shaped by their shared upbringing and commitment to musicality and storytelling. The team gained national recognition after winning Norway’s Got Talent in 2009. In 2022, Quick Style reached a global audience through a viral wedding performance drawing 169M+ views worldwide.",
+        "Beyond viral moments, Quick Style has built a strong track record as choreographers and collaborators. Their work includes choreography for BTS on projects such as Save Me, Blood Sweat and Tears, and Boy With Luv, which became one of the most widely viewed K-pop music videos of all time."
+      ],
       "roster": [
         {
           "number": 25,

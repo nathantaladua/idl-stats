@@ -262,9 +262,13 @@ export function CriteriaRadar({ series, labels, height = 340, domain = [7, 10] }
   return (
     <div className="chart">
       <ResponsiveContainer width="100%" height={height}>
-        <RadarChart data={rows} outerRadius="72%">
+        <RadarChart data={rows} outerRadius="66%" margin={{ top: 26, bottom: 26, left: 10, right: 10 }}>
           <PolarGrid stroke={GRID} />
-          <PolarAngleAxis dataKey="label" tick={{ fill: "#9aa4ac", fontSize: 10 }} />
+          <PolarAngleAxis
+            dataKey="label"
+            tick={{ fill: "#9aa4ac", fontSize: 10 }}
+            tickSize={14}
+          />
           <PolarRadiusAxis
             angle={90}
             domain={domain}

@@ -52,7 +52,7 @@ export default function Overview({ go }) {
             <thead>
               <tr>
                 <th className="rank-cell">#</th>
-                <th>Team</th>
+                <th className="tcell">Team</th>
                 {events.map((e) => (
                   <th key={e.id}>{e.name.split(" ")[0]}</th>
                 ))}
@@ -66,7 +66,7 @@ export default function Overview({ go }) {
               {summaries.map((s, i) => (
                 <tr key={s.id} style={{ cursor: "pointer" }} onClick={() => go("teams", s.id)}>
                   <td className="rank-cell">{i + 1}</td>
-                  <td>
+                  <td className="tcell">
                     <TeamChip id={s.id} />
                   </td>
                   {events.map((e) => (

@@ -28,7 +28,7 @@
   --team-quick-style: #0f86db;
   --team-royal-family: #ffd321;
 
-  --font-sans: "Inter", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-sans: "Outfit", "Helvetica Neue", Arial, system-ui, sans-serif;
   --font-mono: "Fragment Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   --maxw: 1200px;
@@ -49,8 +49,9 @@ body {
   background: var(--bg);
   color: var(--text-primary);
   font-family: var(--font-sans);
+  font-weight: 300;
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -224,6 +225,76 @@ main {
     padding: 16px 0 28px;
   }
 }
+
+/* team detail hero */
+.team-hero {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  padding: 22px 0 24px 22px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 18px;
+}
+.team-hero__logo {
+  flex: none;
+  width: min(340px, 42vw);
+}
+.team-hero__logo img,
+.team-hero__logo .team-logo {
+  width: 100%;
+  height: auto;
+  max-height: 120px;
+  object-fit: contain;
+  object-position: left center;
+}
+.team-hero__body {
+  flex: 1;
+  min-width: 0;
+}
+.team-hero__bio {
+  margin: 0;
+  font-size: 1.28rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--text-primary);
+  max-width: 62ch;
+}
+.team-hero__facts {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.team-hero__facts li {
+  position: relative;
+  padding-left: 16px;
+}
+.team-hero__facts li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+}
+@media (max-width: 720px) {
+  .team-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    padding-left: 16px;
+  }
+  .team-hero__logo {
+    width: min(280px, 70vw);
+  }
+}
 .page-head p {
   color: var(--text-secondary);
   max-width: 62ch;
@@ -321,6 +392,21 @@ table.data th {
 table.data td:first-child,
 table.data th:first-child {
   text-align: left;
+}
+table.data td.tcell,
+table.data th.tcell {
+  text-align: left;
+}
+table.data--center td,
+table.data--center th {
+  text-align: center;
+}
+table.data--center td:first-child,
+table.data--center th:first-child {
+  text-align: center;
+}
+table.data--center .team-chip {
+  justify-content: center;
 }
 table.data tbody tr:hover {
   background: var(--surface-2);
@@ -633,9 +719,19 @@ select,
   border: 1px solid var(--line);
   background: var(--surface-1);
 }
+.h2h > * {
+  align-self: center;
+}
+.h2h .team-chip {
+  align-items: center;
+}
 .h2h__score {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 1.7rem;
   font-weight: 900;
+  line-height: 1;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
   text-align: center;

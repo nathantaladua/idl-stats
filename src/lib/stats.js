@@ -1,12 +1,15 @@
 import { data, events, teams, team } from "./data.js";
 
 /**
- * Flatten every match into a team-centric row so per-team aggregates are a
- * simple reduce. One match produces two rows (one per side).
+ * Flatten a team's Round 1 matches into rows. `scope` narrows the window:
+ *   { series: <eventId|null>, round: 1 | 2 | null }
+ * A round of 2 means "final round only", so no match rows are returned.
  */
-export function teamMatchRows(teamId) {
+export function teamMatchRows(teamId, scope = {}) {
+  if (+scope.round === 2) return [];
   const rows = [];
   for (const ev of events) {
+    if (scope.series && ev.id !== scope.series) continue;
     ev.matches.forEach((m) => {
       const isA = m.teamA === teamId;
       const isB = m.teamB === teamId;
@@ -49,10 +52,12 @@ export function teamMatchRows(teamId) {
 const mean = (a) => (a.length ? a.reduce((x, y) => x + y, 0) / a.length : null);
 
 /** A team's final-round (round 2) performances, one row per series it reached
- *  the final, carrying the scraped three-team scoresheet. */
-export function finalRoundRows(teamId) {
+ *  the final, carrying the scraped three-team scoresheet. `scope` as above. */
+export function finalRoundRows(teamId, scope = {}) {
+  if (+scope.round === 1) return [];
   const rows = [];
   for (const ev of events) {
+    if (scope.series && ev.id !== scope.series) continue;
     const fr = ev.finalRound;
     if (!fr) continue;
     const seat = fr.teams.find((t) => t.team === teamId);
@@ -76,9 +81,43 @@ export function finalRoundRows(teamId) {
   return rows;
 }
 
-export function teamSummary(teamId) {
-  const rows = teamMatchRows(teamId);
-  const frRows = finalRoundRows(teamId);
+/**
+ * Which (series, round) windows are valid for a set of teams. Every team dances
+ * Round 1 of every series, so Round 1 is always available; Round 2 of a series
+ * is offered only when *all* the given teams reached that final.
+ */
+export function scopeOptions(teamIds = []) {
+  const ids = teamIds.filter(Boolean);
+  return events.map((ev) => {
+    const finalTeams = new Set((ev.finalRound?.teams || []).map((t) => t.team));
+    const allInFinal = ids.length > 0 && ids.every((id) => finalTeams.has(id));
+    return {
+      id: ev.id,
+      name: ev.name,
+      series: ev.series,
+      rounds: allInFinal ? [1, 2] : [1],
+    };
+  });
+}
+
+/** True when every given team took part in the scope (series + round). */
+export function scopeValidForTeams(scope, teamIds = []) {
+  const ids = teamIds.filter(Boolean);
+  if (!ids.length) return true;
+  const evList = scope.series ? events.filter((e) => e.id === scope.series) : events;
+  return ids.every((id) => {
+    if (+scope.round !== 2 && teamMatchRows(id, { series: scope.series, round: 1 }).length) return true;
+    if (+scope.round !== 1) {
+      const inAnyFinal = evList.some((e) => (e.finalRound?.teams || []).some((t) => t.team === id));
+      if (inAnyFinal) return true;
+    }
+    return false;
+  });
+}
+
+export function teamSummary(teamId, scope = {}) {
+  const rows = teamMatchRows(teamId, scope);
+  const frRows = finalRoundRows(teamId, scope);
   const st = data.standings.find((s) => s.team === teamId) || { perEvent: {}, total: 0 };
   const wins = rows.filter((r) => r.won).length;
   const losses = rows.filter((r) => !r.won && !r.drawn).length;
@@ -86,6 +125,7 @@ export function teamSummary(teamId) {
   const podiums = { 1: 0, 2: 0, 3: 0 };
   const podiumScores = [];
   for (const ev of events) {
+    if (scope.series && ev.id !== scope.series) continue;
     const p = ev.podium.find((x) => x.team === teamId);
     if (p) {
       podiums[p.rank] = (podiums[p.rank] || 0) + 1;
@@ -159,6 +199,55 @@ export function pointsProgression() {
   });
 }
 
+/** Every criterion score a team received (matches + final round) for one
+ *  criterion index, tagged by series so it can be filtered. */
+export function teamCriterionScores(teamId, critIdx) {
+  const out = [];
+  for (const r of teamMatchRows(teamId)) {
+    if (r.crit && r.crit[critIdx] != null) {
+      out.push({ eventId: r.eventId, series: r.series, round: 1, value: r.crit[critIdx], label: `${r.eventName.split(" ")[0]} · Match ${r.matchNo}` });
+    }
+  }
+  for (const r of finalRoundRows(teamId)) {
+    if (r.crit && r.crit[critIdx] != null) {
+      out.push({ eventId: r.eventId, series: r.series, round: 2, value: r.crit[critIdx], label: `${r.eventName.split(" ")[0]} · Final` });
+    }
+  }
+  return out;
+}
+
+/** Per-series average for one criterion, every team — for the Criteria view line. */
+export function criterionByEvent(critIdx) {
+  return events.map((ev) => {
+    const point = { event: ev.name, series: ev.series };
+    for (const t of teams) {
+      const vals = teamCriterionScores(t.id, critIdx)
+        .filter((s) => s.eventId === ev.id)
+        .map((s) => s.value);
+      point[t.id] = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
+    }
+    return point;
+  });
+}
+
+/** Season ranking of teams by their average in one criterion. */
+export function criterionRanking(critIdx) {
+  return teams
+    .map((t) => {
+      const scores = teamCriterionScores(t.id, critIdx);
+      const vals = scores.map((s) => s.value);
+      const best = scores.length ? scores.reduce((a, b) => (b.value > a.value ? b : a)) : null;
+      return {
+        id: t.id,
+        avg: vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null,
+        n: vals.length,
+        best,
+      };
+    })
+    .filter((r) => r.avg != null)
+    .sort((a, b) => b.avg - a.avg);
+}
+
 /** Per-event value of one metric for every team — generic trend series builder. */
 export function metricByEvent(metricKey) {
   return events.map((ev) => {
@@ -192,12 +281,50 @@ function eventMetric(key, teamId, ev, rows) {
 }
 
 export const TREND_METRICS = [
-  { key: "points", label: "Series points earned", unit: "pts", domain: [0, 14] },
-  { key: "avgScore", label: "Avg judge score", unit: "/100", domain: [70, 100] },
-  { key: "matchWinRate", label: "Match win rate", unit: "%", pctScale: true, domain: [0, 1] },
-  { key: "judgePointRate", label: "Judge-point win rate", unit: "%", pctScale: true, domain: [0, 1] },
-  { key: "fanShare", label: "Fan-vote share", unit: "%", domain: [0, 100] },
-  { key: "matchPointMargin", label: "Avg match-point margin", unit: "pts", domain: [-7, 7] },
+  {
+    key: "points",
+    label: "Series points earned",
+    unit: "pts",
+    domain: [0, 14],
+    desc: "League points a team carried out of each series — its match-point tally (0–7) plus a 7 / 5 / 3 final-round placement bonus for the three match winners.",
+  },
+  {
+    key: "avgScore",
+    label: "Avg judge score",
+    unit: "/100",
+    domain: [70, 100],
+    desc: "Mean of every /100 total the six judges handed the team that series, across its matches and (if it reached it) the final round.",
+  },
+  {
+    key: "matchWinRate",
+    label: "Match win rate",
+    unit: "%",
+    pctScale: true,
+    domain: [0, 1],
+    desc: "Share of the team's Round 1 head-to-head matches that it won.",
+  },
+  {
+    key: "judgePointRate",
+    label: "Judge-point win rate",
+    unit: "%",
+    pctScale: true,
+    domain: [0, 1],
+    desc: "Of the judge points on offer in the team's matches (6 judges × matches), the share it won by being the judge's higher-scored side.",
+  },
+  {
+    key: "fanShare",
+    label: "Fan-vote share",
+    unit: "%",
+    domain: [0, 100],
+    desc: "Average share of the community vote the team drew in its matches that series.",
+  },
+  {
+    key: "matchPointMargin",
+    label: "Avg match-point margin",
+    unit: "pts",
+    domain: [-7, 7],
+    desc: "Average of (the team's match points − the opponent's) across its matches — how convincingly it won or lost, on the 0–7 scale.",
+  },
 ];
 
 /** Head-to-head record and score aggregates between two teams. */
@@ -231,8 +358,8 @@ export function headToHead(aId, bId) {
 
 /** A team's record in the final round (the "round 2" three-team dance-off that
  *  sets each series' podium), including the scraped judge scoresheet. */
-export function finalRoundSummary(teamId) {
-  const apps = finalRoundRows(teamId);
+export function finalRoundSummary(teamId, scope = {}) {
+  const apps = finalRoundRows(teamId, scope);
   const judged = apps.filter((a) => a.judgeTotals.length);
   return {
     appearances: apps.length,

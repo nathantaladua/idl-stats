@@ -1,8 +1,16 @@
-import React from "react";
-import { teams, team, color, teamName, nf, CRITERIA_SHORT, CRITERIA } from "../lib/data.js";
+import React, { useState } from "react";
+import { teams, team, events, color, nf, CRITERIA_SHORT, CRITERIA } from "../lib/data.js";
 import { teamSummary, rosterNationalities, finalRoundSummary } from "../lib/stats.js";
-import { CriteriaRadar, useChartView, ChartToolbar, ChartFrame } from "../charts.jsx";
-import { StatTile, Panel, TeamChip, TeamLogo, FormStrip, SectionNote } from "../components.jsx";
+import { CriteriaRadar } from "../charts.jsx";
+import {
+  StatTile,
+  Panel,
+  TeamChip,
+  TeamLogo,
+  FormStrip,
+  SectionNote,
+  ScopePicker,
+} from "../components.jsx";
 
 function TeamList({ go }) {
   const summaries = teams
@@ -61,31 +69,54 @@ export default function Teams({ param, go }) {
 }
 
 function TeamDetail({ param, go }) {
-  const s = teamSummary(param);
-  const fr = finalRoundSummary(param);
+  const [scope, setScope] = useState({ series: "", round: "" });
+  const s = teamSummary(param, scope);
+  const seasonS = teamSummary(param);
+  const fr = finalRoundSummary(param, scope);
   const nats = rosterNationalities(param);
-  const captains = team(param).roster.filter((d) => d.captain);
+  const meta = team(param);
+  const captains = meta.roster.filter((d) => d.captain);
   const bestCrit = s.bestCritIdx >= 0 ? CRITERIA[s.bestCritIdx] : "–";
   const worstCrit = s.worstCritIdx >= 0 ? CRITERIA[s.worstCritIdx] : "–";
-  const radar = useChartView(s.critByIdx, { padFrac: 0.45 });
+  const scoped = !!scope.series || !!scope.round;
+  const scopeLabel = scoped
+    ? [
+        scope.series ? events.find((e) => e.id === scope.series)?.name || scope.series : "all series",
+        scope.round === "1" ? "Round 1" : scope.round === "2" ? "Round 2" : "all rounds",
+      ].join(" · ")
+    : "whole season";
 
   return (
     <>
-      <div className="page-head">
-        <button className="pill" style={{ marginBottom: 14 }} onClick={() => go("teams")}>
-          ← All teams
-        </button>
-        <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
-          <span className="brand__mark" style={{ background: color(param), height: 34 }} />
+      <button className="pill" style={{ margin: "0 0 16px" }} onClick={() => go("teams")}>
+        ← All teams
+      </button>
+
+      <section className="team-hero" style={{ borderLeft: `3px solid ${color(param)}` }}>
+        <div className="team-hero__logo">
           <TeamLogo id={param} />
         </div>
-        <p>
-          {s.meta.city}
-          {s.meta.country ? `, ${s.meta.country}` : ""} · founded {s.meta.founded || "—"} ·{" "}
-          {s.meta.roster.length} dancers · currently #{s.seasonRank} with {s.seasonPoints}{" "}
-          series points.
-        </p>
-      </div>
+        <div className="team-hero__body">
+          {(meta.bio || []).length > 0 && (
+            <p className="team-hero__bio">
+              {((meta.bio.join(" ").match(/[^.!?]+[.!?]+/g) || meta.bio).slice(0, 3).join(" ")).trim()}
+            </p>
+          )}
+          <ul className="team-hero__facts">
+            <li>Founded {meta.founded || "—"}</li>
+            <li>{meta.roster.length} dancers</li>
+            <li>
+              Currently #{seasonS.seasonRank} with {seasonS.seasonPoints} series points
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <ScopePicker teamIds={[param]} scope={scope} onChange={setScope} />
+      <p className="tiny" style={{ margin: "0 0 16px" }}>
+        Stats below reflect: <b style={{ color: "var(--text-primary)" }}>{scopeLabel}</b>
+        {s.played + s.finalRows.length === 0 && " — no data for this window"}
+      </p>
 
       <div className="grid grid--tiles">
         <StatTile label="Matches W–L" value={`${s.wins}–${s.losses}`} sub={`${Math.round(s.winRate * 100)}% win rate`} accent={color(param)} />
@@ -103,37 +134,38 @@ function TeamDetail({ param, go }) {
       </div>
 
       <div className="grid grid--2" style={{ marginTop: 14 }}>
-        <Panel title="Criteria profile" hint="season avg /10">
-          <ChartToolbar view={radar} line={false} />
-          <ChartFrame view={radar}>
-            <CriteriaRadar
-              labels={CRITERIA_SHORT}
-              series={[{ id: param, values: s.critByIdx }]}
-              height={330}
-              domain={radar.domain}
-            />
-          </ChartFrame>
-          <SectionNote>
-            Strongest: {bestCrit} ({nf(s.critByIdx[s.bestCritIdx], 2)}) · weakest: {worstCrit} (
-            {nf(s.critByIdx[s.worstCritIdx], 2)}).
-          </SectionNote>
+        <Panel title="Criteria profile" hint={`avg /10 · ${scopeLabel}`}>
+          <CriteriaRadar
+            labels={CRITERIA_SHORT}
+            series={[{ id: param, values: s.critByIdx }]}
+            height={340}
+            domain={[6, 10]}
+          />
+          {s.bestCritIdx >= 0 && (
+            <SectionNote>
+              Strongest: {bestCrit} ({nf(s.critByIdx[s.bestCritIdx], 2)}) · weakest: {worstCrit} (
+              {nf(s.critByIdx[s.worstCritIdx], 2)}).
+            </SectionNote>
+          )}
         </Panel>
 
-        <Panel title="Results" hint={`${s.rows.length} matches`}>
-          <table className="data">
+        <Panel title="Results" hint={scopeLabel}>
+          <table className="data data--center">
             <thead>
               <tr>
                 <th>Series</th>
+                <th>Round</th>
                 <th>Opponent</th>
-                <th>Match</th>
+                <th>Result</th>
                 <th>Score</th>
                 <th>Fan %</th>
               </tr>
             </thead>
             <tbody>
               {s.rows.map((r, i) => (
-                <tr key={i}>
+                <tr key={"m" + i}>
                   <td>{r.eventName.split(" ")[0]}</td>
+                  <td className="muted">R1 · M{r.matchNo}</td>
                   <td>
                     <TeamChip id={r.opponent} />
                   </td>
@@ -146,6 +178,25 @@ function TeamDetail({ param, go }) {
                   <td className="num">{r.fanPct == null ? "–" : `${r.fanPct}%`}</td>
                 </tr>
               ))}
+              {s.finalRows.map((r, i) => (
+                <tr key={"f" + i}>
+                  <td>{r.eventName.split(" ")[0]}</td>
+                  <td className="muted">R2 · Final</td>
+                  <td className="muted">vs 2 teams</td>
+                  <td className={r.won ? "win" : "loss"}>
+                    {r.rank === 1 ? "1st" : r.rank === 2 ? "2nd" : "3rd"}
+                  </td>
+                  <td className="num">{nf(r.avgTotal, 1)}</td>
+                  <td className="num">{r.fanPct == null ? "–" : `${r.fanPct}%`}</td>
+                </tr>
+              ))}
+              {s.rows.length + s.finalRows.length === 0 && (
+                <tr>
+                  <td colSpan={6} className="muted" style={{ textAlign: "center" }}>
+                    No performances in this window.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </Panel>
@@ -153,7 +204,7 @@ function TeamDetail({ param, go }) {
 
       <div className="section">
         <h2>Roster composition</h2>
-        <Panel hint={`${s.meta.roster.length} dancers · ${nats.length} nationalities`}>
+        <Panel hint={`${meta.roster.length} dancers · ${nats.length} nationalities`}>
           <div style={{ display: "flex", height: 14, marginBottom: 12 }}>
             {nats.map((n, i) => (
               <div

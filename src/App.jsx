@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { data } from "./lib/data.js";
 import Overview from "./views/Overview.jsx";
 import Trends from "./views/Trends.jsx";
+import Criteria from "./views/Criteria.jsx";
 import Compare from "./views/Compare.jsx";
 import Teams from "./views/Teams.jsx";
 import Matches from "./views/Matches.jsx";
@@ -9,6 +10,7 @@ import Matches from "./views/Matches.jsx";
 const TABS = [
   { id: "overview", label: "Overview", view: Overview },
   { id: "trends", label: "Trends", view: Trends },
+  { id: "criteria", label: "Criteria", view: Criteria },
   { id: "compare", label: "Compare", view: Compare },
   { id: "teams", label: "Teams", view: Teams },
   { id: "matches", label: "Matches", view: Matches },

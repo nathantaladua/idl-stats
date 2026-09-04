@@ -331,6 +331,30 @@ function parseTeamHtml(html, id) {
   const foundedM = html.match(/Founded in (\d{4})/i) || html.match(/Since\s+(\d{4})/i);
   const founded = foundedM ? +foundedM[1] : null;
 
+  // Team background: the substantive paragraphs that sit just before the
+  // "- Since YYYY" line, deduped (Framer renders each twice).
+  const lines = html
+    .replace(/<script[\s\S]*?<\/script>/g, " ")
+    .replace(/<style[\s\S]*?<\/style>/g, " ")
+    .replace(/<\/(p|div|h[1-6]|li)>/g, "\n")
+    .replace(/<[^>]+>/g, " ")
+    .split("\n")
+    .map((s) => strip(s.replace(/&#x2019;|&rsquo;/g, "’")))
+    .filter(Boolean);
+  const sinceIdx = lines.findIndex((l) => /^-?\s*Since\s+\d{4}\s*$/i.test(l));
+  let bio = [];
+  if (sinceIdx > 0) {
+    const seenB = new Set();
+    for (const l of lines.slice(0, sinceIdx)) {
+      if (l.length < 45 || l.includes("')\"") || /^(Follow|Instagram|Youtube|Tiktok|GET TICKETS)/i.test(l)) continue;
+      if (!seenB.has(l)) {
+        seenB.add(l);
+        bio.push(l);
+      }
+    }
+    bio = bio.slice(-3);
+  }
+
   const seen = new Set();
   const roster = [];
   for (const part of html.split('data-framer-name="Dancers"').slice(1)) {
@@ -349,7 +373,7 @@ function parseTeamHtml(html, id) {
       captain: /\(C\)<\/p>/.test(seg),
     });
   }
-  return { name, city, country, founded, roster };
+  return { name, city, country, founded, bio, roster };
 }
 
 /* ----------------------------------------------------------------- driver */

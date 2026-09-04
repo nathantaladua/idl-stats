@@ -1,5 +1,49 @@
 import React, { useState } from "react";
 import { color, teamName, logo, mark } from "./lib/data.js";
+import { scopeOptions } from "./lib/stats.js";
+
+/** Series + Round window picker. `scope` is { series: id|"", round: ""|"1"|"2" }.
+ *  Round 2 is disabled for any series not all `teamIds` reached. */
+export function ScopePicker({ teamIds, scope, onChange }) {
+  const opts = scopeOptions(teamIds);
+  const cur = opts.find((o) => o.id === scope.series);
+  const roundOk = (r) => {
+    if (r === "") return true;
+    if (scope.series) return cur ? cur.rounds.includes(+r) : false;
+    // "all series": round 2 offered if some series is valid for every team
+    return r === "1" || opts.some((o) => o.rounds.includes(2));
+  };
+  const set = (patch) => {
+    const next = { ...scope, ...patch };
+    if (!roundOk(next.round)) next.round = "";
+    onChange(next);
+  };
+  return (
+    <div className="controls" style={{ marginBottom: 4 }}>
+      <label className="field">
+        <span>Series</span>
+        <select value={scope.series} onChange={(e) => set({ series: e.target.value })}>
+          <option value="">All series</option>
+          {opts.map((o) => (
+            <option key={o.id} value={o.id}>
+              S{o.series} · {o.name}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label className="field">
+        <span>Round</span>
+        <select value={scope.round} onChange={(e) => set({ round: e.target.value })}>
+          <option value="">All rounds</option>
+          <option value="1">Round 1 (matches)</option>
+          <option value="2" disabled={!roundOk("2")}>
+            Round 2 (final)
+          </option>
+        </select>
+      </label>
+    </div>
+  );
+}
 
 /** The team's logo mark (assets/marks/<id>.*), shown at its natural aspect
  *  ratio at the given pixel height. Falls back to a colour tick only if the

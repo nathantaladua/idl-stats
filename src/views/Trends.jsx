@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from "react";
-import { teams, color, teamName, CRITERIA_SHORT, int } from "../lib/data.js";
+import { teams, color, CRITERIA_INFO, abbr, int } from "../lib/data.js";
 import { TREND_METRICS, metricByEvent, allSummaries } from "../lib/stats.js";
 import { TeamLineChart, RankBar, useChartView, ChartToolbar, ChartFrame } from "../charts.jsx";
 import { Panel, SectionNote, TeamMark } from "../components.jsx";
 
-export default function Trends() {
+export default function Trends({ go }) {
   const [metricKey, setMetricKey] = useState("points");
   const [on, setOn] = useState(() => new Set(teams.map((t) => t.id)));
   const metric = TREND_METRICS.find((m) => m.key === metricKey);
@@ -46,7 +46,7 @@ export default function Trends() {
     summaries
       .map((s) => ({
         id: s.id,
-        name: teamName(s.id).split(" ")[0],
+        name: abbr(s.id),
         color: color(s.id),
         value: s[aggKey],
       }))
@@ -56,8 +56,8 @@ export default function Trends() {
     padFrac: 0.02,
   });
 
-  const critSeason = CRITERIA_SHORT.map((label, i) => {
-    const row = { label };
+  const critSeason = CRITERIA_INFO.map((c, i) => {
+    const row = { ...c };
     for (const s of summaries) row[s.id] = s.critByIdx[i];
     return row;
   });
@@ -69,6 +69,9 @@ export default function Trends() {
         <p>
           Track any metric series by series. Toggle teams to isolate a rivalry;
           use the toolbar to zoom the Y axis or hide the lines / points.
+        </p>
+        <p className="tiny" style={{ margin: "10px 0 0", color: "var(--text-secondary)", maxWidth: "72ch", textTransform: "none", letterSpacing: 0 }}>
+          <b style={{ color: "var(--text-primary)" }}>{metric.label}:</b> {metric.desc}
         </p>
       </div>
 
@@ -131,14 +134,14 @@ export default function Trends() {
 
       <div className="section">
         <h2>Where each team scores</h2>
-        <Panel hint="season average score per criterion, /10">
+        <Panel hint="season average score per criterion, /10 · criterion → full breakdown">
           <div style={{ overflowX: "auto" }}>
             <table className="data">
               <thead>
                 <tr>
-                  <th>Criterion</th>
+                  <th className="tcell">Criterion</th>
                   {summaries.map((s) => (
-                    <th key={s.id}>{teamName(s.id).split(" ")[0]}</th>
+                    <th key={s.id}>{abbr(s.id)}</th>
                   ))}
                 </tr>
               </thead>
@@ -148,8 +151,19 @@ export default function Trends() {
                   const hi = Math.max(...vals);
                   const lo = Math.min(...vals);
                   return (
-                    <tr key={row.label}>
-                      <td>{row.label}</td>
+                    <tr key={row.slug}>
+                      <td className="tcell">
+                        <a
+                          href={`#/criteria/${row.slug}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            go("criteria", row.slug);
+                          }}
+                          style={{ color: "var(--accent)", borderBottom: "1px solid var(--accent-dim)" }}
+                        >
+                          {row.short}
+                        </a>
+                      </td>
                       {summaries.map((s) => {
                         const v = row[s.id];
                         return (

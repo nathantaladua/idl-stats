@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { teams, color, teamName, nf, int, CRITERIA_SHORT } from "../lib/data.js";
+import { teams, events, color, teamName, nf, int, CRITERIA_SHORT } from "../lib/data.js";
 import {
   teamSummary,
   headToHead,
   metricByEvent,
   finalRoundSummary,
+  scopeValidForTeams,
   TREND_METRICS,
 } from "../lib/stats.js";
 import { CriteriaRadar, TeamLineChart, useChartView, ChartToolbar, ChartFrame } from "../charts.jsx";
-import { Panel, TeamLogo, TeamChip, SectionNote } from "../components.jsx";
+import { Panel, TeamChip, SectionNote, ScopePicker } from "../components.jsx";
 
 const NONE = "—";
 
@@ -69,9 +70,14 @@ export default function Compare() {
   const [c, setC] = useState(NONE);
   const [metricKey, setMetricKey] = useState("avgScore");
 
+  const [scope, setScope] = useState({ series: "", round: "" });
+
   const picks = [a, b, c].filter((x) => x && x !== NONE);
-  const summaries = picks.map((id) => teamSummary(id));
-  const finals = picks.map((id) => finalRoundSummary(id));
+  // drop a scope the current team set can't all satisfy
+  const effScope = scopeValidForTeams(scope, picks) ? scope : { series: scope.series, round: "" };
+  const scoped = !!effScope.series || !!effScope.round;
+  const summaries = picks.map((id) => teamSummary(id, effScope));
+  const finals = picks.map((id) => finalRoundSummary(id, effScope));
   const metric = TREND_METRICS.find((m) => m.key === metricKey);
   const trend = metricByEvent(metricKey);
   const isPct = metric.pctScale;
@@ -118,7 +124,21 @@ export default function Compare() {
         </label>
       </div>
 
-      <Panel title="Head to head" hint={picks.length === 3 ? "pairwise records" : "this season"}>
+      <ScopePicker teamIds={picks} scope={scope} onChange={setScope} />
+      <p className="tiny" style={{ margin: "0 0 16px" }}>
+        Metrics reflect:{" "}
+        <b style={{ color: "var(--text-primary)" }}>
+          {scoped
+            ? `${effScope.series ? events.find((e) => e.id === effScope.series)?.name : "all series"} · ${
+                effScope.round === "1" ? "Round 1" : effScope.round === "2" ? "Round 2" : "all rounds"
+              }`
+            : "whole season"}
+        </b>
+        {picks.length > 1 &&
+          " · a window is only offered when every selected team took part in it"}
+      </p>
+
+      <Panel title="Head to head" hint={picks.length === 3 ? "pairwise records · season" : "season"}>
         <div className="h2h-grid">
           {pairs(picks).map(([x, y]) => {
             const h = headToHead(x, y);
@@ -147,9 +167,9 @@ export default function Compare() {
       </Panel>
 
       <div className="grid grid--2" style={{ marginTop: 14 }}>
-        <Panel title="Season metrics" hint="bar = share of the group's best">
+        <Panel title="Metrics" hint="bar = share of the group's best">
           <div className="mtable">
-            {ROWS.map((r) => (
+            {ROWS.filter((r) => !(scoped && effScope.round === "2" && r.key !== "avgScore")).map((r) => (
               <MetricRow
                 key={r.key}
                 label={r.label}
@@ -162,16 +182,17 @@ export default function Compare() {
           </div>
         </Panel>
 
-        <Panel title="Criteria profile" hint="season avg per criterion, /10">
+        <Panel title="Criteria profile" hint="avg per criterion, /10">
           <CriteriaRadar
             labels={CRITERIA_SHORT}
             series={picks.map((id, i) => ({ id, values: summaries[i].critByIdx }))}
             height={360}
+            domain={[6, 10]}
           />
         </Panel>
       </div>
 
-      <div className="section">
+      <div className="section" hidden={effScope.round === "1"}>
         <h2>Final round (round 2)</h2>
         <Panel hint="the three-team dance-off that sets each series podium">
           <div className="mtable">
