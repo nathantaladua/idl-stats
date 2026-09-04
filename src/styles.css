@@ -230,20 +230,23 @@ main {
 .team-hero {
   display: flex;
   gap: 36px;
-  align-items: center;
+  align-items: stretch;
+  min-height: 160px;
   padding: 22px 0 24px 22px;
   border-bottom: 1px solid var(--line);
   margin-bottom: 18px;
 }
 .team-hero__logo {
-  flex: none;
-  width: min(340px, 42vw);
+  flex: 0 0 auto;
+  align-self: stretch;
+  display: flex;
+  max-width: 42%;
 }
 .team-hero__logo img,
 .team-hero__logo .team-logo {
-  width: 100%;
-  height: auto;
-  max-height: 120px;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
   object-fit: contain;
   object-position: left center;
 }
@@ -407,6 +410,30 @@ table.data--center th:first-child {
 }
 table.data--center .team-chip {
   justify-content: center;
+}
+table.data--sm {
+  width: 100%;
+  font-size: 0.78rem;
+  table-layout: fixed;
+}
+table.data--sm th,
+table.data--sm td {
+  padding: 7px 5px;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+table.data--sm th {
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+}
+table.data--sm .team-chip {
+  gap: 5px;
+  letter-spacing: 0;
+  font-size: 0.78rem;
+}
+table.data--sm .team-mark {
+  height: 16px;
 }
 table.data tbody tr:hover {
   background: var(--surface-2);

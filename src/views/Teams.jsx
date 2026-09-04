@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { teams, team, events, color, nf, CRITERIA_SHORT, CRITERIA } from "../lib/data.js";
+import { teams, team, events, color, abbr, nf, CRITERIA_SHORT, CRITERIA } from "../lib/data.js";
 import { teamSummary, rosterNationalities, finalRoundSummary } from "../lib/stats.js";
 import { CriteriaRadar } from "../charts.jsx";
 import {
@@ -150,55 +150,55 @@ function TeamDetail({ param, go }) {
         </Panel>
 
         <Panel title="Results" hint={scopeLabel}>
-          <table className="data data--center">
-            <thead>
-              <tr>
-                <th>Series</th>
-                <th>Round</th>
-                <th>Opponent</th>
-                <th>Result</th>
-                <th>Score</th>
-                <th>Fan %</th>
-              </tr>
-            </thead>
-            <tbody>
-              {s.rows.map((r, i) => (
-                <tr key={"m" + i}>
-                  <td>{r.eventName.split(" ")[0]}</td>
-                  <td className="muted">R1 · M{r.matchNo}</td>
-                  <td>
-                    <TeamChip id={r.opponent} />
-                  </td>
-                  <td className={r.won ? "win" : "loss"}>
-                    {r.won ? "WON" : "LOST"} {r.ourPts}–{r.oppPts}
-                  </td>
-                  <td className="num">
-                    {nf(r.ourAvg, 1)} <span className="muted">/ {nf(r.oppAvg, 1)}</span>
-                  </td>
-                  <td className="num">{r.fanPct == null ? "–" : `${r.fanPct}%`}</td>
-                </tr>
-              ))}
-              {s.finalRows.map((r, i) => (
-                <tr key={"f" + i}>
-                  <td>{r.eventName.split(" ")[0]}</td>
-                  <td className="muted">R2 · Final</td>
-                  <td className="muted">vs 2 teams</td>
-                  <td className={r.won ? "win" : "loss"}>
-                    {r.rank === 1 ? "1st" : r.rank === 2 ? "2nd" : "3rd"}
-                  </td>
-                  <td className="num">{nf(r.avgTotal, 1)}</td>
-                  <td className="num">{r.fanPct == null ? "–" : `${r.fanPct}%`}</td>
-                </tr>
-              ))}
-              {s.rows.length + s.finalRows.length === 0 && (
+          <div style={{ overflowX: "auto" }}>
+            <table className="data data--center data--sm">
+              <thead>
                 <tr>
-                  <td colSpan={6} className="muted" style={{ textAlign: "center" }}>
-                    No performances in this window.
-                  </td>
+                  <th>Series</th>
+                  <th>Round</th>
+                  <th>Opp.</th>
+                  <th>Result</th>
+                  <th>Score</th>
+                  <th>Fan</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {s.rows.map((r, i) => (
+                  <tr key={"m" + i}>
+                    <td>{r.eventName.split(" ")[0]}</td>
+                    <td className="muted">R1·M{r.matchNo}</td>
+                    <td>
+                      <TeamChip id={r.opponent} name={abbr(r.opponent)} />
+                    </td>
+                    <td className={r.won ? "win" : "loss"}>
+                      {r.won ? "W" : "L"} {r.ourPts}–{r.oppPts}
+                    </td>
+                    <td className="num">{nf(r.ourAvg, 1)}</td>
+                    <td className="num">{r.fanPct == null ? "–" : `${r.fanPct}%`}</td>
+                  </tr>
+                ))}
+                {s.finalRows.map((r, i) => (
+                  <tr key={"f" + i}>
+                    <td>{r.eventName.split(" ")[0]}</td>
+                    <td className="muted">R2·Final</td>
+                    <td className="muted">field</td>
+                    <td className={r.won ? "win" : "loss"}>
+                      {r.rank === 1 ? "1st" : r.rank === 2 ? "2nd" : "3rd"}
+                    </td>
+                    <td className="num">{nf(r.avgTotal, 1)}</td>
+                    <td className="num">{r.fanPct == null ? "–" : `${r.fanPct}%`}</td>
+                  </tr>
+                ))}
+                {s.rows.length + s.finalRows.length === 0 && (
+                  <tr>
+                    <td colSpan={6} className="muted" style={{ textAlign: "center" }}>
+                      No performances in this window.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </Panel>
       </div>
 
